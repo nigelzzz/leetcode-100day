@@ -26,6 +26,14 @@ baseline_context:
     - leetcode: 378
       topic: Binary Search / Matrix
     - topic: Binary Search
+curriculum:
+  source: 靈茶山艾府 LeetCode 滑動窗口與雙指針題單
+  url: https://leetcode.cn/discuss/post/3578981/ti-dan-hua-dong-chuang-kou-ding-chang-bu-rzz7/
+  active_track: Sliding Window
+  active_module: Fixed-size Sliding Window - Basics
+  current_problem:
+    leetcode: 1456
+    title: Maximum Number of Vowels in a Substring of Given Length
 weaknesses: []
 strengths: []
-last_updated: null
+last_updated: 2026-07-17

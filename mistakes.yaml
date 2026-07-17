@@ -1,2 +1,26 @@
 schema_version: 1
-records: []
+records:
+  - problem:
+      leetcode: 1456
+      title: Maximum Number of Vowels in a Substring of Given Length
+    pattern: fixed-size-sliding-window
+    result: solved_with_hint
+    session_date: 2026-07-17
+    hint_level: 1
+    conceptual_mistakes:
+      - confused the incoming-character index with the window-start index
+      - initially did not preserve the completed first window as the initial maximum
+    implementation_mistakes:
+      - mixed loop-variable names across initialization and sliding loops
+      - initially used incomplete vowel-membership syntax
+    mastered_during_session:
+      - adjacent fixed-size windows reuse their middle k-1 elements
+      - after processing right, the current window is [right-k+1, right]
+      - each slide updates only one outgoing and one incoming character
+      - optimized complexity is O(n) time and O(1) auxiliary space
+    review_dates:
+      - 2026-07-18
+      - 2026-07-20
+      - 2026-07-24
+      - 2026-08-07
+    review_status: pending

@@ -1,0 +1,58 @@
+schema_version: 1
+session:
+  date: 2026-07-17
+  started_at: 2026-07-17T12:53:48+08:00
+  status: completed
+  type: daily_lab
+  module: fixed-size-sliding-window-basics
+  duration_minutes: null
+problems:
+  - leetcode: 1456
+    title: Maximum Number of Vowels in a Substring of Given Length
+    pattern: fixed-size-sliding-window
+    role: main
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 1
+    complexity:
+      time: O(n)
+      space: O(1) auxiliary under the LeetCode signature convention
+    conceptual_mistakes:
+      - initially treated right as a window-start index instead of the incoming-character index
+      - initially initialized ans to zero instead of the completed first-window count
+    implementation_mistakes:
+      - outer loop did not initially prevent i + k from exceeding s.size()
+      - vowel count was initially reset inside the inner loop
+      - inner loop initially checked s[i] instead of the currently scanned position
+      - vowel membership expression initially used invalid C++ shorthand
+      - first-window initialization initially mixed loop indices i and j
+      - sliding-loop header initially declared right but used i in its condition and increment
+      - helper initially contained placeholder text and unreachable return false
+      - cnt was initially used before declaration
+    communication_notes:
+      - correctly derived O(n) time and O(1) auxiliary space after prompting
+      - should explain that the two sequential loops total k + (n-k) operations
+    edge_cases_proposed:
+      - 's="aaaaaaaa", k=3, expected=3'
+      - 's="aeizzzz", k=3, expected=3'
+      - 's="aeiouzzzzz", k=5, expected=5'
+      - 's="zxcvf", k=3, expected=0'
+    verification:
+      local_compile: passed_cpp17_werror
+      local_tests: 9_passed
+      codex_review: passed_under_problem_constraints
+      claude_review: completed
+scorecard:
+  problem_clarification: 4
+  brute_force_reasoning: 3
+  optimization: 4
+  correctness: 4
+  code_quality: 3
+  testing: 3
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - review LeetCode 1456 on 2026-07-18 without viewing the saved solution
+  - state the fixed-window invariant before coding
+  - use consistent semantic names such as right and isVowel
+  - practice diverse edge cases including k=1, k=n, no vowels, and best window at the end
