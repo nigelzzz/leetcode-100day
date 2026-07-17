@@ -24,3 +24,27 @@ records:
       - 2026-07-24
       - 2026-08-07
     review_status: pending
+  - problem:
+      leetcode: 643
+      title: Maximum Average Subarray I
+    pattern: fixed-size-sliding-window
+    result: solved_after_debugging
+    session_date: 2026-07-17
+    hint_level: 0
+    conceptual_mistakes:
+      - confused the incoming-element index with the window-start index
+      - initially assumed k must be strictly less than nums.size()
+    implementation_mistakes:
+      - initial outgoing index could become negative
+      - mixed loop-variable names in the sliding update
+    mastered_during_session:
+      - after processing right, the window is [right-k+1, right]
+      - fixed-length maximum average can be found by maximizing window sum
+      - initialize maxSum from the first window to support all-negative input
+      - optimized complexity is O(n) time and O(1) extra space
+    review_dates:
+      - 2026-07-18
+      - 2026-07-20
+      - 2026-07-24
+      - 2026-08-07
+    review_status: pending

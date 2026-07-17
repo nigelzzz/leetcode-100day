@@ -32,8 +32,8 @@ curriculum:
   active_track: Sliding Window
   active_module: Fixed-size Sliding Window - Basics
   current_problem:
-    leetcode: 1456
-    title: Maximum Number of Vowels in a Substring of Given Length
+    leetcode: 643
+    title: Maximum Average Subarray I
 weaknesses: []
 strengths: []
 last_updated: 2026-07-17

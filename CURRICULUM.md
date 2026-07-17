@@ -14,6 +14,6 @@
 6. 單序列／雙序列雙指針
 7. 三指針與分組循環
 
-目前題目：LeetCode 1456 — Maximum Number of Vowels in a Substring of Given Length。
+目前題目：LeetCode 643 — Maximum Average Subarray I。
 
 進度與錯誤仍以 `profile.yaml`、`mistakes.yaml` 和 `sessions/` 為準；不以看過題單視為完成。

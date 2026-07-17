@@ -1,0 +1,52 @@
+schema_version: 1
+session:
+  date: 2026-07-17
+  started_at: 2026-07-17T21:37:34+08:00
+  status: completed
+  type: daily_lab
+  module: fixed-size-sliding-window-basics
+  duration_minutes: null
+problems:
+  - leetcode: 643
+    title: Maximum Average Subarray I
+    pattern: fixed-size-sliding-window
+    role: main
+    result: solved_after_debugging
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: O(n)
+      space: O(1)
+    conceptual_mistakes:
+      - initially assumed k must be strictly less than nums.size()
+      - initially mixed the window-start index with the incoming-element index
+    implementation_mistakes:
+      - initial sliding loop produced a negative outgoing index
+      - initially mixed r, i, and right in the sliding-loop update
+    communication_notes:
+      - correctly explained that two sequential loops total n operations
+      - correctly explained that dividing all sums by the same positive k preserves ordering
+      - skipped an explicit brute-force explanation before writing the optimized approach
+    edge_cases_proposed:
+      - 'nums=[1,2,3,4,5,6], k=5, expected=4.0'
+      - 'nums=[-1,-2,-3], k=2, expected=-1.5'
+      - 'nums=[1,2,3], k=3, expected=2.0'
+    verification:
+      local_compile: passed_cpp17_werror
+      local_tests: 7_passed
+      codex_review: passed_under_problem_constraints
+      claude_review: completed
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 2
+  optimization: 4
+  correctness: 4
+  code_quality: 4
+  testing: 4
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - review LeetCode 643 on 2026-07-18 without viewing the saved solution
+  - explain brute force and its bottleneck before presenting the optimized approach
+  - define right as the incoming-element index before writing the sliding loop
+  - include all-negative, k=1, and k=n cases during testing
