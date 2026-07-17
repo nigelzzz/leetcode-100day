@@ -1,0 +1,31 @@
+schema_version: 1
+candidate:
+  explanation_language: zh-TW
+  coding_language: C++17
+  interview_style: Google
+objective:
+  primary: Google-style software engineering coding interviews
+  optimize_for:
+    - problem_solving
+    - correctness
+    - complexity_analysis
+    - testing
+    - verbal_communication
+  do_not_optimize_for:
+    - raw_problem_count
+training_policy:
+  no_full_solution_before_attempt_minutes: 30
+  required_edge_cases: 3
+  review_intervals_days: [1, 3, 7, 21]
+  daily_target_minutes: 60-90
+  weekly_problem_target: 8-12
+baseline_context:
+  recently_practiced_or_studying:
+    - leetcode: 560
+      topic: Prefix Sum / Hash Map
+    - leetcode: 378
+      topic: Binary Search / Matrix
+    - topic: Binary Search
+weaknesses: []
+strengths: []
+last_updated: null

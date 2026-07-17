@@ -1,0 +1,30 @@
+schema_version: 1
+session:
+  date: YYYY-MM-DD
+  type: daily_lab # daily_lab | weekly_mock | monthly_assessment | review
+  duration_minutes: null
+problems:
+  - leetcode: null
+    title: null
+    pattern: null
+    role: main # review | main | follow_up
+    result: not_started # solved | solved_with_hint | incomplete | gave_up
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: null
+      space: null
+    conceptual_mistakes: []
+    implementation_mistakes: []
+    communication_notes: []
+    edge_cases_proposed: []
+scorecard:
+  problem_clarification: null
+  brute_force_reasoning: null
+  optimization: null
+  correctness: null
+  code_quality: null
+  testing: null
+  communication: null
+  handling_follow_ups: null
+next_actions: []
