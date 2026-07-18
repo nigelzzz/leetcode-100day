@@ -48,3 +48,25 @@ records:
       - 2026-07-24
       - 2026-08-07
     review_status: pending
+  - problem:
+      leetcode: 1343
+      title: Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+    pattern: fixed-size-sliding-window-counting
+    result: solved_after_debugging
+    session_date: 2026-07-17
+    hint_level: 0
+    conceptual_mistakes:
+      - initially counted n-k legal windows instead of n-k+1
+      - initially described every two-loop brute force as O(n^2)
+    implementation_mistakes: []
+    mastered_during_session:
+      - legal window starts are 0 through n-k inclusive
+      - average >= threshold is equivalent to sum >= threshold*k for positive k
+      - each legal fixed-size window is checked exactly once
+      - optimized complexity is O(n) time and O(1) extra space
+    review_dates:
+      - 2026-07-18
+      - 2026-07-20
+      - 2026-07-24
+      - 2026-08-07
+    review_status: pending

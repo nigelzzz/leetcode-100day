@@ -32,8 +32,12 @@ curriculum:
   active_track: Sliding Window
   active_module: Fixed-size Sliding Window - Basics
   current_problem:
-    leetcode: 643
-    title: Maximum Average Subarray I
-weaknesses: []
-strengths: []
+    leetcode: 2090
+    title: K Radius Subarray Averages
+weaknesses:
+  - tends to skip clarification and brute-force reasoning before optimized code
+  - needs deliberate off-by-one checks for legal window counts and index ranges
+strengths:
+  - maintains fixed-size sliding-window sums in O(n) time
+  - recognizes integer comparisons that avoid unnecessary floating-point division
 last_updated: 2026-07-17
