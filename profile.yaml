@@ -32,12 +32,12 @@ curriculum:
   active_track: Sliding Window
   active_module: Fixed-size Sliding Window - Basics
   current_problem:
-    leetcode: 2090
-    title: K Radius Subarray Averages
+    leetcode: 2461
+    title: Maximum Sum of Distinct Subarrays With Length K
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
-last_updated: 2026-07-17
+last_updated: 2026-07-18

@@ -23,6 +23,11 @@ records:
       - 2026-07-20
       - 2026-07-24
       - 2026-08-07
+    review_history:
+      - date: 2026-07-18
+        result: recalled_implementation_with_interval_correction
+        hint_level: 0
+    next_review_date: 2026-07-20
     review_status: pending
   - problem:
       leetcode: 643
@@ -69,4 +74,26 @@ records:
       - 2026-07-20
       - 2026-07-24
       - 2026-08-07
+    review_status: pending
+  - problem:
+      leetcode: 2379
+      title: Minimum Recolors to Get K Consecutive Black Blocks
+    pattern: fixed-size-sliding-window-minimization
+    result: solved_independently
+    session_date: 2026-07-18
+    hint_level: 0
+    conceptual_mistakes:
+      - briefly confused the first incoming index k with the first-window final index k-1
+      - needed correction when stating complete old and new window intervals
+    implementation_mistakes: []
+    mastered_during_session:
+      - minimum recolors equals the minimum count of W over all length-k windows
+      - before processing i the old window is [i-k,i-1]
+      - after processing i the new window is [i-k+1,i]
+      - optimized complexity is O(n) time and O(1) extra space
+    review_dates:
+      - 2026-07-19
+      - 2026-07-21
+      - 2026-07-25
+      - 2026-08-08
     review_status: pending

@@ -1,0 +1,67 @@
+schema_version: 1
+session:
+  date: 2026-07-18
+  started_at: 2026-07-18T20:42:07+08:00
+  status: completed
+  type: daily_lab
+  module: fixed-size-sliding-window-basics
+  duration_minutes: null
+problems:
+  - leetcode: 1456
+    title: Maximum Number of Vowels in a Substring of Given Length
+    pattern: fixed-size-sliding-window
+    role: spaced_review
+    result: completed_with_interval_correction
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: O(n)
+      space: O(1)
+    conceptual_mistakes:
+      - initially misstated the post-slide interval; corrected to [right-k+1,right]
+    implementation_mistakes: []
+    communication_notes:
+      - independently reproduced the complete correct sliding-window implementation
+    edge_cases_proposed: []
+  - leetcode: 2379
+    title: Minimum Recolors to Get K Consecutive Black Blocks
+    pattern: fixed-size-sliding-window-minimization
+    role: main
+    result: solved_independently
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: O(n)
+      space: O(1)
+    conceptual_mistakes:
+      - briefly confused the first sliding-loop index k with the first-window final index k-1
+      - needed correction to state complete old and new window intervals
+    implementation_mistakes: []
+    communication_notes:
+      - correctly transformed minimum recolors into minimum white-count over length-k windows
+      - correctly derived O(nk) brute force and O(n) sliding-window complexity
+      - independently produced a correct optimized implementation
+    edge_cases_proposed:
+      - 'blocks="BBB", k=3, expected=0'
+      - 'blocks="WWW", k=3, expected=3'
+      - 'blocks="WBBWB", k=3, expected=1'
+      - 'blocks="WWWWBBB", k=4, expected=1'
+    verification:
+      local_compile: passed_cpp17_werror
+      local_tests: 8_passed
+      codex_review: passed_under_problem_constraints
+      claude_review: completed
+scorecard:
+  problem_clarification: 4
+  brute_force_reasoning: 4
+  optimization: 4
+  correctness: 5
+  code_quality: 4
+  testing: 4
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - review LeetCode 2379 on 2026-07-19 without viewing the saved solution
+  - verbalize complete old and new window intervals before coding
+  - distinguish the first-window last index k-1 from the first incoming index k
+  - prefer semantic names such as whiteCount, leaving, and entering
