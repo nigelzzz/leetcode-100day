@@ -30,14 +30,14 @@ curriculum:
   source: 靈茶山艾府 LeetCode 滑動窗口與雙指針題單
   url: https://leetcode.cn/discuss/post/3578981/ti-dan-hua-dong-chuang-kou-ding-chang-bu-rzz7/
   active_track: Sliding Window
-  active_module: Fixed-size Sliding Window - Basics
+  active_module: Variable-size Sliding Window - Maximum Length
   current_problem:
-    leetcode: 2461
-    title: Maximum Sum of Distinct Subarrays With Length K
+    leetcode: 3
+    title: Longest Substring Without Repeating Characters
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
-last_updated: 2026-07-18
+last_updated: 2026-07-24

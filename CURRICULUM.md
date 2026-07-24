@@ -104,4 +104,6 @@ exactly(k) = atMost(k) - atMost(k-1)
 - 1343：完成
 - 2090：使用者回報先前已完成，本輪尚未重新評估
 - 2379：完成
-- 下一題：2461
+- 2461：完成
+- Week 1 定長滑動窗口：完成
+- 下一題：3 — Longest Substring Without Repeating Characters

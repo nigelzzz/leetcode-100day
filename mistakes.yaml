@@ -52,6 +52,11 @@ records:
       - 2026-07-20
       - 2026-07-24
       - 2026-08-07
+    review_history:
+      - date: 2026-07-24
+        result: recalled_algorithm_with_cast_correction
+        hint_level: 0
+    next_review_date: 2026-08-07
     review_status: pending
   - problem:
       leetcode: 1343
@@ -96,4 +101,36 @@ records:
       - 2026-07-21
       - 2026-07-25
       - 2026-08-08
+    review_status: pending
+  - problem:
+      leetcode: 2461
+      title: Maximum Sum of Distinct Subarrays With Length K
+    pattern: fixed-size-sliding-window-with-frequency-map
+    result: solved_independently_after_process_backfill
+    session_date: 2026-07-24
+    time_minutes: 30
+    hint_level: 0
+    conceptual_mistakes:
+      - initially described a length-k window as [0,k], which contains k+1 elements
+      - initially generalized brute-force complexity directly to O(n^2) instead of O((n-k+1)k)
+      - initially misstated the overlap of adjacent windows
+      - initially described the frequency map as representing the old window after an update
+      - initially expected k=1 with repeated input values to have no distinct window
+    implementation_mistakes:
+      - submitted an incomplete function ending before the local compile step
+    communication_notes:
+      - jumped directly to optimized code before Clarify and brute-force reasoning
+      - needed correction before stating the general post-update interval [i-k+1,i]
+    mastered_during_session:
+      - a length-k window is fully distinct exactly when its frequency map has k keys
+      - after processing incoming index i, sum and map represent [i-k+1,i]
+      - expected optimized time is O(n) and extra space is O(k)
+      - erase zero-frequency keys before checking map size
+    review_dates:
+      - 2026-07-25
+      - 2026-07-27
+      - 2026-07-31
+      - 2026-08-14
+    review_history: []
+    next_review_date: 2026-07-25
     review_status: pending

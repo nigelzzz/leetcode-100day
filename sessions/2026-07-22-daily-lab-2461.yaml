@@ -1,0 +1,90 @@
+schema_version: 1
+session:
+  date: 2026-07-22
+  started_at: 2026-07-22T17:03:39+08:00
+  resumed_at: 2026-07-24T10:45:56+08:00
+  completed_at: 2026-07-24T11:15:17+08:00
+  status: completed
+  type: daily_lab
+  module: fixed-size-sliding-window-distinct-frequency
+  duration_minutes: 30
+problems:
+  - leetcode: 643
+    title: Maximum Average Subarray I
+    pattern: fixed-size-sliding-window
+    role: spaced_review
+    result: completed_with_local_correction
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: O(n)
+      space: O(1)
+    conceptual_mistakes: []
+    implementation_mistakes:
+      - initially cast the result after integer division; corrected to cast an operand before division
+    communication_notes:
+      - correctly explained that initializing maxSum to zero fails when every legal window sum is negative
+    edge_cases_proposed: []
+  - leetcode: 2461
+    title: Maximum Sum of Distinct Subarrays With Length K
+    pattern: fixed-size-sliding-window-with-frequency-map
+    role: main
+    result: solved_independently_after_process_backfill
+    time_minutes: 30
+    hint_level: 0
+    complexity:
+      time: expected O(n)
+      space: O(k)
+    conceptual_mistakes:
+      - initially described a length-k window as [0,k], which contains k+1 elements
+      - initially generalized brute-force complexity directly to O(n^2) instead of O((n-k+1)k)
+      - initially misstated the overlap of adjacent windows
+      - initially described the frequency map as representing the old window after an update
+      - initially expected k=1 with repeated input values to have no distinct window
+    implementation_mistakes:
+      - submitted an incomplete function ending before the local compile step
+    communication_notes:
+      - jumped directly to optimized code and needed to backfill Clarify, brute force, and bottleneck reasoning
+      - required correction before stating the general post-update interval [i-k+1,i]
+      - independently selected the correct window-sum plus frequency-map algorithm
+    mastered_during_session:
+      - a fixed length-k window is distinct exactly when its frequency map has k keys
+      - after processing incoming index i, sum and map represent [i-k+1,i]
+      - brute force costs O((n-k+1)k), usually simplified to O(nk)
+      - expected optimized time is O(n) and extra space is O(k)
+      - zero-frequency keys must be erased before using map size as the distinct count
+    edge_cases_proposed:
+      - nums: [1, 2, 3, 4, 5]
+        k: 5
+        expected: 15
+        purpose: k equals n and the initialized window is valid
+      - nums: [1, 2, 3, 4, 5]
+        k: 3
+        expected: 12
+        purpose: best valid window is final
+      - nums: [9, 9, 9]
+        k: 2
+        expected: 0
+        purpose: no valid distinct window
+      - nums: [9, 9, 9]
+        k: 1
+        expected: 9
+        purpose: every singleton window is distinct
+    verification:
+      cpp_standard: C++17
+      strict_compile: passed
+      local_tests: 8/8_passed
+      claude_review: completed_no_correctness_bug
+      codex_review: completed_no_correctness_bug
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 3
+  optimization: 4
+  correctness: 5
+  code_quality: 4
+  testing: 4
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - review LeetCode 2461 on 2026-07-25, 2026-07-27, 2026-07-31, and 2026-08-14
+  - begin Week 2 with LeetCode 3 after due spaced retrieval
