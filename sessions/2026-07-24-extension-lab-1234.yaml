@@ -1,0 +1,37 @@
+schema_version: 1
+session:
+  date: 2026-07-24
+  started_at: 2026-07-24T11:24:15+08:00
+  status: in_progress
+  type: user_selected_extension_lab
+  module: variable-size-sliding-window-minimization
+  duration_minutes: null
+problems:
+  - leetcode: 1234
+    title: Replace the Substring for Balanced String
+    pattern: variable-size-sliding-window-minimization
+    role: main
+    result: not_started
+    time_minutes: null
+    hint_level: 1
+    complexity:
+      time: null
+      space: null
+    conceptual_mistakes:
+      - initially did not know how to test whether a chosen replacement interval can make the string balanced
+    implementation_mistakes: []
+    communication_notes:
+      - user requested jumping ahead from the representative sequence
+    edge_cases_proposed: []
+scorecard:
+  problem_clarification: null
+  brute_force_reasoning: null
+  optimization: null
+  correctness: null
+  code_quality: null
+  testing: null
+  communication: null
+  handling_follow_ups: null
+next_actions:
+  - clarify the balanced-string definition and allowed replacement operation
+  - describe brute force before discussing optimization

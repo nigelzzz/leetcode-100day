@@ -1,0 +1,35 @@
+schema_version: 1
+session:
+  date: 2026-07-29
+  type: bitwise_follow_up
+  duration_minutes: null
+problems:
+  - leetcode: 136
+    title: Single Number
+    pattern: xor-pair-cancellation
+    role: follow_up
+    result: solved
+    time_minutes: null
+    hint_level: 0
+    complexity:
+      time: O(n)
+      space: O(1)
+    conceptual_mistakes: []
+    implementation_mistakes:
+      - used nums[n] instead of nums[i] in the XOR loop, which would access out of bounds
+    communication_notes:
+      - immediately identified both the frequency-map brute force and XOR optimum
+      - explicitly requested skipping detailed testing and retell
+    edge_cases_proposed: []
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 4
+  optimization: 4
+  correctness: 4
+  code_quality: 3
+  testing: 1
+  communication: 3
+  handling_follow_ups: null
+next_actions:
+  - avoid confusing the loop index with the array length
+  - transfer pair cancellation to LeetCode 260

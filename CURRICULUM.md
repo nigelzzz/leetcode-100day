@@ -6,6 +6,8 @@
 
 原則：不按完整題單逐題刷完；先掌握核心模板，再完成約 30 題代表題。完成狀態以 `profile.yaml`、`mistakes.yaml` 與 `sessions/` 為準。
 
+後續擴充：常用枚舉、前綴和、Stack、Heap、Trie、DSU、Fenwick Tree 與 Segment Tree 的代表題路線，見 `DATA_STRUCTURES_TRACK.md`。此擴充路線不取代目前的滑動窗口主線。
+
 ## Week 1：定長滑動窗口
 
 順序：
@@ -106,4 +108,5 @@ exactly(k) = atMost(k) - atMost(k-1)
 - 2379：完成
 - 2461：完成
 - Week 1 定長滑動窗口：完成
-- 下一題：3 — Longest Substring Without Repeating Characters
+- 原定下一題：3 — Longest Substring Without Repeating Characters
+- 目前題目：1234 — Replace the Substring for Balanced String（使用者指定延伸題）

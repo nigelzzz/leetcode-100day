@@ -134,3 +134,166 @@ records:
     review_history: []
     next_review_date: 2026-07-25
     review_status: pending
+  - problem:
+      leetcode: 191
+      title: Number of 1 Bits
+    pattern: bit-manipulation-clear-lowest-set-bit
+    result: solved_with_hint
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - initially stated O(n) without defining the input-size measure
+      - initially treated n & (n - 1) as a break condition rather than updating n
+      - initially incremented the count only if the updated n remained nonzero
+    implementation_mistakes:
+      - used signed 1 << 31 instead of unsigned 1u << 31
+      - wrote !n & (n - 1), which has unintended operator precedence
+    communication_notes:
+      - needs to say rightmost set bit rather than first bit from the right
+    mastered_during_session:
+      - n & (n - 1) clears exactly the rightmost set bit
+      - the loop runs once per set bit, giving O(k) time and O(1) space
+      - fixed 32-bit scanning is O(1), or O(w) when generalized by bit width
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending
+  - problem:
+      leetcode: 231
+      title: Power of Two
+    pattern: bit-manipulation-single-set-bit
+    result: solved_with_hint
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - initially attempted a counting loop instead of using the single-set-bit condition directly
+      - needed concrete examples to connect powers of two with exactly one set bit
+    implementation_mistakes:
+      - redeclared int n inside the loop, causing variable shadowing and an uninitialized read
+    communication_notes:
+      - needs practice stating the proof from the bit pattern rather than recalling only the formula
+    mastered_during_session:
+      - a positive power of two has exactly one set bit
+      - n & (n - 1) equals zero exactly when positive n has one set bit
+      - n > 0 is necessary to reject zero and negative inputs
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending
+  - problem:
+      leetcode: 342
+      title: Power of Four
+    pattern: bit-manipulation-single-set-bit-position-mask
+    result: solved_with_hint
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - initially expected the even-position mask intersection to equal zero
+      - initially classified 64 as not being a power of four
+      - initially used 6 as an example of a power of two that is not a power of four
+    implementation_mistakes:
+      - omitted parentheses around n & (n - 1), causing an operator-precedence error
+    communication_notes:
+      - needs deliberate zero-based bit-position checks to avoid off-by-one errors
+    mastered_during_session:
+      - powers of four have one set bit located at an even zero-based position
+      - 0x55555555 has ones exactly at the even positions of a 32-bit integer
+      - a valid power of four has a nonzero intersection with 0x55555555
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending
+  - problem:
+      leetcode: 461
+      title: Hamming Distance
+    pattern: xor-then-count-set-bits
+    result: solved_with_hint
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - initially counted only one differing position in 0001 versus 0100
+      - initially added the XOR mask value rather than counting its set bits
+      - initially shifted x and y separately with a loop that stopped when either became zero
+      - initially reset diff to x XOR y inside the loop rather than updating diff
+    implementation_mistakes: []
+    communication_notes:
+      - successfully stated that XOR identifies differing bit positions
+    mastered_during_session:
+      - XOR produces one exactly at bit positions where the operands differ
+      - Hamming distance is the popcount of x XOR y
+      - Brian Kernighan's update counts the XOR mask in O(k) time and O(1) space
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending
+  - problem:
+      leetcode: 2220
+      title: Minimum Bit Flips to Convert Number
+    pattern: xor-then-count-set-bits
+    result: solved_with_hint
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 2
+    conceptual_mistakes:
+      - initially used XOR instead of AND in the Brian Kernighan state update
+      - initially confused the numeric XOR value with its set-bit count during testing
+    implementation_mistakes: []
+    communication_notes:
+      - requested the next problem before completing all three testing categories
+    mastered_during_session:
+      - XOR identifies exactly the positions that must be flipped
+      - each differing position is both necessary and sufficient to flip once
+      - the minimum flips equal the popcount of start XOR goal
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending
+  - problem:
+      leetcode: 136
+      title: Single Number
+    pattern: xor-pair-cancellation
+    result: solved_after_correction
+    session_date: 2026-07-29
+    time_minutes: null
+    hint_level: 0
+    conceptual_mistakes: []
+    implementation_mistakes:
+      - used nums[n] instead of nums[i] in the XOR loop, which would access out of bounds
+    communication_notes:
+      - immediately identified both the frequency-map brute force and XOR optimum
+      - explicitly skipped detailed testing and retell
+    mastered_during_session:
+      - pairwise duplicates cancel because a XOR a equals zero
+      - XOR provides O(n) time and O(1) extra space
+    review_dates:
+      - 2026-07-30
+      - 2026-08-01
+      - 2026-08-05
+      - 2026-08-19
+    review_history: []
+    next_review_date: 2026-07-30
+    review_status: pending

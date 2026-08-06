@@ -1,0 +1,41 @@
+schema_version: 1
+session:
+  date: 2026-07-29
+  type: bitwise_follow_up
+  duration_minutes: null
+problems:
+  - leetcode: 342
+    title: Power of Four
+    pattern: bit-manipulation-single-set-bit-position-mask
+    role: follow_up
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(1)
+      space: O(1)
+    conceptual_mistakes:
+      - initially expected the even-position mask intersection to equal zero for a power of four
+      - initially classified 64 as not being a power of four despite its set bit being at even position 6
+      - initially chose 6 as an example of a power of two that is not a power of four
+    implementation_mistakes:
+      - omitted parentheses around n & (n - 1), causing an operator-precedence error
+    communication_notes:
+      - needed concrete position labels to avoid off-by-one mistakes when locating the set bit
+    edge_cases_proposed:
+      - "16 -> true"
+      - "8 -> false"
+      - "0 -> false"
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 2
+  optimization: 3
+  correctness: 3
+  code_quality: 3
+  testing: 3
+  communication: 2
+  handling_follow_ups: 3
+next_actions:
+  - recall that bit positions are zero-indexed from the least significant bit
+  - explain why 0x55555555 selects even positions
+  - distinguish a power-of-two check from a power-of-four position check

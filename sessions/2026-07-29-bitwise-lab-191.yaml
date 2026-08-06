@@ -1,0 +1,42 @@
+schema_version: 1
+session:
+  date: 2026-07-29
+  type: user_selected_bitwise_lab
+  duration_minutes: null
+problems:
+  - leetcode: 191
+    title: Number of 1 Bits
+    pattern: bit-manipulation-clear-lowest-set-bit
+    role: main
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(k), where k is the number of set bits
+      space: O(1)
+    conceptual_mistakes:
+      - initially stated O(n) without defining n; fixed-width 32-bit scanning is O(1), while generalized scanning is O(w)
+      - initially treated n & (n - 1) as a break condition rather than a state transition
+      - initially incremented the count only when the updated n remained nonzero
+    implementation_mistakes:
+      - initially used signed 1 << 31 instead of unsigned 1u << 31
+      - wrote !n & (n - 1), which is parsed as (!n) & (n - 1)
+    communication_notes:
+      - described the operation imprecisely as removing the first bit from the right rather than clearing the rightmost set bit
+    edge_cases_proposed:
+      - "0x00000000 -> 0"
+      - "0xFFFFFFFF -> 32"
+      - "0x00000001 -> 1"
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 3
+  optimization: 2
+  correctness: 3
+  code_quality: 3
+  testing: 4
+  communication: 2
+  handling_follow_ups: 3
+next_actions:
+  - retell why n & (n - 1) clears exactly the rightmost set bit
+  - review operator precedence and unsigned shift literals
+  - transfer the same invariant to LeetCode 231 Power of Two

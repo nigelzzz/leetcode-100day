@@ -1,0 +1,40 @@
+schema_version: 1
+session:
+  date: 2026-07-29
+  type: bitwise_follow_up
+  duration_minutes: null
+problems:
+  - leetcode: 231
+    title: Power of Two
+    pattern: bit-manipulation-single-set-bit
+    role: follow_up
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(1)
+      space: O(1)
+    conceptual_mistakes:
+      - initially attempted to count set bits with a loop instead of using the single-set-bit condition directly
+      - needed repeated explanation of why a positive power of two has exactly one set bit
+    implementation_mistakes:
+      - redeclared int n inside the loop, causing variable shadowing and an uninitialized read
+    communication_notes:
+      - needed concrete binary examples before explaining the invariant
+    edge_cases_proposed:
+      - "4 -> true"
+      - "3 -> false"
+      - "0 -> false"
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 2
+  optimization: 3
+  correctness: 4
+  code_quality: 3
+  testing: 4
+  communication: 2
+  handling_follow_ups: 3
+next_actions:
+  - recall why n > 0 is required
+  - retell the equivalence between one set bit and n & (n - 1) == 0
+  - transfer the power-of-two test to LeetCode 342 Power of Four

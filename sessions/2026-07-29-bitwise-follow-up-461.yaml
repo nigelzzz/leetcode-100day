@@ -1,0 +1,41 @@
+schema_version: 1
+session:
+  date: 2026-07-29
+  type: bitwise_follow_up
+  duration_minutes: null
+problems:
+  - leetcode: 461
+    title: Hamming Distance
+    pattern: xor-then-count-set-bits
+    role: follow_up
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(k), where k is the number of set bits in x XOR y
+      space: O(1)
+    conceptual_mistakes:
+      - initially counted only one differing position in 0001 versus 0100
+      - initially added the numeric value of the XOR mask instead of counting its set bits
+      - initially attempted to shift x and y separately with a loop that stopped when either became zero
+      - initially reset diff to x XOR y inside the loop instead of making progress
+    implementation_mistakes: []
+    communication_notes:
+      - successfully stated that XOR identifies differing bit positions
+    edge_cases_proposed:
+      - "(12, 12) -> 0"
+      - "(12, 4) -> 1"
+      - "(12, 11) -> 3"
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 2
+  optimization: 3
+  correctness: 4
+  code_quality: 3
+  testing: 3
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - independently reproduce the xor-then-popcount template
+  - explain why the XOR mask must be computed once before counting
+  - transfer the pattern to LeetCode 2220
