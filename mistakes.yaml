@@ -297,3 +297,66 @@ records:
     review_history: []
     next_review_date: 2026-07-30
     review_status: pending
+  - problem:
+      leetcode: 1014
+      title: Best Sightseeing Pair
+    pattern: enumerate-right-maintain-left-maximum
+    result: solved_with_hint
+    session_date: 2026-08-17
+    time_minutes: null
+    hint_level: 1
+    conceptual_mistakes:
+      - initially described maxLeft as the maximum left-side value instead of the maximum of values[i] + i
+      - initially added the right index in the candidate score instead of subtracting it
+      - initially reported a selected element value instead of the computed maximum score for the sample
+    implementation_mistakes:
+      - typed iny instead of int
+      - used value[i] instead of values[i]
+    communication_notes:
+      - correctly identified that the answer must be updated before inserting the current right endpoint
+      - accurately restated the loop invariant after one focused correction
+    mastered_during_session:
+      - rewrite the score as (values[i] + i) + (values[j] - j)
+      - before processing j, maxLeft is the maximum values[i] + i over all i less than j
+      - query before inserting the current endpoint so the two indices remain distinct
+      - optimized complexity is O(n) time and O(1) extra space
+    review_dates:
+      - 2026-08-18
+      - 2026-08-20
+      - 2026-08-24
+      - 2026-09-07
+    review_history: []
+    next_review_date: 2026-08-18
+    review_status: pending
+  - problem:
+      leetcode: 560
+      title: Subarray Sum Equals K
+    pattern: prefix-sum-frequency-map
+    result: solved_with_hint
+    session_date: 2026-08-17
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - initially applied an atMost sliding-window difference that is invalid when nums contains negative values
+      - initially proposed storing one prefix index instead of the frequency of each prefix sum
+      - initially described prefix[0] as 1 instead of distinguishing prefix[0] = 0 from count[0] = 1
+      - initially referred to count[i] instead of count[prefix - k]
+    implementation_mistakes: []
+    communication_notes:
+      - jumped directly to optimized code before completing the brute-force and bottleneck explanation
+      - correctly chose query-before-insert after deriving the prefix-sum equation
+      - submitted a correct two-pass ordered-map implementation before conversion to the requested one-pass hash-map form
+    mastered_during_session:
+      - for current prefix sum s, every previous prefix equal to s - k forms one valid subarray
+      - prefix frequencies are required because multiple left prefixes can produce distinct valid subarrays
+      - count[0] = 1 represents the empty prefix before the array
+      - query before insertion prevents pairing the current prefix with itself
+      - optimized complexity is O(n) expected time and O(n) extra space
+    review_dates:
+      - 2026-08-18
+      - 2026-08-20
+      - 2026-08-24
+      - 2026-09-07
+    review_history: []
+    next_review_date: 2026-08-18
+    review_status: pending

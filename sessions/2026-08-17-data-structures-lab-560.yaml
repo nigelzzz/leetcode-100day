@@ -1,0 +1,40 @@
+schema_version: 1
+session:
+  date: 2026-08-17
+  type: data_structures_lab
+  duration_minutes: null
+problems:
+  - leetcode: 560
+    title: Subarray Sum Equals K
+    pattern: prefix-sum-frequency-map
+    role: main
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(n)
+      space: O(n)
+    conceptual_mistakes:
+      - initially applied an atMost sliding-window difference that is invalid when nums contains negative values
+      - initially proposed storing one prefix index instead of the frequency of each prefix sum
+      - initially described prefix[0] as 1 instead of distinguishing prefix[0] = 0 from count[0] = 1
+      - initially referred to count[i] instead of count[prefix - k]
+    implementation_mistakes: []
+    communication_notes:
+      - jumped directly to optimized code before completing the brute-force and bottleneck explanation
+      - correctly chose query-before-insert after deriving the prefix-sum equation
+      - submitted a correct two-pass ordered-map implementation before conversion to the requested one-pass hash-map form
+    edge_cases_proposed: []
+scorecard:
+  problem_clarification: 2
+  brute_force_reasoning: 1
+  optimization: 3
+  correctness: 4
+  code_quality: 4
+  testing: 2
+  communication: 3
+  handling_follow_ups: 4
+next_actions:
+  - verify whether negative values invalidate a sliding-window monotonicity assumption
+  - state that count[0] = 1 represents one empty prefix with sum zero
+  - explain why prefix frequencies rather than one index are required for counting

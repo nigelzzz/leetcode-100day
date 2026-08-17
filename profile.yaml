@@ -27,17 +27,17 @@ baseline_context:
       topic: Binary Search / Matrix
     - topic: Binary Search
 curriculum:
-  source: 靈茶山艾府 LeetCode 滑動窗口與雙指針題單
-  url: https://leetcode.cn/discuss/post/3578981/ti-dan-hua-dong-chuang-kou-ding-chang-bu-rzz7/
-  active_track: Sliding Window
-  active_module: User-selected Variable-size Window Extension
+  source: 靈茶山艾府 LeetCode 常用資料結構題單
+  url: https://leetcode.cn/discuss/post/3583665/fen-xiang-gun-ti-dan-chang-yong-shu-ju-j-bvmv/
+  active_track: Common Techniques and Data Structures
+  active_module: Phase A - Enumeration, Prefix Sum, and Hash Map
   current_problem:
-    leetcode: 1234
-    title: Replace the Substring for Balanced String
+    leetcode: 974
+    title: Subarray Sums Divisible by K
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
-last_updated: 2026-07-24
+last_updated: 2026-08-17
