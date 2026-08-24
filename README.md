@@ -14,6 +14,7 @@
 ## 目錄
 
 - `profile.yaml`：目標、偏好、弱點摘要與課程設定。
+- `GOOGLE_INTERVIEW_ROADMAP.md`：Google 面試題型分群、優先題序與通關標準。
 - `mistakes.yaml`：錯題及待複習日期的唯一正式紀錄。
 - `sessions/`：每日 Lab、Mock 與評分紀錄。
 - `solutions/`：本人寫的 C++ 解答。
