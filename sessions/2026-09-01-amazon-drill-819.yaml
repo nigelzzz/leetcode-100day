@@ -1,0 +1,53 @@
+schema_version: 1
+session:
+  date: 2026-09-01
+  type: amazon_interview_drill
+  roadmap: AMAZON_INTERVIEW_ROADMAP.md
+  tier: 1
+  duration_minutes: null
+problems:
+  - leetcode: 819
+    title: Most Common Word
+    pattern: string-tokenize-hash-count
+    role: main
+    result: unsolved_within_time
+    time_minutes: null
+    hint_level: 4
+    complexity:
+      time: O(n + B)
+      space: O(n + B)
+    conceptual_mistakes:
+      - stated plan (lowercase + hash-map count + skip empty token) but first draft compared word length and updated only for banned words
+      - reported O(nB) complexity after choosing an unordered_set for banned lookup
+      - never skipped the empty token produced by consecutive punctuation, so freq[""] could win on adversarial input
+    implementation_mistakes:
+      - string ans = 0 (null-pointer construction)
+      - isalpha misspelled across four drafts (is_alpaha, isalpaha)
+      - called non-existent unordered_set::is_exist
+      - left unused variable max_len through final draft
+    communication_notes:
+      - clarified punctuation set and empty paragraph; did not ask about banned casing or consecutive separators
+      - correctly used paragraph += " " on first draft to flush the last word
+      - after receiving a 4-item bug list, second draft fixed only one item
+      - skipped requested example walkthrough twice and resubmitted code instead
+    edge_cases_proposed: []
+    failing_test:
+      paragraph: "a!!!!!!! b b"
+      banned: []
+      expected: "b"
+      actual: ""
+scorecard:
+  problem_clarification: 2
+  brute_force_reasoning: 2
+  optimization: 3
+  correctness: 2
+  code_quality: 2
+  testing: 0
+  communication: 2
+  handling_follow_ups: 1
+  overall: 4
+next_actions:
+  - redo 819 cold; write 3 edge cases before code; must compile and pass the three tests
+  - practice restating a bug list item by item before editing, and mapping each fix to a line
+  - add a fixed post-code pass that checks API spelling (isalpha, count/contains)
+  - next problems: 937 Reorder Data in Log Files, then 49 Group Anagrams

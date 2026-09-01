@@ -1,0 +1,59 @@
+schema_version: 1
+session:
+  date: 2026-09-01
+  type: amazon_interview_drill
+  roadmap: AMAZON_INTERVIEW_ROADMAP.md
+  tier: 2
+  duration_minutes: null
+problems:
+  - leetcode: 200
+    title: Number of Islands
+    pattern: grid-dfs-flood-fill
+    role: main
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 2
+    complexity:
+      time: O(m * n) amortized (each cell entered by dfs at most once because it is marked on entry)
+      space: O(m * n) recursion stack worst case
+    conceptual_mistakes:
+      - answered 1 for an all-zero grid (correct is 0)
+      - initially wrote the plan as grid[i] == 1 (integer) despite the constraint stating chars
+      - initial plan described marking a cell but not spreading to neighbors
+      - could not explain why a right/down-only DFS miscounts an L shape
+      - amortized argument given as count and total but without the because-clause (marked on entry)
+    implementation_mistakes:
+      - off-by-one x > x_size instead of x >= x_size
+      - used grid inside dfs whose parameter is named g
+      - function named numIsland instead of numIslands
+      - missing return ans in draft 1
+    communication_notes:
+      - asked about diagonal connectivity (good); did not ask about mutating input
+      - skipped two direct interviewer questions across three rounds and submitted code instead
+      - fixed all four listed bugs in a single draft with no regressions
+    edge_cases_proposed:
+      - '1 1 1 1 -> 1'
+      - 'all zero -> 1 (wrong, expected 0)'
+    tests_passed_on_final:
+      - official example -> 3
+      - all zero -> 0
+      - 1x1 grids
+      - L shape 101/101/111 -> 1
+      - checkerboard 10101/01010/10101 -> 8
+      - 300x300 all ones -> 1 (recursion depth ok)
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 2
+  optimization: 3
+  correctness: 4
+  code_quality: 3
+  testing: 2
+  communication: 2
+  handling_follow_ups: 3
+  overall: 7
+next_actions:
+  - review 200 with a BFS/queue version for the deep-recursion follow-up
+  - answer the interviewer's direct question before submitting code, every time
+  - amortized template: "each cell entered at most once because it is marked on entry, so O(m*n)"
+  - post-code pass: helper parameter names vs body, function name vs signature, >= on every bound
+  - next problem: 994 Rotting Oranges (multi-source BFS, extends 200)

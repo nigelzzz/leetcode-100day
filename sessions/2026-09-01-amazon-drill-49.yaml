@@ -1,0 +1,57 @@
+schema_version: 1
+session:
+  date: 2026-09-01
+  type: amazon_interview_drill
+  roadmap: AMAZON_INTERVIEW_ROADMAP.md
+  tier: 2
+  duration_minutes: null
+problems:
+  - leetcode: 49
+    title: Group Anagrams
+    pattern: hash-key-design
+    role: main
+    result: solved_then_regressed
+    time_minutes: null
+    hint_level: 3
+    complexity:
+      time: O(n * k log k) sorted key; O(n * k) count key
+      space: O(n * k)
+    conceptual_mistakes:
+      - reported complexity as n log k instead of O(n * k log k)
+      - described map value as a single original string instead of a vector group
+      - final refactor swapped key and value (keyed by original string, stored sorted string)
+    implementation_mistakes:
+      - draft 1 declared loop variable const and then sorted it
+      - draft 1 variable name mismatch l_m vs lm
+      - draft 3 variable name mismatch original_str vs original
+      - refactored without re-running tests, turning a passing solution into a failing one
+    communication_notes:
+      - asked to be taught how to derive edge cases; applied the normal/boundary/adversarial method afterward
+      - all proposed edge cases had expected outputs (first time today)
+      - two of three proposed cases were identical; boundary empty-string case had to be supplied
+      - did not attach adversarial output on submission (third problem in a row)
+      - follow-up: correctly proposed count-per-letter key with delimiter to avoid digit ambiguity
+    edge_cases_proposed:
+      - '["ab","ba"] -> [["ab","ba"]]'
+      - '["a","a"] -> [["a","a"]] (given twice)'
+    tests_passed_on_draft_2:
+      - official example
+      - '["aab","abb"]'
+      - '[""]'
+      - '["a","a"]'
+      - '["ac","bb"]'
+scorecard:
+  problem_clarification: 2
+  brute_force_reasoning: 3
+  optimization: 3
+  correctness: 3
+  code_quality: 2
+  testing: 3
+  communication: 4
+  handling_follow_ups: 4
+  overall: 6
+next_actions:
+  - review 49 cold with count-array key; re-run all five cases after any edit
+  - practice verbal complexity derivation: outer n iterations times per-iteration cost
+  - post-code pass must include variable-name consistency check
+  - next problem: 128 Longest Consecutive Sequence

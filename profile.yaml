@@ -34,10 +34,25 @@ curriculum:
   current_problem:
     leetcode: 974
     title: Subarray Sums Divisible by K
+  amazon_track:
+    roadmap: AMAZON_INTERVIEW_ROADMAP.md
+    started: 2026-09-01
+    completed_drills: [819, 937, 49, 128, 200]
+    next_problem:
+      leetcode: 994
+      title: Rotting Oranges
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
+  - reports complexity by feel instead of deriving it (819 O(nB), 49 n log k, 128 n*k); cannot yet state amortized arguments
+  - carries per-iteration state across loop iterations and relies on a sibling branch to reset it (128 cnt)
+  - variable-name and API-spelling inconsistencies across drafts (isalpha, l_m/lm, original_str/original)
+  - refactors a passing solution without re-running tests (49 draft 3 regressed)
+  - resubmits near-identical drafts after a multi-item bug list instead of addressing each item (improved by 200: fixed four items in one draft)
+  - skips direct interviewer questions and submits code instead (200: two questions skipped across three rounds)
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
-last_updated: 2026-08-17
+  - asks for guidance when stuck instead of going silent (49 edge-case derivation)
+  - once given a skeleton, completes all parts correctly in one draft (937 comparator)
+last_updated: 2026-09-01

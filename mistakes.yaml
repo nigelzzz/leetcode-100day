@@ -360,3 +360,165 @@ records:
     review_history: []
     next_review_date: 2026-08-18
     review_status: pending
+  - problem:
+      leetcode: 819
+      title: Most Common Word
+    pattern: string-tokenize-hash-count
+    result: unsolved_within_time
+    session_date: 2026-09-01
+    time_minutes: null
+    hint_level: 4
+    conceptual_mistakes:
+      - implemented longest-word comparison instead of the planned frequency count
+      - inverted banned check (updated answer only when word was banned)
+      - reported O(nB) after choosing hash-set lookup; correct is O(n + B)
+      - never skipped empty tokens from consecutive punctuation despite stating the rule in clarify
+    implementation_mistakes:
+      - string ans = 0 null-pointer construction
+      - isalpha misspelled in all four drafts
+      - non-existent unordered_set::is_exist
+      - unused variable max_len left in final draft
+    communication_notes:
+      - fixed only one of four listed bugs on the second draft
+      - skipped requested example walkthrough twice
+      - did not propose any edge cases when asked
+    mastered_during_session:
+      - appending a trailing separator flushes the last word without a post-loop check
+      - lowercase while accumulating characters avoids a second pass over each word
+      - single pass can update the running maximum immediately after incrementing the count
+    review_dates:
+      - 2026-09-02
+      - 2026-09-04
+      - 2026-09-08
+      - 2026-09-22
+    review_history: []
+    next_review_date: 2026-09-02
+    review_status: pending
+  - problem:
+      leetcode: 937
+      title: Reorder Data in Log Files
+    pattern: custom-sort-comparator
+    result: solved_with_hint
+    session_date: 2026-09-01
+    time_minutes: null
+    hint_level: 2
+    conceptual_mistakes:
+      - sorted digit-logs during the adversarial walkthrough instead of preserving input order
+      - hard-coded the type check position as index 3 instead of first character after the first space
+      - proposed set<string> for the follow-up, which orders by identifier and deduplicates
+    implementation_mistakes:
+      - unused variable ans
+      - range-for copies each log string
+    communication_notes:
+      - asked about duplicate logs
+      - resubmitted identical incomplete edge cases twice without expected outputs
+      - completed the comparator, classification, and merge correctly in one draft after skeleton hint
+    mastered_during_session:
+      - classify by isdigit on the character after the first space, never by identifier
+      - digit-logs preserve order by push_back in input order with no sorting
+      - comparator compares content first and identifier on ties
+      - pre-splitting into (content, id, original) tuples removes per-comparison substr cost and needs no custom comparator
+    review_dates:
+      - 2026-09-02
+      - 2026-09-04
+      - 2026-09-08
+      - 2026-09-22
+    review_history: []
+    next_review_date: 2026-09-02
+    review_status: pending
+  - problem:
+      leetcode: 49
+      title: Group Anagrams
+    pattern: hash-key-design
+    result: solved_then_regressed
+    session_date: 2026-09-01
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - reported complexity as n log k instead of O(n * k log k)
+      - final refactor keyed the map by the original string and stored the sorted copy, breaking grouping
+    implementation_mistakes:
+      - sorted a const loop variable
+      - variable name mismatches (l_m/lm, original_str/original)
+      - refactored a passing solution without re-running tests
+    communication_notes:
+      - asked to be taught edge-case derivation, then applied it with expected outputs
+      - follow-up count-key with delimiter answered correctly
+    mastered_during_session:
+      - sorted string is a canonical anagram key; map value is the vector of originals
+      - normal = smallest complete input, boundary = each constraint at equality, adversarial = counterexample to a wrong approach
+      - count-per-letter key needs a delimiter or fixed 26 slots to stay unambiguous
+      - any edit after a passing run must be followed by re-running the same tests
+    review_dates:
+      - 2026-09-02
+      - 2026-09-04
+      - 2026-09-08
+      - 2026-09-22
+    review_history: []
+    next_review_date: 2026-09-02
+    review_status: pending
+  - problem:
+      leetcode: 128
+      title: Longest Consecutive Sequence
+    pattern: hash-set-sequence-start
+    result: solved_with_hint
+    session_date: 2026-09-01
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - reported complexity as n * k instead of the amortized O(n) argument
+      - O(n) plan omitted the upward-count step, so draft 1 had no inner loop
+      - kept the length counter alive across iterations and reset it in an else branch, failing on adjacent starts
+    implementation_mistakes:
+      - undeclared variable x copied from a hint snippet
+      - final draft shadows outer cnt and leaves a dead else branch
+    communication_notes:
+      - self-generated duplicate-value adversarial case with expected output
+      - each draft addressed the given feedback
+    mastered_during_session:
+      - x is a sequence start iff x - 1 is not in the set
+      - count upward from each start only; every element is expanded at most once, so total inner steps are at most n
+      - per-start length must be a fresh local variable, not a counter carried across iterations
+      - sorted approach must skip duplicates rather than reset on them
+    review_dates:
+      - 2026-09-02
+      - 2026-09-04
+      - 2026-09-08
+      - 2026-09-22
+    review_history: []
+    next_review_date: 2026-09-02
+    review_status: pending
+  - problem:
+      leetcode: 200
+      title: Number of Islands
+    pattern: grid-dfs-flood-fill
+    result: solved_with_hint
+    session_date: 2026-09-01
+    time_minutes: null
+    hint_level: 2
+    conceptual_mistakes:
+      - answered 1 for an all-zero grid
+      - planned an integer comparison on a char grid
+      - initial plan marked a cell without spreading to neighbors
+      - amortized argument lacked the because-clause
+    implementation_mistakes:
+      - off-by-one x > x_size
+      - parameter named g but body used grid
+      - function name numIsland missing the s
+      - missing return in draft 1
+    communication_notes:
+      - skipped two direct questions across three rounds
+      - fixed all four listed bugs in one draft
+    mastered_during_session:
+      - outer scan triggers one dfs per unvisited land cell and counts it
+      - dfs checks bounds and value first, marks on entry, then recurses in four directions
+      - each cell is entered at most once because it is marked on entry, so total O(m*n)
+      - right/down-only traversal misses cells reachable only by moving up or left
+    review_dates:
+      - 2026-09-02
+      - 2026-09-04
+      - 2026-09-08
+      - 2026-09-22
+    review_history: []
+    next_review_date: 2026-09-02
+    review_status: pending

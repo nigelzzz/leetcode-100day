@@ -1,0 +1,55 @@
+schema_version: 1
+session:
+  date: 2026-09-01
+  type: amazon_interview_drill
+  roadmap: AMAZON_INTERVIEW_ROADMAP.md
+  tier: 1
+  duration_minutes: null
+problems:
+  - leetcode: 937
+    title: Reorder Data in Log Files
+    pattern: custom-sort-comparator
+    role: main
+    result: solved_with_hint
+    time_minutes: null
+    hint_level: 2
+    complexity:
+      time: O(n log n * L)
+      space: O(n * L)
+    conceptual_mistakes:
+      - sorted digit-logs in the adversarial walkthrough instead of preserving original order
+      - described the type check as "index 3" instead of "first character after the first space"
+      - proposed set<string> in the follow-up, which would sort by identifier and drop duplicates
+    implementation_mistakes:
+      - unused variable ans left in final draft
+      - for (auto log : logs) copies each string instead of const auto&
+    communication_notes:
+      - asked whether logs can be duplicated (good clarify)
+      - resubmitted identical incomplete edge cases twice without expected outputs
+      - once given the comparator skeleton, filled all three parts correctly in one draft
+      - all API names spelled correctly on first submission
+      - follow-up: correctly proposed pre-splitting into (content, id, original) tuples
+    edge_cases_proposed:
+      - 'normal: ["dig 1 2 3 44", "let2 zxd cds cds"] (no expected output given)'
+      - 'boundary: ["let2 xassd"]'
+
+    tests_passed:
+      - official example 1
+      - official example 2
+      - 'adversarial ["a1 9 2 3", "a2 act car", "a3 act car", "a0 act car", "a4 5 6"]' 
+      - single letter-log
+scorecard:
+  problem_clarification: 3
+  brute_force_reasoning: 3
+  optimization: 3
+  correctness: 4
+  code_quality: 3
+  testing: 1
+  communication: 3
+  handling_follow_ups: 3
+  overall: 7
+next_actions:
+  - review 937 with tuple pre-split version, target 12 minutes, self-provided edge cases with expected outputs
+  - always write expected output next to each edge case before coding
+  - remove unused variables and use const auto& in range-for as a fixed post-code pass
+  - next problem: 49 Group Anagrams
