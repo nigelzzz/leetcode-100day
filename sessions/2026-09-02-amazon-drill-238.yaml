@@ -1,0 +1,69 @@
+session:
+  date: 2026-09-02
+  track: amazon
+  drill: 7
+  problem:
+    leetcode: 238
+    title: Product of Array Except Self
+    pattern: prefix-suffix products, no division
+    tier: 2
+
+scorecard:
+  overall: 5
+  clarify: 4        # asked about empty input, already excluded by stated constraint n >= 2
+  edge_cases: 2     # all three expected outputs wrong on first attempt; all four correct on redo
+  approach: 8       # prefix x suffix stated correctly for both versions on first try
+  implementation: 4 # five drafts across two versions; partial-fix pattern relapsed twice
+  complexity: 7     # O(n)/O(n) stated correctly; O(1) follow-up plan verbally correct
+
+versions:
+  - name: O(n) extra space
+    drafts:
+      - n: 1
+        result: 1/8 tests
+        bugs:
+          - "ans[0] and ans[sz-1] assigned nums themselves instead of the opposite-side product"
+          - required walk of [1,2,3,4] skipped; first cell fails immediately
+      - n: 2
+        result: 2/8 tests
+        bugs:
+          - fixed head (sufix[1]) but tail used inclusive prefix[sz-1], the total product
+          - skipped the three diagnostic questions and submitted code directly
+      - n: 3
+        result: 8/8 after answering in words that ans[sz-1] = prefix[sz-2]
+  - name: O(1) extra space
+    drafts:
+      - n: 1
+        result: AddressSanitizer heap-buffer-overflow
+        bugs:
+          - kept the prefix vector, defeating the O(1) goal
+          - "prefix[i] *= nums[i] never propagates to i+1, array stays [nums[0],0,0,...]"
+          - "second pass overwrote ans with = and read prefix[-1] at i=0 (crash)"
+      - n: 2
+        result: "[24,0,0,0] — fixed only the *= item of the three-bug list"
+      - n: 3
+        result: 8/8 after fill-in-the-blank; stray bracket typo self-caught and fixed on resubmit
+
+tests_passed:
+  - "official ex1 [1,2,3,4] -> [24,12,8,6]"
+  - "official ex2 single zero -> [0,0,9,0,0]"
+  - "normal all same [2,2,2,2] -> [8,8,8,8]"
+  - "boundary n=2 [3,4] -> [4,3]"
+  - "zero at end [1,0] -> [0,1]"
+  - "two zeros [0,5,0] -> [0,0,0]"
+  - "negatives [-2,3,-4] -> [-12,8,-6]"
+  - "max values [30,30,30] -> [900,900,900]"
+
+communication:
+  - edge-case expected outputs guessed instead of walked, 0/3 correct (16 vs 8, illegal [1], [0,0] vs [0,1])
+  - skipped required steps repeatedly (three questions, mid-pass states, fill-in-the-blank)
+  - every time a question was answered in words first, the next draft was correct
+  - first self-initiated typo catch of the week (stray bracket on resubmit)
+
+lesson:
+  - exclusive prefix definition (prefix[i] excludes self, prefix[0]=1) removes all
+    head/tail special cases; inclusive design caused boundary bugs in three drafts
+
+next_actions:
+  - cold-redo 238 O(1) version with exclusive definition, target one draft
+  - practice walking every required test case cell by cell before submitting

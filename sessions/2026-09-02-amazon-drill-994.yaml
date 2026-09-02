@@ -1,0 +1,59 @@
+session:
+  date: 2026-09-02
+  track: amazon
+  drill: 6
+  problem:
+    leetcode: 994
+    title: Rotting Oranges
+    pattern: multi-source BFS with layer counting
+    tier: 2
+
+scorecard:
+  overall: 6
+  clarify: 7        # asked about a possible fourth cell value (good); nothing else
+  edge_cases: 3     # all-zero answered -1 (correct 0); adversarial missed two-source case
+  approach: 5       # BFS-by-layers directionally right but vague on layer increment
+  implementation: 6 # draft 1 unusable (3 compile + 4 logic), draft 2 fixed all 7 in one pass
+  complexity: 6     # amortized because-clause finally self-stated after three teachings
+
+drafts:
+  - n: 1
+    result: 3 compile errors + 4 logic bugs
+    compile_errors:
+      - missing semicolon after q.push
+      - q.pop_front() on std::queue (API is pop())
+      - used undeclared g instead of grid (same mistake as drill 200)
+    logic_bugs:
+      - no bounds check on neighbors (out-of-bounds access)
+      - fresh oranges not marked 2 on push (re-enqueue, breaks amortized bound)
+      - no fresh tracking, cannot detect -1 case (requirement skipped)
+      - "unconditional ans++ per layer plus (ans != 0 ? ans : -1) return; [[2,1]] gives 2, [[0,2]] gives 1, all-zero gives -1"
+  - n: 2
+    result: 10/10 tests pass
+    notes:
+      - fixed all 7 issues in one pass
+      - chose final grid rescan for -1 detection instead of fresh counter (valid alternative)
+      - per-layer rotten flag gates ans++ (solves off-by-one)
+
+tests_passed:
+  - official ex1 -> 4
+  - official ex2 isolated -> -1
+  - official ex3 no fresh -> 0
+  - '[[2,1]] off-by-one -> 1'
+  - all zero -> 0
+  - '[1,0,0,1] fresh no rotten -> -1'
+  - '[2,1,1,1,2] two sources -> 2'
+  - single fresh -> -1
+  - single rotten -> 0
+  - 10x10 full grid corner source -> 18
+
+communication:
+  - skipped interviewer's direct questions three times (walk [[2,1]], fresh three
+    places twice); third drill in a row with this pattern, flagged as Earn Trust risk
+  - answered 'ans++ inside the sz loop' (counts oranges, not layers) before
+    landing on the per-layer flag
+
+next_actions:
+  - cold-redo 994 with the fresh-counter variant instead of rescan
+  - drill queue API (pop, front) vs deque (pop_front)
+  - practice stating the per-layer ans++ rule unprompted

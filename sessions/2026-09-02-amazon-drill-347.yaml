@@ -1,0 +1,54 @@
+session:
+  date: 2026-09-02
+  track: amazon
+  drill: 8
+  problem:
+    leetcode: 347
+    title: Top K Frequent Elements
+    pattern: hash count + heap top-k (bucket alternative discussed)
+    tier: 2
+
+scorecard:
+  overall: 7
+  clarify: 3        # asked if k can exceed unique count; constraint stated k <= uniques (same miss as 238)
+  edge_cases: 8     # 3/3 expected outputs correct, first clean sweep of the week
+  approach: 5       # max-heap paired with size-k (contradiction); one path given when two required
+  implementation: 7 # draft 1 had 1 compile error + skipped requirement; draft 2 fixed all 4 items, 6/6
+  complexity: 6     # count/build/space correct with reasons; pop stated as O(n*k) instead of O(k log u)
+
+drafts:
+  - n: 1
+    result: compile error
+    bugs:
+      - push_back on priority_queue (API is push) - second container API mixup of the week
+      - range-constructor requirement ignored, per-element push reintroduces O(u log u)
+      - l_m loop variable name returns (flagged in drill 49), pair copied without const ref
+  - n: 2
+    result: 6/6 tests including 1e5 elements / 20000 uniques
+    notes:
+      - all four list items fixed in one pass
+      - used const auto& [val, freq] structured binding as taught
+
+tests_passed:
+  - "official ex1 [1,1,1,2,2,3] k=2 -> [1,2]"
+  - "official ex2 [1] k=1 -> [1]"
+  - "[7,7,7,7] k=1 (freq = n) -> [7]"
+  - "k = all uniques -> [1,2]"
+  - "negatives -> [-5,3]"
+  - "three tiers k=3 -> [4,6,2]"
+  - large 1e5 elements in 75ms under ASan
+
+communication:
+  - said "I don't understand point 2" instead of writing code blind - first time asking
+    before coding this week; the next draft was correct
+  - answered all follow-up questions without skipping (improvement over 994/238)
+
+lesson:
+  - top-k largest uses a size-k MIN-heap (root is the weakest candidate, gets evicted);
+    max-heap holds all u elements and pops k
+  - one-shot heapify via range constructor is O(u); per-element push is O(u log u)
+  - pop cost is one root-to-leaf sift, O(log u), never a full re-heapify
+
+next_actions:
+  - cold-write the min-heap size-k version (O(n log k)) and the bucket O(n) version
+  - sister problem 692 Top K Frequent Words (adds tie-break lexicographic order)

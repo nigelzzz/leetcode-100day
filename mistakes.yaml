@@ -522,3 +522,103 @@ records:
     review_history: []
     next_review_date: 2026-09-02
     review_status: pending
+  - problem:
+      leetcode: 994
+      title: Rotting Oranges
+    pattern: multi-source-bfs-layer-counting
+    result: solved_with_hint
+    session_date: 2026-09-02
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - all-zero boundary answered -1 instead of 0, and draft 1 return shipped the same wrong logic after correction
+      - adversarial case missed two-source simultaneity ([2,1,1,1,2] expected 2)
+      - draft 1 skipped explicit requirements (mark 2 on push, track fresh), so -1 was undetectable and cells re-enqueued
+      - answered ans++ belongs inside the per-layer loop, which counts oranges instead of layers
+    implementation_mistakes:
+      - q.pop_front() on std::queue (API is pop())
+      - undeclared g instead of grid parameter, repeat of drill 200
+      - no neighbor bounds check in draft 1
+      - unconditional ans++ per layer plus 'ans != 0 ? ans : -1' return, off-by-one on [[2,1]]
+    communication_notes:
+      - skipped the interviewer's direct questions three times, third drill in a row with this pattern
+      - draft 2 fixed all seven flagged issues in one pass, 10/10 curated tests
+    mastered_during_session:
+      - per-layer rotted flag gates ans++, solving the last-layer off-by-one
+      - final grid rescan is a valid alternative to a fresh counter for -1 detection
+      - self-stated amortized argument, each cell enqueued at most once because it is marked 2 on push
+    review_dates:
+      - 2026-09-03
+      - 2026-09-05
+      - 2026-09-09
+      - 2026-09-23
+    review_history: []
+    next_review_date: 2026-09-03
+    review_status: pending
+  - problem:
+      leetcode: 238
+      title: Product of Array Except Self
+    pattern: prefix-suffix-products
+    result: solved_with_hint
+    session_date: 2026-09-02
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - edge-case expected outputs guessed, 0/3 correct (total product 16 instead of except-self 8, illegal n=1 input, [0,0] instead of [0,1])
+      - clarify question (empty array) already answered by the stated n >= 2 constraint
+      - inclusive prefix/suffix design forced head-tail special cases that failed in three separate drafts, including a prefix[-1] out-of-bounds crash
+      - rolling variable not propagated (prefix[i] *= nums[i] never writes i+1)
+    implementation_mistakes:
+      - ans head and tail assigned nums themselves in draft 1
+      - tail fix used inclusive prefix[sz-1] (total product) instead of prefix[sz-2]
+      - O(1) version kept the O(n) prefix vector in two drafts
+      - second pass overwrote first pass with = instead of *=
+      - sufix spelling (suffix) consistent but wrong throughout
+    communication_notes:
+      - three-item bug lists fixed one item at a time, twice - relapse of the 49-era pattern
+      - required test walks and diagnostic questions skipped repeatedly; every answered-in-words question produced a correct next draft
+      - first self-initiated typo catch of the week
+    mastered_during_session:
+      - exclusive prefix definition (prefix[i] excludes self, init 1) eliminates all special cases
+      - two-pass rolling-variable O(1) extra space technique
+      - why prefix-suffix beats total-product-division (single and double zeros)
+    review_dates:
+      - 2026-09-03
+      - 2026-09-05
+      - 2026-09-09
+      - 2026-09-23
+    review_history: []
+    next_review_date: 2026-09-03
+    review_status: pending
+  - problem:
+      leetcode: 347
+      title: Top K Frequent Elements
+    pattern: hash-count-heap-top-k
+    result: solved_with_hint
+    session_date: 2026-09-02
+    time_minutes: null
+    hint_level: 2
+    conceptual_mistakes:
+      - clarify question (k vs unique count) already answered by stated constraints, same miss as 238
+      - paired max-heap with size-k eviction; top-k largest needs a size-k MIN-heap or a full max-heap popped k times
+      - stated pop cost as O(n*k) full re-heapify; a pop is one root-to-leaf sift, O(log u)
+      - gave one approach when two paths with complexities were required
+    implementation_mistakes:
+      - push_back on priority_queue (API is push) - second container API mixup of the week after 994 pop_front
+      - ignored the range-constructor requirement in draft 1, per-element push is O(u log u)
+      - l_m loop variable name returned (flagged in drill 49); pair copied without const ref
+    communication_notes:
+      - edge-case expected outputs 3/3 on first attempt, first clean sweep of the week
+      - said "I don't understand point 2" before coding instead of guessing; next draft fixed all four items in one pass, 6/6
+    mastered_during_session:
+      - min-heap for top-k largest (root is weakest candidate), max-heap for top-k smallest
+      - range-constructor heapify is O(u) vs O(u log u) per-element pushes, and why (half the nodes sit at the bottom)
+      - full complexity chain O(n + u + k log u) time, O(n) space
+    review_dates:
+      - 2026-09-03
+      - 2026-09-05
+      - 2026-09-09
+      - 2026-09-23
+    review_history: []
+    next_review_date: 2026-09-03
+    review_status: pending
