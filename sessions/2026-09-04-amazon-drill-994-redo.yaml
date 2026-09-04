@@ -1,0 +1,74 @@
+session:
+  date: 2026-09-04
+  track: amazon
+  type: cold-redo
+  original_drill: sessions/2026-09-02-amazon-drill-994.yaml
+  problem:
+    leetcode: 994
+    title: Rotting Oranges
+    pattern: multi-source BFS with layer counting
+    tier: 2
+  variant: fresh-counter for -1 detection (prescribed by 09-02 next_actions; 09-02 used final rescan)
+
+scorecard:
+  overall: 5          # vs 6 on 09-02; same conceptual mistakes recurred, more drafts to green
+  clarify: 8          # asked about fourth cell value unprompted
+  edge_cases: 3       # all-zero -> -1 AGAIN (correct 0); two-source adversarial not produced AGAIN
+  approach: 6         # layering directionally right, layer-increment placement still vague until probed
+  implementation: 5   # 4 drafts to 6/6; skeleton right early, detail convergence slow
+  communication: 3    # direct question skipped three rounds AGAIN; fix list executed 2/4
+
+drafts:
+  - n: 1
+    result: 3 compile errors
+    issues:
+      - pushed cell VALUE (int) into queue<pair<int,int>> instead of coordinates
+      - found declared per-cell, checked per-layer (out of scope), never assigned 1
+      - return ans with undeclared ans (counter named count)
+      - inner and outer loops both named i
+      - orangeRotting missing s
+    note: q_size layer snapshot correct already; mark-on-push and fresh-- correct already
+  - n: 2
+    result: 1 compile error
+    issues:
+      - flagged push-value error untouched (fix list 2/4)
+      - layer-level found added but stale per-cell declaration left (shadowing); still never assigned
+      - name guessed to orangeRottingS
+  - n: 3
+    result: compiles, 3/6 - every positive-answer case returns 0
+    issues:
+      - found still never assigned after two direct asks
+      - name guessed again to orangesRottingS
+  - n: 4
+    result: 6/6 PASS
+    issues:
+      - name still orangesRottings after being given exact spelling (correct orangesRotting)
+
+tests_passed:
+  - official ex1 -> 4
+  - official ex2 -> -1
+  - '[[0,2]] no fresh -> 0'
+  - '[[2,1]] off-by-one probe -> 1'
+  - '[2,1,1,1,2] two sources -> 2'
+  - '[[1]] fresh no rotten -> -1'
+
+comparison_to_original:
+  improved:
+    - fresh-counter variant with (fresh==0 ? count : -1) ending, correct first try
+    - mark-on-push unprompted (was a draft-1 logic bug on 09-02)
+    - neighbor bounds check correct from draft 1 (missing on 09-02)
+    - found-flag off-by-one guard designed unprompted (was coached on 09-02)
+  recurred:
+    - all-zero boundary -> -1 (taught on 09-02, wrong again)
+    - adversarial case had no rotten source; two-source case never produced
+    - skipped direct interviewer question three rounds (found=1 line)
+    - amortized because-clause absent unprompted
+  regressed:
+    - fix-list execution 2/4 (09-02 draft 2 fixed all 7 in one pass)
+    - API name guessed twice after explicit correction
+
+next_actions:
+  - flag-variable 3-liner rule - declaration, assignment, read written in the same pass
+  - before resubmitting, point at the line number for every fix-list item
+  - re-quiz all-zero boundary on 2026-09-05 review (twice wrong now)
+  - next new problem per profile - 394 Decode String

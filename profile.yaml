@@ -37,10 +37,10 @@ curriculum:
   amazon_track:
     roadmap: AMAZON_INTERVIEW_ROADMAP.md
     started: 2026-09-01
-    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347]
+    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394]
     next_problem:
-      leetcode: 394
-      title: Decode String
+      leetcode: 735
+      title: Asteroid Collision
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
@@ -49,9 +49,12 @@ weaknesses:
   - variable-name and API-spelling inconsistencies across drafts (isalpha, l_m/lm, original_str/original; grid/g in both 200 and 994; queue pop_front in 994)
   - refactors a passing solution without re-running tests (49 draft 3 regressed)
   - resubmits near-identical drafts after a multi-item bug list instead of addressing each item (improved by 200: fixed four items in one draft)
-  - skips direct interviewer questions and submits code instead (200 two skipped; 994 three skipped — recurring Earn Trust risk)
+  - skips direct interviewer questions and submits code instead (200 two skipped; 994 three skipped; 994 redo 09-04 three skipped again — recurring Earn Trust risk)
   - first drafts ignore explicit written requirements from the prompt (994 — mark-on-push and fresh tracking both listed, both skipped)
-  - guesses edge-case expected outputs instead of walking the definition (994 all-zero grid; 238 scored 0/3 — corrected in 347 with 3/3)
+  - guesses edge-case expected outputs instead of walking the definition (994 all-zero grid, wrong again on 09-04 redo; 238 scored 0/3 — corrected in 347 with 3/3)
+  - writes results into a variable nothing reads (994 redo found never set; 394 cur written twice while ss was returned) — named pattern: declaration/assignment/READ three-liner
+  - has never submitted the line-pointing fix-list verification despite it being required since drill 49 (394 demanded twice, skipped twice; draft 2 executed 1/5 items)
+  - re-guesses an API name after being given the exact spelling (994 redo orangesRottings twice; 937-class read-the-signature miss)
   - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques)
   - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back)
   - skips required test walks before submitting (238 — [1,2,3,4] walk ordered twice, skipped twice; answered-in-words questions reliably produce correct next drafts)
@@ -62,7 +65,9 @@ strengths:
   - once given a skeleton, completes all parts correctly in one draft (937 comparator)
   - fixes a full multi-item bug list in a single pass when deliberate (200 fixed 4 items; 994 fixed 7 items — but 238 relapsed to one-item fixes twice)
   - can propose and justify a valid alternative design (994 — grid rescan instead of fresh counter)
+  - retains structural patterns across sessions (994 redo — layer snapshot, mark-on-push, bounds check all correct from draft 1 two days later)
   - states correct approach verbally on first try even when code lags (238 both versions)
   - self-caught a typo before resubmitting for the first time (238 stray bracket)
-  - asks before coding when a concept is unclear instead of guessing (347 heapify constructor; next draft fixed all four items, 6/6)
-last_updated: 2026-09-02
+  - asks before coding when a concept is unclear instead of guessing (347 heapify constructor; 394 adversarial-case construction — then built a valid nested case with correct expected output)
+  - multi-digit number accumulation (num*10 + digit) written unprompted on first attempt (394)
+last_updated: 2026-09-04

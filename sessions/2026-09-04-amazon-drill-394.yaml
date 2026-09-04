@@ -1,0 +1,72 @@
+session:
+  date: 2026-09-04
+  track: amazon
+  drill: 9
+  problem:
+    leetcode: 394
+    title: Decode String
+    pattern: two-stack decode (counts + prefix strings)
+    tier: 2
+
+scorecard:
+  overall: 5
+  clarify: 5        # asked about 0 (k>=1 is stated), but the question surfaced the multi-digit '0' nuance
+  edge_cases: 5     # normal/boundary ok with outputs; adversarial left blank, then ASKED to be taught (good), then built own valid nested case with correct expected output
+  approach: 4       # "stack stores number" only; prev-string half needed a counterexample, ']' merge formula ultimately given outright; complexity answered "prenumber"
+  implementation: 5 # 3 drafts; draft 2 executed 1/5 fix items, draft 3 fixed 4/5 in one pass, 8/8
+  communication: 4  # requested line-pointing checklist twice, never submitted; but asked for teaching instead of guessing (adversarial)
+
+drafts:
+  - n: 1
+    result: 2 compile errors + core logic inversion
+    issues:
+      - is_digit with underscore (819 is_alpaha class)
+      - s[i] == "]" string literal vs char, while '[' two lines above was correct
+      - "']' branch repeated the POPPED prev string instead of current ss; wrote into cur which nothing reads (994-redo found class)"
+      - three string variables (cur/ss) with confused roles; tail letters could never reach return
+      - inner loop shadows outer i (still present in final draft)
+  - n: 2
+    result: compile error; fix list executed 1/5
+    issues:
+      - only isdigit fixed; "]" comparison, store-to-ss, cur deletion, shadowing all untouched
+      - concatenation order fixed (pre_s + repeat_s) but stored into cur again; own case 3[ab1[b]] would return "bbb"
+  - n: 3
+    result: 8/8 PASS; 4/5 items fixed in one pass
+    issues:
+      - inner loop i shadowing never fixed across all drafts
+      - signed/unsigned warning remains
+      - stale narrating comments left in (last no close case / for loop from 0 to s.size)
+
+tests_passed:
+  - '3[a]2[bc] -> aaabcbc'
+  - '3[a2[c]] -> accaccacc'
+  - '2[abc]3[cd]ef -> abcabccdcdcdef'
+  - '12[a] -> 12 a chars (multi-digit)'
+  - "3[ab1[b]] -> abbabbabb (user's own nested case)"
+  - 'abc -> abc (no brackets)'
+  - '2[2[2[a]]] -> 8 a chars (triple nesting)'
+  - '100[x] -> 100 x chars'
+
+interviewer_error:
+  - presented official example 3 output incorrectly (abccdcdcdef); user's code exposed it, harness corrected to abcabccdcdcdef
+
+conceptual:
+  right:
+    - multi-digit accumulation num = num*10 + (s[i]-'0') written unprompted in draft 1
+    - '[ branch (push both stacks, reset num and ss) correct from draft 1'
+    - built a valid nested adversarial case with correct expected output after one teaching
+  wrong:
+    - approach stated only "stack stores number"; the prev-string half emerged only after the 3[a2[c]] counterexample
+    - "']' merge needed three rounds: repeated prev instead of cur, then stored result into an unread variable twice"
+    - complexity answered "prenumber"; O(n + output length) had to be given, including the output-can-exceed-input insight
+
+communication:
+  - line-pointing checklist demanded twice, never submitted (required since drill 49, zero submissions to date)
+  - asked to be taught adversarial construction instead of guessing or leaving blank - correct move, second time after 49
+  - required own-test-case deliverable was skipped once before being delivered correct
+
+next_actions:
+  - restate O(n + output) complexity unprompted at next review; rule - generation problems ask "how big is the output"
+  - the write-to-unread-variable bug (994 found, 394 cur) is now a named pattern; three-liner rule covers it - declaration, assignment, READ
+  - drill the is-family spellings once - isdigit isalpha isspace, no underscore
+  - next problem 735 Asteroid Collision (stack consolidation while fresh)

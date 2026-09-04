@@ -552,8 +552,25 @@ records:
       - 2026-09-05
       - 2026-09-09
       - 2026-09-23
-    review_history: []
-    next_review_date: 2026-09-03
+    review_history:
+      - date: 2026-09-04
+        type: cold-redo (fresh-counter variant, per next_actions)
+        result: passed 6/6 after 4 drafts
+        recurred:
+          - all-zero boundary answered -1 again (correct 0)
+          - adversarial case again lacked a rotten source; two-source case not produced
+          - skipped the direct question 'which line sets found=1' three rounds
+          - amortized because-clause not stated unprompted
+          - API spelling guessed twice after correction (orangesRottings vs orangesRotting)
+        new_mistakes:
+          - pushed cell value instead of coordinates into queue<pair<int,int>>
+          - declared flag found but never assigned it (born 0, dies 0)
+          - executed only 2 of 4 fix-list items in the next draft
+        improved:
+          - fresh-counter variant used as prescribed, ending logic correct first try
+          - mark-on-push written unprompted this time (was a draft-1 bug on 09-02)
+          - q_size layer snapshot correct from draft 1
+    next_review_date: 2026-09-05
     review_status: pending
   - problem:
       leetcode: 238
@@ -621,4 +638,39 @@ records:
       - 2026-09-23
     review_history: []
     next_review_date: 2026-09-03
+    review_status: pending
+  - problem:
+      leetcode: 394
+      title: Decode String
+    pattern: two-stack-decode-counts-and-prefix-strings
+    result: solved_with_hint
+    session_date: 2026-09-04
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - clarify asked about k=0 though constraints state 1 <= k <= 300 (238/347 class), but it surfaced the digit-0-in-multi-digit nuance
+      - approach named only the number half of the stack state; the saved-prefix-string half required the 3[a2[c]] counterexample
+      - "']' merge repeated the popped prev string instead of the current segment, then twice stored the result into a variable nothing reads (same class as 994 found)"
+      - complexity answered 'prenumber'; O(n + output length) and the output-exceeds-input insight had to be given
+    implementation_mistakes:
+      - is_digit with underscore (819 is_alpaha class)
+      - s[i] == "]" string literal vs char while the correct '[' comparison sat two lines above
+      - inner loop variable shadowed outer i in every draft, never fixed (flagged in 994 redo same day)
+      - draft 2 executed 1 of 5 fix-list items
+    communication_notes:
+      - line-pointing checklist demanded twice, never submitted; required since drill 49 with zero submissions to date
+      - asked to be taught adversarial construction instead of guessing (good, second time after 49); own nested case 3[ab1[b]] then correct with expected output
+      - draft 3 fixed 4 of 5 items in one pass, 8/8 tests
+    mastered_during_session:
+      - multi-digit accumulation num = num*10 + (c - '0') unprompted in draft 1
+      - '[-branch discipline: push count and prefix, reset both accumulators'
+      - "']' merge formula ss = prev + ss*k stored back into ss so nesting and tails compose"
+      - nested-bracket adversarial construction (wrong solution pairs first ']' with wrong '[')
+    review_dates:
+      - 2026-09-05
+      - 2026-09-07
+      - 2026-09-11
+      - 2026-09-25
+    review_history: []
+    next_review_date: 2026-09-05
     review_status: pending
