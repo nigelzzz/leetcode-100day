@@ -570,7 +570,12 @@ records:
           - fresh-counter variant used as prescribed, ending logic correct first try
           - mark-on-push written unprompted this time (was a draft-1 bug on 09-02)
           - q_size layer snapshot correct from draft 1
-    next_review_date: 2026-09-05
+      - date: 2026-09-05
+        type: quiz (scheduled review)
+        result: passed
+        notes:
+          - all-zero grid answered 0 with the definition-based reason (no fresh oranges, nothing to wait for) - correct for the first time after two failures
+    next_review_date: 2026-09-08
     review_status: pending
   - problem:
       leetcode: 238
@@ -671,6 +676,80 @@ records:
       - 2026-09-07
       - 2026-09-11
       - 2026-09-25
+    review_history:
+      - date: 2026-09-05
+        type: quiz (scheduled review)
+        result: passed
+        notes:
+          - complexity O(n + output length) restated unprompted with the output-exceeds-input reason
+          - named-pattern quiz half right - described the unread-variable death (394 cur) but not the never-assigned death (994 found); three-link rule (declare, assign, READ - missing any link) retaught
+    next_review_date: 2026-09-07
+    review_status: pending
+  - problem:
+      leetcode: 735
+      title: Asteroid Collision
+    pattern: stack-collision-simulation
+    result: solved_with_hint
+    session_date: 2026-09-05
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - collision table rows 1/3 push-pop inverted on first fill (row 2 correct); draft 1 then coded the row-1 error anyway minutes after correction
+      - adversarial case answered no idea until taught, then built valid [5,3,-4] with correct output
+      - draft 2 fragment had abs on the wrong operand (abs(top) < negative ast is always false) and no top>0 sign check
+    implementation_mistakes:
+      - shadowed re-declaration inside loop made the while condition never change (first time shadowing caused an actual infinite loop, not just a warning)
+      - st.top() on possibly-empty stack; surviving negative never pushed; unconditional push of dead asteroid
+      - "output block written with parentheses ( ) instead of braces { }"
+      - stack drain without reverse (3 of 8 tests failed order-reversed, despite reverse being on the fix list)
+      - given exact spelling reverse(ans.begin(), ans.end()) rewritten as ans.reverse() (orangesRottings class)
+    communication_notes:
+      - FIRST-EVER line-pointing checklist submitted, all line numbers correct - required since drill 49, obtained only by withholding test results after 4 skips
+      - honest 1-2 no-understand ask, then answered concept check [10,2,-5] correctly (pop 1, remain [10])
+      - first fully self-stated amortized because-clause (push 1 pop 1, pop means exploded, O(n))
+    mastered_during_session:
+      - only collision pair is positive top vs negative incoming
+      - "mnemonic: stack 上的東西用 pop 殺, 還沒進 stack 的東西用不 push 殺"
+      - is_alive flag pattern - fight all battles first, push only if still alive
+      - reverse after stack drain when output must keep original order
+    review_dates:
+      - 2026-09-06
+      - 2026-09-08
+      - 2026-09-12
+      - 2026-09-26
     review_history: []
-    next_review_date: 2026-09-05
+    next_review_date: 2026-09-06
+    review_status: pending
+  - problem:
+      leetcode: 3
+      title: Longest Substring Without Repeating Characters
+    pattern: variable-sliding-window-count-map
+    result: solved_with_hint
+    session_date: 2026-09-05
+    time_minutes: null
+    hint_level: 2
+    conceptual_mistakes:
+      - because-clause skipped on the 3-question list first pass (answered 2 of 3), then stated correctly when re-asked
+      - adversarial expected output omitted until demanded (case itself self-constructed correctly)
+    implementation_mistakes:
+      - r++ placed mid-loop so every later r reference (while check, window length) pointed at the next char; draft 1 scored 1/8
+      - r - l + 1 kept after the increment (window had become [l, r-1]); single space returned 2
+      - sign-compare warning left unfixed across both drafts (third drill running)
+      - required pre-submit 3-case walk skipped; draft 1 returned 7 on the 6-char "abcabc" (impossible output, would have been caught by step one of the walk)
+    communication_notes:
+      - checklist regressed from 735's correct full submission to bare "4, 2"
+      - clarify answered "constraints are clear" - first drill without a constraint-answered question
+      - fastest recovery to date - draft 2 fixed both logic bugs in one pass, 8/8
+    mastered_during_session:
+      - variable-size window shrink discipline - insert first, then while (m[s[r]] > 1) shrink with paired m[s[l]]-- and l++
+      - self-constructed adversarial (zaaac kills shrink-by-one) - first unassisted adversarial
+      - amortized argument transferred to a new problem unaided in wording (chars enter once leave once, never return)
+      - increment placement rule - moving r++ changes the meaning of every r below it
+    review_dates:
+      - 2026-09-06
+      - 2026-09-08
+      - 2026-09-12
+      - 2026-09-26
+    review_history: []
+    next_review_date: 2026-09-06
     review_status: pending

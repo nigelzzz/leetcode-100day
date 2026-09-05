@@ -37,14 +37,14 @@ curriculum:
   amazon_track:
     roadmap: AMAZON_INTERVIEW_ROADMAP.md
     started: 2026-09-01
-    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394]
+    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3]
     next_problem:
-      leetcode: 735
-      title: Asteroid Collision
+      leetcode: 53
+      title: Maximum Subarray
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
-  - reports complexity by feel instead of deriving it (819 O(nB), 49 n log k, 128 n*k); first self-stated amortized argument in 994 after three teachings, not yet unprompted
+  - reports complexity by feel instead of deriving it (819 O(nB), 49 n log k, 128 n*k); near graduation - self-stated amortized argument in 735 and transferred it to LC 3 same day (LC 3 still needed the list item re-asked; one fully unprompted instance closes this)
   - carries per-iteration state across loop iterations and relies on a sibling branch to reset it (128 cnt)
   - variable-name and API-spelling inconsistencies across drafts (isalpha, l_m/lm, original_str/original; grid/g in both 200 and 994; queue pop_front in 994)
   - refactors a passing solution without re-running tests (49 draft 3 regressed)
@@ -53,11 +53,12 @@ weaknesses:
   - first drafts ignore explicit written requirements from the prompt (994 — mark-on-push and fresh tracking both listed, both skipped)
   - guesses edge-case expected outputs instead of walking the definition (994 all-zero grid, wrong again on 09-04 redo; 238 scored 0/3 — corrected in 347 with 3/3)
   - writes results into a variable nothing reads (994 redo found never set; 394 cur written twice while ss was returned) — named pattern: declaration/assignment/READ three-liner
-  - has never submitted the line-pointing fix-list verification despite it being required since drill 49 (394 demanded twice, skipped twice; draft 2 executed 1/5 items)
-  - re-guesses an API name after being given the exact spelling (994 redo orangesRottings twice; 937-class read-the-signature miss)
-  - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques)
+  - line-pointing fix-list verification finally submitted once (735, 2026-09-05, all line numbers correct) but only after 4 skips in that drill and withheld results; not yet habitual
+  - re-guesses an API name after being given the exact spelling (994 redo orangesRottings twice; 735 ans.reverse() after being handed reverse(ans.begin(), ans.end()))
+  - variable shadowing recurred until it caused a real infinite loop (735 draft 1; warned in 994 redo and 394)
+  - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques, 394 k=0; first clean drill LC 3 on 09-05 — answered "constraints are clear")
   - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back)
-  - skips required test walks before submitting (238 — [1,2,3,4] walk ordered twice, skipped twice; answered-in-words questions reliably produce correct next drafts)
+  - skips required test walks before submitting (238 — [1,2,3,4] walk ordered twice, skipped twice; LC 3 skipped again — draft 1 returned 7 on a 6-char string; answered-in-words questions reliably produce correct next drafts)
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
@@ -70,4 +71,8 @@ strengths:
   - self-caught a typo before resubmitting for the first time (238 stray bracket)
   - asks before coding when a concept is unclear instead of guessing (347 heapify constructor; 394 adversarial-case construction — then built a valid nested case with correct expected output)
   - multi-digit number accumulation (num*10 + digit) written unprompted on first attempt (394)
-last_updated: 2026-09-04
+  - first fully self-stated amortized because-clause (735 pre-code, unprompted after three drills of teaching)
+  - admits not understanding a fix item and asks (735 "1,2 no understand"), then passes the concept check
+  - self-constructed a valid adversarial case unassisted for the first time (LC 3 "zaaac" with the shrink-by-one reasoning)
+  - fastest bug recovery to date - LC 3 draft 2 cleared both logic bugs in one pass, 1/8 -> 8/8
+last_updated: 2026-09-05

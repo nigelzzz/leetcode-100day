@@ -1,0 +1,85 @@
+session:
+  date: 2026-09-05
+  track: amazon
+  drill: 10
+  problem:
+    leetcode: 735
+    title: Asteroid Collision
+    pattern: stack collision simulation
+    tier: 2
+
+scorecard:
+  overall: 6
+  clarify: 6        # "all positive situation?" reasonable; [-2,3] direction-semantics question was genuinely good
+  edge_cases: 5     # normal/boundary with outputs ok; adversarial "no idea" -> taught -> built valid [5,3,-4] with correct output
+  approach: 7       # collision condition (top+ cur-) right; table rows 1/3 push-pop inverted on first fill, row 2 right; FIRST fully self-stated amortized because-clause
+  implementation: 5 # 5 drafts; draft 1 committed the exact table-row-1 error corrected minutes earlier; draft 4 fixed 0.5/2 and mangled a given API
+  communication: 6  # FIRST-EVER line-pointing checklist submitted, all line numbers correct; but only after 4 skips in this drill; honest "1,2 no understand" ask
+
+drafts:
+  - n: 1
+    result: compile error + 6 logic bugs
+    issues:
+      - missing semicolon after st.pop()
+      - st.top() on possibly-empty stack ([-2,3] crashes); no top>0 check
+      - while body pushed the incoming asteroid instead of popping top (exact table-row-1 inversion corrected minutes earlier)
+      - inner int cur = st.top() re-declared -> shadow -> loop condition never changes -> infinite loop
+      - surviving negative asteroid never pushed
+      - "output loop for(i < st.size()) with shrinking size -> half-drains, and order reversed"
+      - named cur for stack top while all discussion used cur = incoming asteroid
+  - n: 2
+    result: fragment (collision core); concept check [10,2,-5] answered correctly
+    issues:
+      - outer while(!st.empty()) wrapper -> infinite loop
+      - abs on wrong side (abs(st.top()) < ast with negative ast -> always false, never pops)
+      - missing st.top() > 0
+      - unconditional push (dead asteroid pushed anyway)
+      - equal case unhandled
+  - n: 3
+    result: full function; compile error; 5/8 after brace fix
+    issues:
+      - while condition fully correct (alive && !empty && top>0 && ast<0) with is_alive flag
+      - equal branch missing st.pop() (fixed before this draft after feedback)
+      - output block used parentheses ( ) instead of braces { }
+      - reverse missing -> 3 FAILs all order-reversed
+  - n: 4
+    result: rejected; 2 compile errors
+    issues:
+      - brace fix item untouched (first-item-only pattern inverted - did only item 2)
+      - given exact spelling reverse(ans.begin(), ans.end()) rewritten as ans.reverse() (orangesRottings class - re-guesses API after exact spelling given)
+  - n: 5
+    result: 8/8 PASS
+    issues:
+      - both items fixed; checklist submitted afterward with correct line numbers (30/33 braces, 34 reverse)
+
+tests_passed:
+  - '[5,10,-5] -> [5,10]'
+  - '[8,-8] -> []'
+  - '[10,2,-5] -> [10]'
+  - '[-2,3] -> [-2,3] (neg first, no collision)'
+  - "[5,3,-4] -> [5] (user's own adversarial)"
+  - '[3,-4] -> [-4] (surviving negative)'
+  - '[-2,-1] -> [-2,-1] (both negative)'
+  - '[-2,-2,1,-2] -> [-2,-2,-2] (chain)'
+
+conceptual:
+  right:
+    - only collision pair is stack-top positive vs incoming negative (stated pre-code)
+    - table row 2 (equal -> both die) correct on first fill
+    - "FIRST fully self-stated amortized argument: push 1 次, pop 1 次, pop 代表已經爆炸, O(n) (milestone after three drills of teaching)"
+    - concept-check [10,2,-5] walked correctly (pop 1, remain [10])
+  wrong:
+    - table rows 1/3 push-pop inverted on first fill; draft 1 then committed row-1 error in code anyway
+    - adversarial case "no idea" until taught (then constructed valid case)
+    - mnemonic taught - stack 上的東西用 pop 殺, 還沒進 stack 的東西用不 push 殺
+
+communication:
+  - FIRST line-pointing checklist ever submitted (required since drill 49); all line numbers correct; took withholding the test results to obtain it (4 skips this drill)
+  - honest "1,2 no understand" instead of guessing -> teaching -> correct concept-check answer
+  - one-item-at-a-time mode used pre-code; 2-item graduation test failed in draft 4 (0.5/2), passed in draft 5 (2/2)
+
+next_actions:
+  - copy given API spellings verbatim - ans.reverse() after being handed reverse(ans.begin(), ans.end()) is the second exact-spelling regression (orangesRottings)
+  - reverse-after-stack-drain is a standing rule for any stack problem returning original order
+  - checklist submission must now happen without withholding results - next drill it is a precondition again
+  - next problem 3 Longest Substring Without Repeating Characters (variable-size sliding window; user already strong on fixed-size)

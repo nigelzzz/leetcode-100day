@@ -1,0 +1,63 @@
+session:
+  date: 2026-09-05
+  track: amazon
+  drill: 11
+  problem:
+    leetcode: 3
+    title: Longest Substring Without Repeating Characters
+    pattern: variable-size sliding window + count map
+    tier: 2
+
+scorecard:
+  overall: 7
+  clarify: 8        # FIRST drill answering "constraints are clear" instead of asking a constraint-answered question
+  edge_cases: 8     # all three self-constructed; adversarial "zaaac" self-derived WITH the why (single-step shrink leaves "aa"); expected output missing until asked
+  approach: 7       # window/map/while structure right; while-condition precision (m[s[r]]>1 after insert) and because-clause each needed one prompt; because-clause then transferred correctly
+  implementation: 6 # draft 1 went 1/8 from one root cause (r++ placement poisoning every later r reference); draft 2 fixed both symptoms in one pass, 8/8
+  communication: 5  # 3-question list answered 2/3 (because-clause skipped); required pre-submit case walk skipped (got=7 on a 6-char string); checklist degraded to uninterpretable "4, 2"
+
+drafts:
+  - n: 1
+    result: 1/8 (only "" passed) + sign-compare warning
+    issues:
+      - r++ placed mid-loop; while (m[s[r]] > 1) then checked the NEXT not-yet-inserted char, so the window almost never shrank
+      - after r++ the window is [l, r-1] so r - l + 1 overcounted by 1 (single space returned 2)
+      - answer 7 on 6-char "abcabc" - physically impossible, proof the required 3-case walk was skipped
+      - int r vs s.size() sign-compare warning
+  - n: 2
+    result: 8/8 PASS
+    issues:
+      - both logic bugs fixed in one pass by moving r++ to loop end (the recommended option)
+      - sign-compare warning (fix item 3) left unfixed
+      - checklist submitted as bare "4, 2" instead of the line-number format
+
+tests_passed:
+  - '"abcabc" -> 3 (normal)'
+  - '"" -> 0 (boundary, s.length >= 0)'
+  - '"zaaac" -> 2 (own adversarial)'
+  - '"abcabcbb" -> 3'
+  - '"bbbbb" -> 1'
+  - '"pwwkew" -> 3'
+  - '" " -> 1 (space is a valid char per constraints)'
+  - '"dvdf" -> 3'
+
+conceptual:
+  right:
+    - clarify restraint - read constraints first, declared them sufficient (first time)
+    - self-constructed adversarial "zaaac" with correct reasoning (shrink-by-one leaves "aa" -> need while) - first unassisted adversarial ever
+    - map-count + while(m[s[r]] > 1) + paired m[s[l]]--/l++ shrink stated before code
+    - "amortized because-clause TRANSFERRED to a new problem: 每個字元最多進窗一次出窗一次, 出窗代表不會再回來, O(n) - second consecutive self-stated"
+  wrong:
+    - because-clause only after the 3-item list's third question was re-asked (skipped on first pass)
+    - adversarial expected output omitted until demanded
+
+communication:
+  - 3-question list answered 2 of 3 (first-items-only pattern, mild recurrence)
+  - pre-submit 3-case walk explicitly required, skipped; impossible output (7 > length 6) used as the teaching evidence
+  - checklist regressed from 735's correct submission to "4, 2"
+
+next_actions:
+  - pre-submit case walk is the next habit target - the 735 checklist landed, this is the same muscle applied before submission instead of after
+  - complexity-by-feel weakness close to graduation - two consecutive self-stated amortized arguments (735 asteroids, 3 chars); one more unprompted (no reminder) closes it
+  - sign-compare warning fix drill - size_t or (int)s.size(), 3 drills running
+  - next problem 53 Maximum Subarray (Kadane; prep the follow-up "return the interval")
