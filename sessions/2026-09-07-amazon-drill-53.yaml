@@ -1,0 +1,67 @@
+session:
+  date: 2026-09-07
+  track: amazon
+  drill: 12
+  problem:
+    leetcode: 53
+    title: Maximum Subarray
+    pattern: Kadane / running-sum reset
+    tier: 2
+
+scorecard:
+  overall: 8
+  clarify: 6        # "minus can break monotonic" - a real observation but not phrased as a clarify question; constraints not explicitly cleared
+  edge_cases: 6     # normal/boundary correct with outputs; adversarial [2,3,-9,4] did NOT kill the wrong solution, but user then derived the real one ([-3,-1,-2] -> -1) after one prompt
+  approach: 7       # first statement WAS the classic wrong solution (reset to 0, no init); self-corrected to ans = nums[0] when shown the all-negative case
+  implementation: 10 # FIRST-EVER draft 1 pass, 10/10, plus the required walk line submitted
+  communication: 7  # walk line delivered for the first time (as a comment); because-clause still needed a third prompt
+
+drafts:
+  - n: 1
+    result: 10/10 PASS - first first-draft green of the track
+    issues:
+      - sign-compare warning (i < nums.size()), fourth consecutive drill unfixed
+      - dead commented-out code left in (the abandoned wrong approach)
+
+tests_passed:
+  - '[2,3,4,5] -> 14 (own normal)'
+  - '[2] -> 2 (own boundary, n=1)'
+  - '[-3,-1,-2] -> -1 (own adversarial after correction)'
+  - '[-2,1,-3,4,-1,2,1,-5,4] -> 6'
+  - '[1] -> 1'
+  - '[5,4,-1,7,8] -> 23'
+  - '[-1] -> -1'
+  - '[-2,-1] -> -1'
+  - '[1,2,-1,3] -> 5'
+  - '[-10,5,-10] -> 5'
+
+follow_up:
+  question: return the start and end indices of the maximum subarray
+  user_answer: update start when sum resets, update end when ans improves
+  verdict: both trigger points correct; missed that the reset start is only a CANDIDATE
+  taught:
+    - counterexample [5,-10,4,-1] - single start variable returns [2,0] garbage while ans stays correct
+    - "two-variable rule: tmp_start moves on reset, start/end commit together only when ans actually improves"
+    - "mnemonic: 候選隨時開, 冠軍只在破紀錄時登記"
+
+conceptual:
+  right:
+    - self-corrected the ans-init-to-zero trap once shown the all-negative direction, and stated the fix unaided (ans = nums[0])
+    - loop-order reasoning (reset check, then add, then record) correct in code without being told again
+    - both follow-up trigger points identified correctly
+  wrong:
+    - first-stated approach was the textbook wrong one (accumulate, reset to 0 when negative) with no init guard
+    - proposed adversarial [2,3,-9,4] does not kill that wrong solution (it returns 5, which is correct)
+    - because-clause skipped on the 3-item list again; supplied on the third prompt
+
+communication:
+  - required pre-submit walk line submitted for the first time (written as a header comment)
+  - 3-item list answered 2 of 3 again (complexity item), same as LC 3
+  - accepted the all-negative correction immediately and asked the right question back ("ans 初始化成第一個元素?")
+
+next_actions:
+  - sign-compare fix is now a standing nit, 4 drills running - write (int)nums.size() by reflex
+  - adversarial construction is improving but must be TESTED against the wrong solution before submitting - run the wrong algorithm on the case mentally, if it survives the case is not adversarial
+  - complexity because-clause still not unprompted (3 drills of prompting); next drill it is asked once and only once
+  - reviews overdue as of 2026-09-07 - 238, 347 (due 09-03), 735, LC 3 (due 09-06), 394 (due 09-07)
+  - next problem 56 Merge Intervals (sort + sweep; prep the 253 follow-up)

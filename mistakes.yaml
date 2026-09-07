@@ -609,8 +609,13 @@ records:
       - 2026-09-05
       - 2026-09-09
       - 2026-09-23
-    review_history: []
-    next_review_date: 2026-09-03
+    review_history:
+      - date: 2026-09-07
+        type: quiz (overdue review, 4 days late)
+        result: passed
+        notes:
+          - '[1,2,3,4] -> [24,12,8,6] computed correctly, the walk that was ordered twice and skipped twice'
+    next_review_date: 2026-09-09
     review_status: pending
   - problem:
       leetcode: 347
@@ -641,8 +646,13 @@ records:
       - 2026-09-05
       - 2026-09-09
       - 2026-09-23
-    review_history: []
-    next_review_date: 2026-09-03
+    review_history:
+      - date: 2026-09-07
+        type: quiz (overdue review, 4 days late)
+        result: passed
+        notes:
+          - min-heap for top-k-largest with the right reason (root is the weakest of the k kept, it gets evicted) - direction was inverted during the drill
+    next_review_date: 2026-09-09
     review_status: pending
   - problem:
       leetcode: 394
@@ -683,7 +693,13 @@ records:
         notes:
           - complexity O(n + output length) restated unprompted with the output-exceeds-input reason
           - named-pattern quiz half right - described the unread-variable death (394 cur) but not the never-assigned death (994 found); three-link rule (declare, assign, READ - missing any link) retaught
-    next_review_date: 2026-09-07
+      - date: 2026-09-07
+        type: quiz (scheduled review)
+        result: partial
+        notes:
+          - repeat target correct - the CURRENT accumulated string is repeated, not the popped prefix (this was the 3-round drill error, now fixed)
+          - merge destination wrong again - answered save to stack_str; the result goes back into the current string variable ss, nothing is pushed back onto the stack. Same store-into-the-wrong-place family as the original cur bug
+    next_review_date: 2026-09-09
     review_status: pending
   - problem:
       leetcode: 735
@@ -717,8 +733,14 @@ records:
       - 2026-09-08
       - 2026-09-12
       - 2026-09-26
-    review_history: []
-    next_review_date: 2026-09-06
+    review_history:
+      - date: 2026-09-07
+        type: quiz (overdue review, 1 day late)
+        result: partial
+        notes:
+          - '[8,-8] vs [-8,8] reasoning fully correct (face-to-face collides, back-to-back never meets)'
+          - wrote the empty result as [0] instead of [] - imprecise expected-output notation, same family as the 994 all-zero and 238 misses
+    next_review_date: 2026-09-08
     review_status: pending
   - problem:
       leetcode: 3
@@ -750,6 +772,84 @@ records:
       - 2026-09-08
       - 2026-09-12
       - 2026-09-26
+    review_history:
+      - date: 2026-09-07
+        type: quiz (overdue review, 1 day late)
+        result: passed
+        notes:
+          - named the root cause in one line - after r++ every reference to r below it means the next character
+    next_review_date: 2026-09-08
+    review_status: pending
+  - problem:
+      leetcode: 53
+      title: Maximum Subarray
+    pattern: kadane-running-sum-reset
+    result: solved_clean
+    session_date: 2026-09-07
+    time_minutes: null
+    hint_level: 1
+    conceptual_mistakes:
+      - first-stated approach was the textbook wrong one (accumulate, reset to 0 when negative, no init guard) - dies on all-negative input
+      - proposed adversarial [2,3,-9,4] fails to kill that wrong solution (it returns the correct 5); the real killer [-3,-1,-2] came only after a prompt
+      - because-clause skipped on the 3-item list for the second drill running, supplied on the third prompt
+    implementation_mistakes:
+      - sign-compare warning i < nums.size() unfixed for the fourth consecutive drill
+      - abandoned approach left in as commented-out dead code
+    communication_notes:
+      - FIRST-EVER draft 1 pass, 10/10 curated tests including all three self-declared cases
+      - required pre-submit walk line delivered for the first time (as a header comment)
+      - follow-up (return indices) - both trigger points named correctly, missed that a reset start is only a candidate
+    mastered_during_session:
+      - ans initialized to nums[0] with the loop from i=1 is what makes all-negative input work
+      - loop order - check-and-reset, then add, then record; reversing it makes cur never negative and breaks all-negative
+      - "index-tracking follow-up: tmp_start moves on reset, start/end commit together only when ans actually improves (counterexample [5,-10,4,-1])"
+      - an adversarial case is only adversarial if the WRONG solution fails it - test it before submitting
+    review_dates:
+      - 2026-09-08
+      - 2026-09-10
+      - 2026-09-14
+      - 2026-09-28
     review_history: []
-    next_review_date: 2026-09-06
+    next_review_date: 2026-09-08
+    review_status: pending
+  - problem:
+      leetcode: 56
+      title: Merge Intervals
+    pattern: sort-then-sweep-merge
+    result: solved_with_hints
+    session_date: 2026-09-07
+    time_minutes: null
+    hint_level: 3
+    conceptual_mistakes:
+      - could not construct an adversarial case at all ("no idea"); the killer [[1,10],[2,3],[4,5]] had to be supplied
+      - stated the overlap test as a bare symbol ("using <=") with no operands; applied to his own operand order that is the NON-overlap condition
+      - answered O(n) for a sort-based algorithm; corrected to O(n log n) with the sort-dominates because-clause after one prompt
+      - merged right endpoint initially unspecified (would have taken the later interval's end instead of the max)
+    implementation_mistakes:
+      - "the carry-forward bug: second_val was compared against but updated from intervals[i-1][1], so a swallowed long interval was overwritten by a shorter one - third instance of writing into or reading from the wrong variable (994 found, 394 cur)"
+      - second_val initialized to INT_MAX, making the first comparison unconditionally true
+      - sort() left commented out in draft 1 - the whole algorithm's first step
+      - ans declared vector<int> against a vector<vector<int>> return type
+      - final push after the loop missing in draft 1 - the last group was never emitted
+      - "intervals[first_idx] pushed where intervals[first_idx][0] was required - the SAME compile error survived three explicit corrections naming the line and the exact three characters"
+      - sign-compare warning unfixed for the fifth consecutive drill (fixed on draft 3 after being listed twice)
+      - declared vector<int> tmp and never assigned or read it - three-link rule again
+    communication_notes:
+      - line-pointing verification checklist demanded four times including one hard gate, never submitted in this drill
+      - required pre-submit walk trimmed the supplied adversarial from [[1,10],[2,3],[4,5]] to [[1,10],[2,3]] - deleting exactly the element that exposed the bug; real walk (10, 10) delivered only at the very end and was correct
+      - clarify clean for the second consecutive drill ("constraints all clear")
+      - "fix-list compliance is now the top weakness: 6 of 8 items skipped on the first pass, and the interval/intervals rename was skipped with the correct spelling and three line numbers already given"
+    mastered_during_session:
+      - overlap test is prev_end >= cur_start (>= not >, because touching endpoints merge per Example 2)
+      - merged end is max(running_end, cur_end), never the later interval's end alone
+      - "the running end must be BOTH read and written: second_val = max(second_val, intervals[i][1])"
+      - sorting dominates, so the algorithm is O(n log n) not O(n)
+      - a fix list must be applied line by line in the editor, not memorised and applied in bulk
+    review_dates:
+      - 2026-09-08
+      - 2026-09-10
+      - 2026-09-14
+      - 2026-09-28
+    review_history: []
+    next_review_date: 2026-09-08
     review_status: pending
