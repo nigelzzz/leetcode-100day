@@ -1,0 +1,84 @@
+session:
+  date: 2026-09-08
+  track: amazon
+  drill: 14
+  problem:
+    leetcode: 763
+    title: Partition Labels
+    pattern: greedy last-index sweep
+    tier: 2
+
+scorecard:
+  overall: 6
+  clarify: 8        # asked a genuine question about the problem rule before guessing - exactly right
+  edge_cases: 6     # self-caught his own wrong normal answer; second valid self-built adversarial ever (abca); but two expected outputs written in the wrong TYPE
+  approach: 5       # proposed counts instead of last indices; never reached the per-character sweep unaided; space answered O(n) one line after writing "26"
+  implementation: 5 # 5 drafts, 4 compile failures; core loop only landed after a fill-in-the-blank skeleton, but 3 of 4 blanks were filled correctly
+  communication: 4  # checklist bounced 3 times then arrived partial (item 5 blank); required walk never delivered; line-6 cast asked 3 times, still unfixed at submission
+
+drafts:
+  - n: 1
+    result: COMPILE FAIL
+    issues:
+      - char c_arr[26] cannot hold indices up to 499
+      - referenced i from the previous loop inside the second loop
+      - for-loop start++ plus start = last_idx + 1 double-increments
+      - only the FIRST character of each segment was consulted
+      - two sign-compare warnings
+  - n: 2
+    result: BOUNCED - no checklist
+    issues:
+      - replaced for-loop header left sitting above its while replacement
+      - char -> int not done, core sweep not done
+  - n: 3
+    result: 6/9 - both LeetCode examples FAIL
+    issues:
+      - "ex1 -> [9,6,1,4,1,1,1,1], ex2 -> [9,1], abab -> [3,1]"
+      - checklist item 5 left blank, and item 5 was the failing bug
+    fixed:
+      - char -> int, for -> while, i -> start, one of two casts
+  - n: 4
+    result: COMPILE FAIL - last_idx referenced after its loop was deleted
+    fixed:
+      - "sweep skeleton filled: end = max(end, last[c]), i == end, end - start + 1 all correct"
+  - n: 5
+    result: 12/12 PASS
+
+tests_passed:
+  - '"ababcbacadefegdehijhklij" -> [9,7,8] (Example 1)'
+  - '"eccbbbbdec" -> [10] (Example 2)'
+  - '"a" -> [1] (own boundary)'
+  - '"abca" -> [4] (own adversarial - kills the cut-on-new-letter heuristic)'
+  - '"abab" -> [4] (first-char-only trap)'
+  - '"abac" -> [3,1] (own normal, self-corrected from [4])'
+  - '"abcd" -> [1,1,1,1]'
+  - '"aaaa" -> [4]'
+  - '"caedbdedda" -> [1,9]'
+  - '"qiejxqfnqceocmy" -> [13,1,1]'
+  - '500 identical chars -> [500]'
+  - '500-char cyclic a..z -> lengths sum to 500'
+
+conceptual:
+  right:
+    - asked what the rule actually meant instead of coding on a wrong reading
+    - self-corrected his own normal case ("abac" -> [4] then reasoned it to [3,1]) without being told
+    - built a valid adversarial unaided for the second time ("abca" defeats cut-on-new-letter)
+    - filled 3 of 4 skeleton blanks correctly once the loop shape was handed over
+  wrong:
+    - proposed character counts where last indices were needed
+    - space complexity O(n) immediately after writing "26 char last occur index" himself
+    - segmented from the first character's last index only, failing both provided examples
+
+communication:
+  - checklist gate held for three rounds; the partial checklist that finally arrived left blank exactly the one item that was still broken, which is the strongest evidence yet for the habit
+  - the required walk of "abab" was demanded three times and never delivered
+  - expected outputs given as a segment count rather than a vector of lengths - same imprecision family as 735's [0] and 56's bare operator
+
+next_actions:
+  - "sign-compare: line 6 of the final submission still carries it. Seven drills. Next drill this is checked FIRST, before anything else"
+  - "the walk is now the single most-skipped requirement (238, LC 3, 56 trimmed, 763 never delivered). Next drill: no code is looked at until the walk arrives"
+  - "checklist gate worked - it surfaced the live bug. Keep it, and require every row filled including 'unchanged'"
+  - "expected outputs must be written in the return type of the function - three drills running"
+  - "space complexity drill: does the structure grow with n? A fixed 26-entry table is O(1)"
+  - reviews due 2026-09-08 - 735, LC 3, 53, 56
+  - next problem 155 Min Stack (Tier 2, design; two synchronized stacks; prep the follow-up "O(1) space with encoded deltas")

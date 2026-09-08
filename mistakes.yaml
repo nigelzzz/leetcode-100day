@@ -853,3 +853,44 @@ records:
     review_history: []
     next_review_date: 2026-09-08
     review_status: pending
+  - problem:
+      leetcode: 763
+      title: Partition Labels
+    pattern: greedy-last-index-sweep
+    result: solved_with_hints
+    session_date: 2026-09-08
+    time_minutes: null
+    hint_level: 4
+    conceptual_mistakes:
+      - misread the rule as "each letter appears once" instead of "all occurrences of a letter stay in one segment" - asked about it, which was the right move
+      - proposed storing character COUNTS; the needed information is each character's LAST INDEX (a count cannot bound a segment)
+      - "space complexity answered O(n) one line after himself writing '26 char last occur index' - the array is 26 entries regardless of n, so O(1); constraints said lowercase only and that hint was not converted"
+      - "did not reach the per-character sweep on his own: the loop was structured as one jump per segment, reading only the FIRST character's last index"
+    implementation_mistakes:
+      - "char c_arr[26] for indices up to 499 - char holds -128..127, so any index above 127 wraps negative (constraints gave 500 explicitly)"
+      - referenced i from a dead loop in the new loop body (compile error), twice in two different drafts (i, then last_idx)
+      - left the replaced for-loop header sitting above its while replacement in one draft
+      - "first-char-only segmentation failed both LeetCode examples: ex1 gave [9,6,1,4,1,1,1,1], ex2 gave [9,1]"
+      - sign-compare warning on the first loop unfixed through the entire drill despite being listed three times; the second occurrence was fixed
+      - dead commented-out range-for left in every draft
+    communication_notes:
+      - "asked a real clarify question about the problem rule before answering anything - correct behavior, credited"
+      - "self-caught his own wrong normal-case answer (abac -> [4] then questioned it and produced [3,1])"
+      - "second self-constructed valid adversarial ever: abca, and it does kill the cut-on-new-letter heuristic"
+      - "expected outputs given in the wrong TYPE twice - wrote the segment COUNT (1) where a vector of lengths ([4]) was required, and gave only the input for the boundary case; third drill of this family after 735 [0] vs [] and 56's operator-with-no-operands"
+      - "checklist bounced three times before a partial one arrived (items 1-4 filled, item 5 left blank) - and the blank item was exactly the unfixed core bug, which is the argument for the checklist"
+      - "required walk of abab never delivered despite being asked three times"
+    mastered_during_session:
+      - "store last[26] = last index of each letter, then sweep: end = max(end, last[s[i]]), cut when i == end"
+      - "i == end means every letter seen so far ends at or before i, so cutting here splits nothing"
+      - "segment length is i - start + 1 and the next segment starts at i + 1"
+      - "a fixed-size table (26 letters) is O(1) space, not O(n) - space complexity asks whether it grows with the input"
+      - "the first character's last index does not bound the segment; every character inside it can extend the end - same running-max shape as 56"
+    review_dates:
+      - 2026-09-09
+      - 2026-09-11
+      - 2026-09-15
+      - 2026-09-29
+    review_history: []
+    next_review_date: 2026-09-09
+    review_status: pending
