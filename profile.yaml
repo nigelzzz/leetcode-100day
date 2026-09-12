@@ -51,15 +51,15 @@ weaknesses:
   - resubmits near-identical drafts after a multi-item bug list instead of addressing each item (improved by 200: fixed four items in one draft)
   - skips direct interviewer questions and submits code instead (200 two skipped; 994 three skipped; 994 redo 09-04 three skipped again — recurring Earn Trust risk)
   - first drafts ignore explicit written requirements from the prompt (994 — mark-on-push and fresh tracking both listed, both skipped)
-  - guesses edge-case expected outputs instead of walking the definition (994 all-zero grid, wrong again on 09-04 redo; 238 scored 0/3 — corrected in 347 with 3/3); notation half persists — 09-07 review wrote the empty result as [0] instead of []
-  - writes results into a variable nothing reads (994 redo found never set; 394 cur written twice while ss was returned) — named pattern: declaration/assignment/READ three-liner
+  - TOP RECURRING SLIP - writes expected outputs in the wrong TYPE (994 all-zero grid, wrong again on 09-04 redo; 238 scored 0/3; 09-07 review wrote [] as [0]; 56 gave an operator with no operands; 763 gave the segment count 1 instead of [4]; 09-11 review wrote [0,5] instead of [[0,5]]) - four straight sessions; rule - look at the function's return type BEFORE writing an expected output
+  - state variable read from one source and written from another (994 redo found never set; 394 cur written twice while ss was returned; 56 second_val compared against but updated from intervals[i-1][1]) - named pattern: declaration/assignment/READ three-liner
   - line-pointing fix-list verification submitted twice ever (735 complete; 763 partial after three bounces, and the ONE row left blank was exactly the unfixed bug) - the gate demonstrably works, it is not yet voluntary
   - TOP WEAKNESS - does not apply a fix list that names the exact line and the exact text (994 orangesRottings twice; 735 ans.reverse() after being handed reverse(ans.begin(), ans.end()); 56 interval->intervals skipped with the spelling and 3 line numbers given, and the same push_back [0] error survived 3 explicit corrections); rule - open the file and fix each item before replying, never in bulk from memory
   - variable shadowing recurred until it caused a real infinite loop (735 draft 1; warned in 994 redo and 394)
   - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques, 394 k=0; first clean drill LC 3 on 09-05 — answered "constraints are clear")
   - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back)
-  - skips required test walks before submitting (238 skipped twice, LC 3 skipped — draft 1 returned 7 on a 6-char string); first walk line delivered on 53, 2026-09-07, alongside the first draft-1 pass
-  - constructs adversarial cases without testing them against the wrong solution (53 [2,3,-9,4] lets the reset-to-zero bug pass); rule — run the wrong algorithm on the case before submitting it
+  - MOST-SKIPPED REQUIREMENT - the pre-submit walk (238 skipped twice; LC 3 skipped, draft 1 returned 7 on a 6-char string; 56 TRIMMED the supplied case to a version that survived; 763 demanded three times, never delivered); only 53 on 2026-09-07 has ever produced one
+  - constructs adversarial cases without testing them against the wrong solution (53 [2,3,-9,4] lets the reset-to-zero bug pass); none at all on 56; rule - run the wrong algorithm on the case before submitting it. Improving: 763 "abca" and the 09-11 recall of "abba" for LC 3 were both valid killers
   - leaves the sign-compare warning unfixed (i < v.size()); 7 drills running - 763's final submission still carries it on the first loop after three separate reminders; fix is (int)v.size()
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
@@ -80,9 +80,12 @@ strengths:
   - first draft-1 pass of the track (53 Maximum Subarray, 10/10, 2026-09-07)
   - accepts a counterexample and states the fix himself (53 — shown all-negative, proposed ans = nums[0] unaided)
   - spaced-repetition recall is strong — 09-07 review 4.5/5 across five problems, including two that were wrong during their drills (238 walk, 347 heap direction)
+  - corrects a complexity error within 24 hours of being taught (763 space O(n) on 09-08, answered O(1) with the 26-entry reason on 09-11, twice)
+  - asks to have a topic re-taught from the beginning instead of bluffing recall (09-11 review, 53 then 763) - and passed both re-quizzes after the re-teach
+  - reasons out the behavior of a deliberately broken variant, not just the correct one (09-11 - predicted [3,1] for the no-max version of 763 unaided)
   - accepts a complexity correction and re-derives it properly in one pass (56 - O(n) -> O(n log n) with the sort-dominates because)
   - finds the structural core of a sweep once pointed at the right variable (56 - switched the overlap test to the running end after one hint)
   - asks what a problem rule actually means before coding on a wrong reading (763 - queried whether repeated letters were legal at all)
   - self-corrects his own stated expected output on review (763 "abac" -> [4] then reasoned it down to [3,1] unprompted)
   - second self-constructed valid adversarial (763 "abca", genuinely defeats the cut-on-new-letter heuristic)
-last_updated: 2026-09-08
+last_updated: 2026-09-11

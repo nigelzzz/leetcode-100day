@@ -1,896 +1,914 @@
 schema_version: 1
 records:
-  - problem:
-      leetcode: 1456
-      title: Maximum Number of Vowels in a Substring of Given Length
-    pattern: fixed-size-sliding-window
-    result: solved_with_hint
-    session_date: 2026-07-17
-    hint_level: 1
-    conceptual_mistakes:
-      - confused the incoming-character index with the window-start index
-      - initially did not preserve the completed first window as the initial maximum
-    implementation_mistakes:
-      - mixed loop-variable names across initialization and sliding loops
-      - initially used incomplete vowel-membership syntax
-    mastered_during_session:
-      - adjacent fixed-size windows reuse their middle k-1 elements
-      - after processing right, the current window is [right-k+1, right]
-      - each slide updates only one outgoing and one incoming character
-      - optimized complexity is O(n) time and O(1) auxiliary space
-    review_dates:
-      - 2026-07-18
-      - 2026-07-20
-      - 2026-07-24
-      - 2026-08-07
-    review_history:
-      - date: 2026-07-18
-        result: recalled_implementation_with_interval_correction
-        hint_level: 0
-    next_review_date: 2026-07-20
-    review_status: pending
-  - problem:
-      leetcode: 643
-      title: Maximum Average Subarray I
-    pattern: fixed-size-sliding-window
-    result: solved_after_debugging
-    session_date: 2026-07-17
+- problem:
+    leetcode: 1456
+    title: Maximum Number of Vowels in a Substring of Given Length
+  pattern: fixed-size-sliding-window
+  result: solved_with_hint
+  session_date: 2026-07-17
+  hint_level: 1
+  conceptual_mistakes:
+  - confused the incoming-character index with the window-start index
+  - initially did not preserve the completed first window as the initial maximum
+  implementation_mistakes:
+  - mixed loop-variable names across initialization and sliding loops
+  - initially used incomplete vowel-membership syntax
+  mastered_during_session:
+  - adjacent fixed-size windows reuse their middle k-1 elements
+  - after processing right, the current window is [right-k+1, right]
+  - each slide updates only one outgoing and one incoming character
+  - optimized complexity is O(n) time and O(1) auxiliary space
+  review_dates:
+  - 2026-07-18
+  - 2026-07-20
+  - 2026-07-24
+  - 2026-08-07
+  review_history:
+  - date: 2026-07-18
+    result: recalled_implementation_with_interval_correction
     hint_level: 0
-    conceptual_mistakes:
-      - confused the incoming-element index with the window-start index
-      - initially assumed k must be strictly less than nums.size()
-    implementation_mistakes:
-      - initial outgoing index could become negative
-      - mixed loop-variable names in the sliding update
-    mastered_during_session:
-      - after processing right, the window is [right-k+1, right]
-      - fixed-length maximum average can be found by maximizing window sum
-      - initialize maxSum from the first window to support all-negative input
-      - optimized complexity is O(n) time and O(1) extra space
-    review_dates:
-      - 2026-07-18
-      - 2026-07-20
-      - 2026-07-24
-      - 2026-08-07
-    review_history:
-      - date: 2026-07-24
-        result: recalled_algorithm_with_cast_correction
-        hint_level: 0
-    next_review_date: 2026-08-07
-    review_status: pending
-  - problem:
-      leetcode: 1343
-      title: Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
-    pattern: fixed-size-sliding-window-counting
-    result: solved_after_debugging
-    session_date: 2026-07-17
+  next_review_date: 2026-07-20
+  review_status: pending
+- problem:
+    leetcode: 643
+    title: Maximum Average Subarray I
+  pattern: fixed-size-sliding-window
+  result: solved_after_debugging
+  session_date: 2026-07-17
+  hint_level: 0
+  conceptual_mistakes:
+  - confused the incoming-element index with the window-start index
+  - initially assumed k must be strictly less than nums.size()
+  implementation_mistakes:
+  - initial outgoing index could become negative
+  - mixed loop-variable names in the sliding update
+  mastered_during_session:
+  - after processing right, the window is [right-k+1, right]
+  - fixed-length maximum average can be found by maximizing window sum
+  - initialize maxSum from the first window to support all-negative input
+  - optimized complexity is O(n) time and O(1) extra space
+  review_dates:
+  - 2026-07-18
+  - 2026-07-20
+  - 2026-07-24
+  - 2026-08-07
+  review_history:
+  - date: 2026-07-24
+    result: recalled_algorithm_with_cast_correction
     hint_level: 0
-    conceptual_mistakes:
-      - initially counted n-k legal windows instead of n-k+1
-      - initially described every two-loop brute force as O(n^2)
-    implementation_mistakes: []
-    mastered_during_session:
-      - legal window starts are 0 through n-k inclusive
-      - average >= threshold is equivalent to sum >= threshold*k for positive k
-      - each legal fixed-size window is checked exactly once
-      - optimized complexity is O(n) time and O(1) extra space
-    review_dates:
-      - 2026-07-18
-      - 2026-07-20
-      - 2026-07-24
-      - 2026-08-07
-    review_status: pending
-  - problem:
-      leetcode: 2379
-      title: Minimum Recolors to Get K Consecutive Black Blocks
-    pattern: fixed-size-sliding-window-minimization
-    result: solved_independently
-    session_date: 2026-07-18
-    hint_level: 0
-    conceptual_mistakes:
-      - briefly confused the first incoming index k with the first-window final index k-1
-      - needed correction when stating complete old and new window intervals
-    implementation_mistakes: []
-    mastered_during_session:
-      - minimum recolors equals the minimum count of W over all length-k windows
-      - before processing i the old window is [i-k,i-1]
-      - after processing i the new window is [i-k+1,i]
-      - optimized complexity is O(n) time and O(1) extra space
-    review_dates:
-      - 2026-07-19
-      - 2026-07-21
-      - 2026-07-25
-      - 2026-08-08
-    review_status: pending
-  - problem:
-      leetcode: 2461
-      title: Maximum Sum of Distinct Subarrays With Length K
-    pattern: fixed-size-sliding-window-with-frequency-map
-    result: solved_independently_after_process_backfill
-    session_date: 2026-07-24
-    time_minutes: 30
-    hint_level: 0
-    conceptual_mistakes:
-      - initially described a length-k window as [0,k], which contains k+1 elements
-      - initially generalized brute-force complexity directly to O(n^2) instead of O((n-k+1)k)
-      - initially misstated the overlap of adjacent windows
-      - initially described the frequency map as representing the old window after an update
-      - initially expected k=1 with repeated input values to have no distinct window
-    implementation_mistakes:
-      - submitted an incomplete function ending before the local compile step
-    communication_notes:
-      - jumped directly to optimized code before Clarify and brute-force reasoning
-      - needed correction before stating the general post-update interval [i-k+1,i]
-    mastered_during_session:
-      - a length-k window is fully distinct exactly when its frequency map has k keys
-      - after processing incoming index i, sum and map represent [i-k+1,i]
-      - expected optimized time is O(n) and extra space is O(k)
-      - erase zero-frequency keys before checking map size
-    review_dates:
-      - 2026-07-25
-      - 2026-07-27
-      - 2026-07-31
-      - 2026-08-14
-    review_history: []
-    next_review_date: 2026-07-25
-    review_status: pending
-  - problem:
-      leetcode: 191
-      title: Number of 1 Bits
-    pattern: bit-manipulation-clear-lowest-set-bit
-    result: solved_with_hint
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - initially stated O(n) without defining the input-size measure
-      - initially treated n & (n - 1) as a break condition rather than updating n
-      - initially incremented the count only if the updated n remained nonzero
-    implementation_mistakes:
-      - used signed 1 << 31 instead of unsigned 1u << 31
-      - wrote !n & (n - 1), which has unintended operator precedence
-    communication_notes:
-      - needs to say rightmost set bit rather than first bit from the right
-    mastered_during_session:
-      - n & (n - 1) clears exactly the rightmost set bit
-      - the loop runs once per set bit, giving O(k) time and O(1) space
-      - fixed 32-bit scanning is O(1), or O(w) when generalized by bit width
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 231
-      title: Power of Two
-    pattern: bit-manipulation-single-set-bit
-    result: solved_with_hint
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - initially attempted a counting loop instead of using the single-set-bit condition directly
-      - needed concrete examples to connect powers of two with exactly one set bit
-    implementation_mistakes:
-      - redeclared int n inside the loop, causing variable shadowing and an uninitialized read
-    communication_notes:
-      - needs practice stating the proof from the bit pattern rather than recalling only the formula
-    mastered_during_session:
-      - a positive power of two has exactly one set bit
-      - n & (n - 1) equals zero exactly when positive n has one set bit
-      - n > 0 is necessary to reject zero and negative inputs
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 342
-      title: Power of Four
-    pattern: bit-manipulation-single-set-bit-position-mask
-    result: solved_with_hint
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - initially expected the even-position mask intersection to equal zero
-      - initially classified 64 as not being a power of four
-      - initially used 6 as an example of a power of two that is not a power of four
-    implementation_mistakes:
-      - omitted parentheses around n & (n - 1), causing an operator-precedence error
-    communication_notes:
-      - needs deliberate zero-based bit-position checks to avoid off-by-one errors
-    mastered_during_session:
-      - powers of four have one set bit located at an even zero-based position
-      - 0x55555555 has ones exactly at the even positions of a 32-bit integer
-      - a valid power of four has a nonzero intersection with 0x55555555
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 461
-      title: Hamming Distance
-    pattern: xor-then-count-set-bits
-    result: solved_with_hint
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - initially counted only one differing position in 0001 versus 0100
-      - initially added the XOR mask value rather than counting its set bits
-      - initially shifted x and y separately with a loop that stopped when either became zero
-      - initially reset diff to x XOR y inside the loop rather than updating diff
-    implementation_mistakes: []
-    communication_notes:
-      - successfully stated that XOR identifies differing bit positions
-    mastered_during_session:
-      - XOR produces one exactly at bit positions where the operands differ
-      - Hamming distance is the popcount of x XOR y
-      - Brian Kernighan's update counts the XOR mask in O(k) time and O(1) space
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 2220
-      title: Minimum Bit Flips to Convert Number
-    pattern: xor-then-count-set-bits
-    result: solved_with_hint
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 2
-    conceptual_mistakes:
-      - initially used XOR instead of AND in the Brian Kernighan state update
-      - initially confused the numeric XOR value with its set-bit count during testing
-    implementation_mistakes: []
-    communication_notes:
-      - requested the next problem before completing all three testing categories
-    mastered_during_session:
-      - XOR identifies exactly the positions that must be flipped
-      - each differing position is both necessary and sufficient to flip once
-      - the minimum flips equal the popcount of start XOR goal
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 136
-      title: Single Number
-    pattern: xor-pair-cancellation
-    result: solved_after_correction
-    session_date: 2026-07-29
-    time_minutes: null
-    hint_level: 0
-    conceptual_mistakes: []
-    implementation_mistakes:
-      - used nums[n] instead of nums[i] in the XOR loop, which would access out of bounds
-    communication_notes:
-      - immediately identified both the frequency-map brute force and XOR optimum
-      - explicitly skipped detailed testing and retell
-    mastered_during_session:
-      - pairwise duplicates cancel because a XOR a equals zero
-      - XOR provides O(n) time and O(1) extra space
-    review_dates:
-      - 2026-07-30
-      - 2026-08-01
-      - 2026-08-05
-      - 2026-08-19
-    review_history: []
-    next_review_date: 2026-07-30
-    review_status: pending
-  - problem:
-      leetcode: 1014
-      title: Best Sightseeing Pair
-    pattern: enumerate-right-maintain-left-maximum
-    result: solved_with_hint
-    session_date: 2026-08-17
-    time_minutes: null
-    hint_level: 1
-    conceptual_mistakes:
-      - initially described maxLeft as the maximum left-side value instead of the maximum of values[i] + i
-      - initially added the right index in the candidate score instead of subtracting it
-      - initially reported a selected element value instead of the computed maximum score for the sample
-    implementation_mistakes:
-      - typed iny instead of int
-      - used value[i] instead of values[i]
-    communication_notes:
-      - correctly identified that the answer must be updated before inserting the current right endpoint
-      - accurately restated the loop invariant after one focused correction
-    mastered_during_session:
-      - rewrite the score as (values[i] + i) + (values[j] - j)
-      - before processing j, maxLeft is the maximum values[i] + i over all i less than j
-      - query before inserting the current endpoint so the two indices remain distinct
-      - optimized complexity is O(n) time and O(1) extra space
-    review_dates:
-      - 2026-08-18
-      - 2026-08-20
-      - 2026-08-24
-      - 2026-09-07
-    review_history: []
-    next_review_date: 2026-08-18
-    review_status: pending
-  - problem:
-      leetcode: 560
-      title: Subarray Sum Equals K
-    pattern: prefix-sum-frequency-map
-    result: solved_with_hint
-    session_date: 2026-08-17
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - initially applied an atMost sliding-window difference that is invalid when nums contains negative values
-      - initially proposed storing one prefix index instead of the frequency of each prefix sum
-      - initially described prefix[0] as 1 instead of distinguishing prefix[0] = 0 from count[0] = 1
-      - initially referred to count[i] instead of count[prefix - k]
-    implementation_mistakes: []
-    communication_notes:
-      - jumped directly to optimized code before completing the brute-force and bottleneck explanation
-      - correctly chose query-before-insert after deriving the prefix-sum equation
-      - submitted a correct two-pass ordered-map implementation before conversion to the requested one-pass hash-map form
-    mastered_during_session:
-      - for current prefix sum s, every previous prefix equal to s - k forms one valid subarray
-      - prefix frequencies are required because multiple left prefixes can produce distinct valid subarrays
-      - count[0] = 1 represents the empty prefix before the array
-      - query before insertion prevents pairing the current prefix with itself
-      - optimized complexity is O(n) expected time and O(n) extra space
-    review_dates:
-      - 2026-08-18
-      - 2026-08-20
-      - 2026-08-24
-      - 2026-09-07
-    review_history: []
-    next_review_date: 2026-08-18
-    review_status: pending
-  - problem:
-      leetcode: 819
-      title: Most Common Word
-    pattern: string-tokenize-hash-count
-    result: unsolved_within_time
-    session_date: 2026-09-01
-    time_minutes: null
-    hint_level: 4
-    conceptual_mistakes:
-      - implemented longest-word comparison instead of the planned frequency count
-      - inverted banned check (updated answer only when word was banned)
-      - reported O(nB) after choosing hash-set lookup; correct is O(n + B)
-      - never skipped empty tokens from consecutive punctuation despite stating the rule in clarify
-    implementation_mistakes:
-      - string ans = 0 null-pointer construction
-      - isalpha misspelled in all four drafts
-      - non-existent unordered_set::is_exist
-      - unused variable max_len left in final draft
-    communication_notes:
-      - fixed only one of four listed bugs on the second draft
-      - skipped requested example walkthrough twice
-      - did not propose any edge cases when asked
-    mastered_during_session:
-      - appending a trailing separator flushes the last word without a post-loop check
-      - lowercase while accumulating characters avoids a second pass over each word
-      - single pass can update the running maximum immediately after incrementing the count
-    review_dates:
-      - 2026-09-02
-      - 2026-09-04
-      - 2026-09-08
-      - 2026-09-22
-    review_history: []
-    next_review_date: 2026-09-02
-    review_status: pending
-  - problem:
-      leetcode: 937
-      title: Reorder Data in Log Files
-    pattern: custom-sort-comparator
-    result: solved_with_hint
-    session_date: 2026-09-01
-    time_minutes: null
-    hint_level: 2
-    conceptual_mistakes:
-      - sorted digit-logs during the adversarial walkthrough instead of preserving input order
-      - hard-coded the type check position as index 3 instead of first character after the first space
-      - proposed set<string> for the follow-up, which orders by identifier and deduplicates
-    implementation_mistakes:
-      - unused variable ans
-      - range-for copies each log string
-    communication_notes:
-      - asked about duplicate logs
-      - resubmitted identical incomplete edge cases twice without expected outputs
-      - completed the comparator, classification, and merge correctly in one draft after skeleton hint
-    mastered_during_session:
-      - classify by isdigit on the character after the first space, never by identifier
-      - digit-logs preserve order by push_back in input order with no sorting
-      - comparator compares content first and identifier on ties
-      - pre-splitting into (content, id, original) tuples removes per-comparison substr cost and needs no custom comparator
-    review_dates:
-      - 2026-09-02
-      - 2026-09-04
-      - 2026-09-08
-      - 2026-09-22
-    review_history: []
-    next_review_date: 2026-09-02
-    review_status: pending
-  - problem:
-      leetcode: 49
-      title: Group Anagrams
-    pattern: hash-key-design
-    result: solved_then_regressed
-    session_date: 2026-09-01
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - reported complexity as n log k instead of O(n * k log k)
-      - final refactor keyed the map by the original string and stored the sorted copy, breaking grouping
-    implementation_mistakes:
-      - sorted a const loop variable
-      - variable name mismatches (l_m/lm, original_str/original)
-      - refactored a passing solution without re-running tests
-    communication_notes:
-      - asked to be taught edge-case derivation, then applied it with expected outputs
-      - follow-up count-key with delimiter answered correctly
-    mastered_during_session:
-      - sorted string is a canonical anagram key; map value is the vector of originals
-      - normal = smallest complete input, boundary = each constraint at equality, adversarial = counterexample to a wrong approach
-      - count-per-letter key needs a delimiter or fixed 26 slots to stay unambiguous
-      - any edit after a passing run must be followed by re-running the same tests
-    review_dates:
-      - 2026-09-02
-      - 2026-09-04
-      - 2026-09-08
-      - 2026-09-22
-    review_history: []
-    next_review_date: 2026-09-02
-    review_status: pending
-  - problem:
-      leetcode: 128
-      title: Longest Consecutive Sequence
-    pattern: hash-set-sequence-start
-    result: solved_with_hint
-    session_date: 2026-09-01
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - reported complexity as n * k instead of the amortized O(n) argument
-      - O(n) plan omitted the upward-count step, so draft 1 had no inner loop
-      - kept the length counter alive across iterations and reset it in an else branch, failing on adjacent starts
-    implementation_mistakes:
-      - undeclared variable x copied from a hint snippet
-      - final draft shadows outer cnt and leaves a dead else branch
-    communication_notes:
-      - self-generated duplicate-value adversarial case with expected output
-      - each draft addressed the given feedback
-    mastered_during_session:
-      - x is a sequence start iff x - 1 is not in the set
-      - count upward from each start only; every element is expanded at most once, so total inner steps are at most n
-      - per-start length must be a fresh local variable, not a counter carried across iterations
-      - sorted approach must skip duplicates rather than reset on them
-    review_dates:
-      - 2026-09-02
-      - 2026-09-04
-      - 2026-09-08
-      - 2026-09-22
-    review_history: []
-    next_review_date: 2026-09-02
-    review_status: pending
-  - problem:
-      leetcode: 200
-      title: Number of Islands
-    pattern: grid-dfs-flood-fill
-    result: solved_with_hint
-    session_date: 2026-09-01
-    time_minutes: null
-    hint_level: 2
-    conceptual_mistakes:
-      - answered 1 for an all-zero grid
-      - planned an integer comparison on a char grid
-      - initial plan marked a cell without spreading to neighbors
-      - amortized argument lacked the because-clause
-    implementation_mistakes:
-      - off-by-one x > x_size
-      - parameter named g but body used grid
-      - function name numIsland missing the s
-      - missing return in draft 1
-    communication_notes:
-      - skipped two direct questions across three rounds
-      - fixed all four listed bugs in one draft
-    mastered_during_session:
-      - outer scan triggers one dfs per unvisited land cell and counts it
-      - dfs checks bounds and value first, marks on entry, then recurses in four directions
-      - each cell is entered at most once because it is marked on entry, so total O(m*n)
-      - right/down-only traversal misses cells reachable only by moving up or left
-    review_dates:
-      - 2026-09-02
-      - 2026-09-04
-      - 2026-09-08
-      - 2026-09-22
-    review_history: []
-    next_review_date: 2026-09-02
-    review_status: pending
-  - problem:
-      leetcode: 994
-      title: Rotting Oranges
-    pattern: multi-source-bfs-layer-counting
-    result: solved_with_hint
-    session_date: 2026-09-02
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - all-zero boundary answered -1 instead of 0, and draft 1 return shipped the same wrong logic after correction
-      - adversarial case missed two-source simultaneity ([2,1,1,1,2] expected 2)
-      - draft 1 skipped explicit requirements (mark 2 on push, track fresh), so -1 was undetectable and cells re-enqueued
-      - answered ans++ belongs inside the per-layer loop, which counts oranges instead of layers
-    implementation_mistakes:
-      - q.pop_front() on std::queue (API is pop())
-      - undeclared g instead of grid parameter, repeat of drill 200
-      - no neighbor bounds check in draft 1
-      - unconditional ans++ per layer plus 'ans != 0 ? ans : -1' return, off-by-one on [[2,1]]
-    communication_notes:
-      - skipped the interviewer's direct questions three times, third drill in a row with this pattern
-      - draft 2 fixed all seven flagged issues in one pass, 10/10 curated tests
-    mastered_during_session:
-      - per-layer rotted flag gates ans++, solving the last-layer off-by-one
-      - final grid rescan is a valid alternative to a fresh counter for -1 detection
-      - self-stated amortized argument, each cell enqueued at most once because it is marked 2 on push
-    review_dates:
-      - 2026-09-03
-      - 2026-09-05
-      - 2026-09-09
-      - 2026-09-23
-    review_history:
-      - date: 2026-09-04
-        type: cold-redo (fresh-counter variant, per next_actions)
-        result: passed 6/6 after 4 drafts
-        recurred:
-          - all-zero boundary answered -1 again (correct 0)
-          - adversarial case again lacked a rotten source; two-source case not produced
-          - skipped the direct question 'which line sets found=1' three rounds
-          - amortized because-clause not stated unprompted
-          - API spelling guessed twice after correction (orangesRottings vs orangesRotting)
-        new_mistakes:
-          - pushed cell value instead of coordinates into queue<pair<int,int>>
-          - declared flag found but never assigned it (born 0, dies 0)
-          - executed only 2 of 4 fix-list items in the next draft
-        improved:
-          - fresh-counter variant used as prescribed, ending logic correct first try
-          - mark-on-push written unprompted this time (was a draft-1 bug on 09-02)
-          - q_size layer snapshot correct from draft 1
-      - date: 2026-09-05
-        type: quiz (scheduled review)
-        result: passed
-        notes:
-          - all-zero grid answered 0 with the definition-based reason (no fresh oranges, nothing to wait for) - correct for the first time after two failures
-    next_review_date: 2026-09-08
-    review_status: pending
-  - problem:
-      leetcode: 238
-      title: Product of Array Except Self
-    pattern: prefix-suffix-products
-    result: solved_with_hint
-    session_date: 2026-09-02
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - edge-case expected outputs guessed, 0/3 correct (total product 16 instead of except-self 8, illegal n=1 input, [0,0] instead of [0,1])
-      - clarify question (empty array) already answered by the stated n >= 2 constraint
-      - inclusive prefix/suffix design forced head-tail special cases that failed in three separate drafts, including a prefix[-1] out-of-bounds crash
-      - rolling variable not propagated (prefix[i] *= nums[i] never writes i+1)
-    implementation_mistakes:
-      - ans head and tail assigned nums themselves in draft 1
-      - tail fix used inclusive prefix[sz-1] (total product) instead of prefix[sz-2]
-      - O(1) version kept the O(n) prefix vector in two drafts
-      - second pass overwrote first pass with = instead of *=
-      - sufix spelling (suffix) consistent but wrong throughout
-    communication_notes:
-      - three-item bug lists fixed one item at a time, twice - relapse of the 49-era pattern
-      - required test walks and diagnostic questions skipped repeatedly; every answered-in-words question produced a correct next draft
-      - first self-initiated typo catch of the week
-    mastered_during_session:
-      - exclusive prefix definition (prefix[i] excludes self, init 1) eliminates all special cases
-      - two-pass rolling-variable O(1) extra space technique
-      - why prefix-suffix beats total-product-division (single and double zeros)
-    review_dates:
-      - 2026-09-03
-      - 2026-09-05
-      - 2026-09-09
-      - 2026-09-23
-    review_history:
-      - date: 2026-09-07
-        type: quiz (overdue review, 4 days late)
-        result: passed
-        notes:
-          - '[1,2,3,4] -> [24,12,8,6] computed correctly, the walk that was ordered twice and skipped twice'
-    next_review_date: 2026-09-09
-    review_status: pending
-  - problem:
-      leetcode: 347
-      title: Top K Frequent Elements
-    pattern: hash-count-heap-top-k
-    result: solved_with_hint
-    session_date: 2026-09-02
-    time_minutes: null
-    hint_level: 2
-    conceptual_mistakes:
-      - clarify question (k vs unique count) already answered by stated constraints, same miss as 238
-      - paired max-heap with size-k eviction; top-k largest needs a size-k MIN-heap or a full max-heap popped k times
-      - stated pop cost as O(n*k) full re-heapify; a pop is one root-to-leaf sift, O(log u)
-      - gave one approach when two paths with complexities were required
-    implementation_mistakes:
-      - push_back on priority_queue (API is push) - second container API mixup of the week after 994 pop_front
-      - ignored the range-constructor requirement in draft 1, per-element push is O(u log u)
-      - l_m loop variable name returned (flagged in drill 49); pair copied without const ref
-    communication_notes:
-      - edge-case expected outputs 3/3 on first attempt, first clean sweep of the week
-      - said "I don't understand point 2" before coding instead of guessing; next draft fixed all four items in one pass, 6/6
-    mastered_during_session:
-      - min-heap for top-k largest (root is weakest candidate), max-heap for top-k smallest
-      - range-constructor heapify is O(u) vs O(u log u) per-element pushes, and why (half the nodes sit at the bottom)
-      - full complexity chain O(n + u + k log u) time, O(n) space
-    review_dates:
-      - 2026-09-03
-      - 2026-09-05
-      - 2026-09-09
-      - 2026-09-23
-    review_history:
-      - date: 2026-09-07
-        type: quiz (overdue review, 4 days late)
-        result: passed
-        notes:
-          - min-heap for top-k-largest with the right reason (root is the weakest of the k kept, it gets evicted) - direction was inverted during the drill
-    next_review_date: 2026-09-09
-    review_status: pending
-  - problem:
-      leetcode: 394
-      title: Decode String
-    pattern: two-stack-decode-counts-and-prefix-strings
-    result: solved_with_hint
-    session_date: 2026-09-04
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - clarify asked about k=0 though constraints state 1 <= k <= 300 (238/347 class), but it surfaced the digit-0-in-multi-digit nuance
-      - approach named only the number half of the stack state; the saved-prefix-string half required the 3[a2[c]] counterexample
-      - "']' merge repeated the popped prev string instead of the current segment, then twice stored the result into a variable nothing reads (same class as 994 found)"
-      - complexity answered 'prenumber'; O(n + output length) and the output-exceeds-input insight had to be given
-    implementation_mistakes:
-      - is_digit with underscore (819 is_alpaha class)
-      - s[i] == "]" string literal vs char while the correct '[' comparison sat two lines above
-      - inner loop variable shadowed outer i in every draft, never fixed (flagged in 994 redo same day)
-      - draft 2 executed 1 of 5 fix-list items
-    communication_notes:
-      - line-pointing checklist demanded twice, never submitted; required since drill 49 with zero submissions to date
-      - asked to be taught adversarial construction instead of guessing (good, second time after 49); own nested case 3[ab1[b]] then correct with expected output
-      - draft 3 fixed 4 of 5 items in one pass, 8/8 tests
-    mastered_during_session:
-      - multi-digit accumulation num = num*10 + (c - '0') unprompted in draft 1
-      - '[-branch discipline: push count and prefix, reset both accumulators'
-      - "']' merge formula ss = prev + ss*k stored back into ss so nesting and tails compose"
-      - nested-bracket adversarial construction (wrong solution pairs first ']' with wrong '[')
-    review_dates:
-      - 2026-09-05
-      - 2026-09-07
-      - 2026-09-11
-      - 2026-09-25
-    review_history:
-      - date: 2026-09-05
-        type: quiz (scheduled review)
-        result: passed
-        notes:
-          - complexity O(n + output length) restated unprompted with the output-exceeds-input reason
-          - named-pattern quiz half right - described the unread-variable death (394 cur) but not the never-assigned death (994 found); three-link rule (declare, assign, READ - missing any link) retaught
-      - date: 2026-09-07
-        type: quiz (scheduled review)
-        result: partial
-        notes:
-          - repeat target correct - the CURRENT accumulated string is repeated, not the popped prefix (this was the 3-round drill error, now fixed)
-          - merge destination wrong again - answered save to stack_str; the result goes back into the current string variable ss, nothing is pushed back onto the stack. Same store-into-the-wrong-place family as the original cur bug
-    next_review_date: 2026-09-09
-    review_status: pending
-  - problem:
-      leetcode: 735
-      title: Asteroid Collision
-    pattern: stack-collision-simulation
-    result: solved_with_hint
-    session_date: 2026-09-05
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - collision table rows 1/3 push-pop inverted on first fill (row 2 correct); draft 1 then coded the row-1 error anyway minutes after correction
-      - adversarial case answered no idea until taught, then built valid [5,3,-4] with correct output
-      - draft 2 fragment had abs on the wrong operand (abs(top) < negative ast is always false) and no top>0 sign check
-    implementation_mistakes:
-      - shadowed re-declaration inside loop made the while condition never change (first time shadowing caused an actual infinite loop, not just a warning)
-      - st.top() on possibly-empty stack; surviving negative never pushed; unconditional push of dead asteroid
-      - "output block written with parentheses ( ) instead of braces { }"
-      - stack drain without reverse (3 of 8 tests failed order-reversed, despite reverse being on the fix list)
-      - given exact spelling reverse(ans.begin(), ans.end()) rewritten as ans.reverse() (orangesRottings class)
-    communication_notes:
-      - FIRST-EVER line-pointing checklist submitted, all line numbers correct - required since drill 49, obtained only by withholding test results after 4 skips
-      - honest 1-2 no-understand ask, then answered concept check [10,2,-5] correctly (pop 1, remain [10])
-      - first fully self-stated amortized because-clause (push 1 pop 1, pop means exploded, O(n))
-    mastered_during_session:
-      - only collision pair is positive top vs negative incoming
-      - "mnemonic: stack 上的東西用 pop 殺, 還沒進 stack 的東西用不 push 殺"
-      - is_alive flag pattern - fight all battles first, push only if still alive
-      - reverse after stack drain when output must keep original order
-    review_dates:
-      - 2026-09-06
-      - 2026-09-08
-      - 2026-09-12
-      - 2026-09-26
-    review_history:
-      - date: 2026-09-07
-        type: quiz (overdue review, 1 day late)
-        result: partial
-        notes:
-          - '[8,-8] vs [-8,8] reasoning fully correct (face-to-face collides, back-to-back never meets)'
-          - wrote the empty result as [0] instead of [] - imprecise expected-output notation, same family as the 994 all-zero and 238 misses
-    next_review_date: 2026-09-08
-    review_status: pending
-  - problem:
-      leetcode: 3
-      title: Longest Substring Without Repeating Characters
-    pattern: variable-sliding-window-count-map
-    result: solved_with_hint
-    session_date: 2026-09-05
-    time_minutes: null
-    hint_level: 2
-    conceptual_mistakes:
-      - because-clause skipped on the 3-question list first pass (answered 2 of 3), then stated correctly when re-asked
-      - adversarial expected output omitted until demanded (case itself self-constructed correctly)
-    implementation_mistakes:
-      - r++ placed mid-loop so every later r reference (while check, window length) pointed at the next char; draft 1 scored 1/8
-      - r - l + 1 kept after the increment (window had become [l, r-1]); single space returned 2
-      - sign-compare warning left unfixed across both drafts (third drill running)
-      - required pre-submit 3-case walk skipped; draft 1 returned 7 on the 6-char "abcabc" (impossible output, would have been caught by step one of the walk)
-    communication_notes:
-      - checklist regressed from 735's correct full submission to bare "4, 2"
-      - clarify answered "constraints are clear" - first drill without a constraint-answered question
-      - fastest recovery to date - draft 2 fixed both logic bugs in one pass, 8/8
-    mastered_during_session:
-      - variable-size window shrink discipline - insert first, then while (m[s[r]] > 1) shrink with paired m[s[l]]-- and l++
-      - self-constructed adversarial (zaaac kills shrink-by-one) - first unassisted adversarial
-      - amortized argument transferred to a new problem unaided in wording (chars enter once leave once, never return)
-      - increment placement rule - moving r++ changes the meaning of every r below it
-    review_dates:
-      - 2026-09-06
-      - 2026-09-08
-      - 2026-09-12
-      - 2026-09-26
-    review_history:
-      - date: 2026-09-07
-        type: quiz (overdue review, 1 day late)
-        result: passed
-        notes:
-          - named the root cause in one line - after r++ every reference to r below it means the next character
-    next_review_date: 2026-09-08
-    review_status: pending
-  - problem:
-      leetcode: 53
-      title: Maximum Subarray
-    pattern: kadane-running-sum-reset
-    result: solved_clean
-    session_date: 2026-09-07
-    time_minutes: null
-    hint_level: 1
-    conceptual_mistakes:
-      - first-stated approach was the textbook wrong one (accumulate, reset to 0 when negative, no init guard) - dies on all-negative input
-      - proposed adversarial [2,3,-9,4] fails to kill that wrong solution (it returns the correct 5); the real killer [-3,-1,-2] came only after a prompt
-      - because-clause skipped on the 3-item list for the second drill running, supplied on the third prompt
-    implementation_mistakes:
-      - sign-compare warning i < nums.size() unfixed for the fourth consecutive drill
-      - abandoned approach left in as commented-out dead code
-    communication_notes:
-      - FIRST-EVER draft 1 pass, 10/10 curated tests including all three self-declared cases
-      - required pre-submit walk line delivered for the first time (as a header comment)
-      - follow-up (return indices) - both trigger points named correctly, missed that a reset start is only a candidate
-    mastered_during_session:
-      - ans initialized to nums[0] with the loop from i=1 is what makes all-negative input work
-      - loop order - check-and-reset, then add, then record; reversing it makes cur never negative and breaks all-negative
-      - "index-tracking follow-up: tmp_start moves on reset, start/end commit together only when ans actually improves (counterexample [5,-10,4,-1])"
-      - an adversarial case is only adversarial if the WRONG solution fails it - test it before submitting
-    review_dates:
-      - 2026-09-08
-      - 2026-09-10
-      - 2026-09-14
-      - 2026-09-28
-    review_history: []
-    next_review_date: 2026-09-08
-    review_status: pending
-  - problem:
-      leetcode: 56
-      title: Merge Intervals
-    pattern: sort-then-sweep-merge
-    result: solved_with_hints
-    session_date: 2026-09-07
-    time_minutes: null
-    hint_level: 3
-    conceptual_mistakes:
-      - could not construct an adversarial case at all ("no idea"); the killer [[1,10],[2,3],[4,5]] had to be supplied
-      - stated the overlap test as a bare symbol ("using <=") with no operands; applied to his own operand order that is the NON-overlap condition
-      - answered O(n) for a sort-based algorithm; corrected to O(n log n) with the sort-dominates because-clause after one prompt
-      - merged right endpoint initially unspecified (would have taken the later interval's end instead of the max)
-    implementation_mistakes:
-      - "the carry-forward bug: second_val was compared against but updated from intervals[i-1][1], so a swallowed long interval was overwritten by a shorter one - third instance of writing into or reading from the wrong variable (994 found, 394 cur)"
-      - second_val initialized to INT_MAX, making the first comparison unconditionally true
-      - sort() left commented out in draft 1 - the whole algorithm's first step
-      - ans declared vector<int> against a vector<vector<int>> return type
-      - final push after the loop missing in draft 1 - the last group was never emitted
-      - "intervals[first_idx] pushed where intervals[first_idx][0] was required - the SAME compile error survived three explicit corrections naming the line and the exact three characters"
-      - sign-compare warning unfixed for the fifth consecutive drill (fixed on draft 3 after being listed twice)
-      - declared vector<int> tmp and never assigned or read it - three-link rule again
-    communication_notes:
-      - line-pointing verification checklist demanded four times including one hard gate, never submitted in this drill
-      - required pre-submit walk trimmed the supplied adversarial from [[1,10],[2,3],[4,5]] to [[1,10],[2,3]] - deleting exactly the element that exposed the bug; real walk (10, 10) delivered only at the very end and was correct
-      - clarify clean for the second consecutive drill ("constraints all clear")
-      - "fix-list compliance is now the top weakness: 6 of 8 items skipped on the first pass, and the interval/intervals rename was skipped with the correct spelling and three line numbers already given"
-    mastered_during_session:
-      - overlap test is prev_end >= cur_start (>= not >, because touching endpoints merge per Example 2)
-      - merged end is max(running_end, cur_end), never the later interval's end alone
-      - "the running end must be BOTH read and written: second_val = max(second_val, intervals[i][1])"
-      - sorting dominates, so the algorithm is O(n log n) not O(n)
-      - a fix list must be applied line by line in the editor, not memorised and applied in bulk
-    review_dates:
-      - 2026-09-08
-      - 2026-09-10
-      - 2026-09-14
-      - 2026-09-28
-    review_history: []
-    next_review_date: 2026-09-08
-    review_status: pending
-  - problem:
-      leetcode: 763
-      title: Partition Labels
-    pattern: greedy-last-index-sweep
-    result: solved_with_hints
-    session_date: 2026-09-08
-    time_minutes: null
-    hint_level: 4
-    conceptual_mistakes:
-      - misread the rule as "each letter appears once" instead of "all occurrences of a letter stay in one segment" - asked about it, which was the right move
-      - proposed storing character COUNTS; the needed information is each character's LAST INDEX (a count cannot bound a segment)
-      - "space complexity answered O(n) one line after himself writing '26 char last occur index' - the array is 26 entries regardless of n, so O(1); constraints said lowercase only and that hint was not converted"
-      - "did not reach the per-character sweep on his own: the loop was structured as one jump per segment, reading only the FIRST character's last index"
-    implementation_mistakes:
-      - "char c_arr[26] for indices up to 499 - char holds -128..127, so any index above 127 wraps negative (constraints gave 500 explicitly)"
-      - referenced i from a dead loop in the new loop body (compile error), twice in two different drafts (i, then last_idx)
-      - left the replaced for-loop header sitting above its while replacement in one draft
-      - "first-char-only segmentation failed both LeetCode examples: ex1 gave [9,6,1,4,1,1,1,1], ex2 gave [9,1]"
-      - sign-compare warning on the first loop unfixed through the entire drill despite being listed three times; the second occurrence was fixed
-      - dead commented-out range-for left in every draft
-    communication_notes:
-      - "asked a real clarify question about the problem rule before answering anything - correct behavior, credited"
-      - "self-caught his own wrong normal-case answer (abac -> [4] then questioned it and produced [3,1])"
-      - "second self-constructed valid adversarial ever: abca, and it does kill the cut-on-new-letter heuristic"
-      - "expected outputs given in the wrong TYPE twice - wrote the segment COUNT (1) where a vector of lengths ([4]) was required, and gave only the input for the boundary case; third drill of this family after 735 [0] vs [] and 56's operator-with-no-operands"
-      - "checklist bounced three times before a partial one arrived (items 1-4 filled, item 5 left blank) - and the blank item was exactly the unfixed core bug, which is the argument for the checklist"
-      - "required walk of abab never delivered despite being asked three times"
-    mastered_during_session:
-      - "store last[26] = last index of each letter, then sweep: end = max(end, last[s[i]]), cut when i == end"
-      - "i == end means every letter seen so far ends at or before i, so cutting here splits nothing"
-      - "segment length is i - start + 1 and the next segment starts at i + 1"
-      - "a fixed-size table (26 letters) is O(1) space, not O(n) - space complexity asks whether it grows with the input"
-      - "the first character's last index does not bound the segment; every character inside it can extend the end - same running-max shape as 56"
-    review_dates:
-      - 2026-09-09
-      - 2026-09-11
-      - 2026-09-15
-      - 2026-09-29
-    review_history: []
-    next_review_date: 2026-09-09
-    review_status: pending
+  next_review_date: 2026-08-07
+  review_status: pending
+- problem:
+    leetcode: 1343
+    title: Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+  pattern: fixed-size-sliding-window-counting
+  result: solved_after_debugging
+  session_date: 2026-07-17
+  hint_level: 0
+  conceptual_mistakes:
+  - initially counted n-k legal windows instead of n-k+1
+  - initially described every two-loop brute force as O(n^2)
+  implementation_mistakes: []
+  mastered_during_session:
+  - legal window starts are 0 through n-k inclusive
+  - average >= threshold is equivalent to sum >= threshold*k for positive k
+  - each legal fixed-size window is checked exactly once
+  - optimized complexity is O(n) time and O(1) extra space
+  review_dates:
+  - 2026-07-18
+  - 2026-07-20
+  - 2026-07-24
+  - 2026-08-07
+  review_status: pending
+- problem:
+    leetcode: 2379
+    title: Minimum Recolors to Get K Consecutive Black Blocks
+  pattern: fixed-size-sliding-window-minimization
+  result: solved_independently
+  session_date: 2026-07-18
+  hint_level: 0
+  conceptual_mistakes:
+  - briefly confused the first incoming index k with the first-window final index k-1
+  - needed correction when stating complete old and new window intervals
+  implementation_mistakes: []
+  mastered_during_session:
+  - minimum recolors equals the minimum count of W over all length-k windows
+  - before processing i the old window is [i-k,i-1]
+  - after processing i the new window is [i-k+1,i]
+  - optimized complexity is O(n) time and O(1) extra space
+  review_dates:
+  - 2026-07-19
+  - 2026-07-21
+  - 2026-07-25
+  - 2026-08-08
+  review_status: pending
+- problem:
+    leetcode: 2461
+    title: Maximum Sum of Distinct Subarrays With Length K
+  pattern: fixed-size-sliding-window-with-frequency-map
+  result: solved_independently_after_process_backfill
+  session_date: 2026-07-24
+  time_minutes: 30
+  hint_level: 0
+  conceptual_mistakes:
+  - initially described a length-k window as [0,k], which contains k+1 elements
+  - initially generalized brute-force complexity directly to O(n^2) instead of O((n-k+1)k)
+  - initially misstated the overlap of adjacent windows
+  - initially described the frequency map as representing the old window after an update
+  - initially expected k=1 with repeated input values to have no distinct window
+  implementation_mistakes:
+  - submitted an incomplete function ending before the local compile step
+  communication_notes:
+  - jumped directly to optimized code before Clarify and brute-force reasoning
+  - needed correction before stating the general post-update interval [i-k+1,i]
+  mastered_during_session:
+  - a length-k window is fully distinct exactly when its frequency map has k keys
+  - after processing incoming index i, sum and map represent [i-k+1,i]
+  - expected optimized time is O(n) and extra space is O(k)
+  - erase zero-frequency keys before checking map size
+  review_dates:
+  - 2026-07-25
+  - 2026-07-27
+  - 2026-07-31
+  - 2026-08-14
+  review_history: []
+  next_review_date: 2026-07-25
+  review_status: pending
+- problem:
+    leetcode: 191
+    title: Number of 1 Bits
+  pattern: bit-manipulation-clear-lowest-set-bit
+  result: solved_with_hint
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - initially stated O(n) without defining the input-size measure
+  - initially treated n & (n - 1) as a break condition rather than updating n
+  - initially incremented the count only if the updated n remained nonzero
+  implementation_mistakes:
+  - used signed 1 << 31 instead of unsigned 1u << 31
+  - wrote !n & (n - 1), which has unintended operator precedence
+  communication_notes:
+  - needs to say rightmost set bit rather than first bit from the right
+  mastered_during_session:
+  - n & (n - 1) clears exactly the rightmost set bit
+  - the loop runs once per set bit, giving O(k) time and O(1) space
+  - fixed 32-bit scanning is O(1), or O(w) when generalized by bit width
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 231
+    title: Power of Two
+  pattern: bit-manipulation-single-set-bit
+  result: solved_with_hint
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - initially attempted a counting loop instead of using the single-set-bit condition directly
+  - needed concrete examples to connect powers of two with exactly one set bit
+  implementation_mistakes:
+  - redeclared int n inside the loop, causing variable shadowing and an uninitialized read
+  communication_notes:
+  - needs practice stating the proof from the bit pattern rather than recalling only the formula
+  mastered_during_session:
+  - a positive power of two has exactly one set bit
+  - n & (n - 1) equals zero exactly when positive n has one set bit
+  - n > 0 is necessary to reject zero and negative inputs
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 342
+    title: Power of Four
+  pattern: bit-manipulation-single-set-bit-position-mask
+  result: solved_with_hint
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - initially expected the even-position mask intersection to equal zero
+  - initially classified 64 as not being a power of four
+  - initially used 6 as an example of a power of two that is not a power of four
+  implementation_mistakes:
+  - omitted parentheses around n & (n - 1), causing an operator-precedence error
+  communication_notes:
+  - needs deliberate zero-based bit-position checks to avoid off-by-one errors
+  mastered_during_session:
+  - powers of four have one set bit located at an even zero-based position
+  - 0x55555555 has ones exactly at the even positions of a 32-bit integer
+  - a valid power of four has a nonzero intersection with 0x55555555
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 461
+    title: Hamming Distance
+  pattern: xor-then-count-set-bits
+  result: solved_with_hint
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - initially counted only one differing position in 0001 versus 0100
+  - initially added the XOR mask value rather than counting its set bits
+  - initially shifted x and y separately with a loop that stopped when either became zero
+  - initially reset diff to x XOR y inside the loop rather than updating diff
+  implementation_mistakes: []
+  communication_notes:
+  - successfully stated that XOR identifies differing bit positions
+  mastered_during_session:
+  - XOR produces one exactly at bit positions where the operands differ
+  - Hamming distance is the popcount of x XOR y
+  - Brian Kernighan's update counts the XOR mask in O(k) time and O(1) space
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 2220
+    title: Minimum Bit Flips to Convert Number
+  pattern: xor-then-count-set-bits
+  result: solved_with_hint
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - initially used XOR instead of AND in the Brian Kernighan state update
+  - initially confused the numeric XOR value with its set-bit count during testing
+  implementation_mistakes: []
+  communication_notes:
+  - requested the next problem before completing all three testing categories
+  mastered_during_session:
+  - XOR identifies exactly the positions that must be flipped
+  - each differing position is both necessary and sufficient to flip once
+  - the minimum flips equal the popcount of start XOR goal
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 136
+    title: Single Number
+  pattern: xor-pair-cancellation
+  result: solved_after_correction
+  session_date: 2026-07-29
+  time_minutes: null
+  hint_level: 0
+  conceptual_mistakes: []
+  implementation_mistakes:
+  - used nums[n] instead of nums[i] in the XOR loop, which would access out of bounds
+  communication_notes:
+  - immediately identified both the frequency-map brute force and XOR optimum
+  - explicitly skipped detailed testing and retell
+  mastered_during_session:
+  - pairwise duplicates cancel because a XOR a equals zero
+  - XOR provides O(n) time and O(1) extra space
+  review_dates:
+  - 2026-07-30
+  - 2026-08-01
+  - 2026-08-05
+  - 2026-08-19
+  review_history: []
+  next_review_date: 2026-07-30
+  review_status: pending
+- problem:
+    leetcode: 1014
+    title: Best Sightseeing Pair
+  pattern: enumerate-right-maintain-left-maximum
+  result: solved_with_hint
+  session_date: 2026-08-17
+  time_minutes: null
+  hint_level: 1
+  conceptual_mistakes:
+  - initially described maxLeft as the maximum left-side value instead of the maximum of values[i] + i
+  - initially added the right index in the candidate score instead of subtracting it
+  - initially reported a selected element value instead of the computed maximum score for the sample
+  implementation_mistakes:
+  - typed iny instead of int
+  - used value[i] instead of values[i]
+  communication_notes:
+  - correctly identified that the answer must be updated before inserting the current right endpoint
+  - accurately restated the loop invariant after one focused correction
+  mastered_during_session:
+  - rewrite the score as (values[i] + i) + (values[j] - j)
+  - before processing j, maxLeft is the maximum values[i] + i over all i less than j
+  - query before inserting the current endpoint so the two indices remain distinct
+  - optimized complexity is O(n) time and O(1) extra space
+  review_dates:
+  - 2026-08-18
+  - 2026-08-20
+  - 2026-08-24
+  - 2026-09-07
+  review_history: []
+  next_review_date: 2026-08-18
+  review_status: pending
+- problem:
+    leetcode: 560
+    title: Subarray Sum Equals K
+  pattern: prefix-sum-frequency-map
+  result: solved_with_hint
+  session_date: 2026-08-17
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - initially applied an atMost sliding-window difference that is invalid when nums contains negative values
+  - initially proposed storing one prefix index instead of the frequency of each prefix sum
+  - initially described prefix[0] as 1 instead of distinguishing prefix[0] = 0 from count[0] = 1
+  - initially referred to count[i] instead of count[prefix - k]
+  implementation_mistakes: []
+  communication_notes:
+  - jumped directly to optimized code before completing the brute-force and bottleneck explanation
+  - correctly chose query-before-insert after deriving the prefix-sum equation
+  - submitted a correct two-pass ordered-map implementation before conversion to the requested one-pass hash-map form
+  mastered_during_session:
+  - for current prefix sum s, every previous prefix equal to s - k forms one valid subarray
+  - prefix frequencies are required because multiple left prefixes can produce distinct valid subarrays
+  - count[0] = 1 represents the empty prefix before the array
+  - query before insertion prevents pairing the current prefix with itself
+  - optimized complexity is O(n) expected time and O(n) extra space
+  review_dates:
+  - 2026-08-18
+  - 2026-08-20
+  - 2026-08-24
+  - 2026-09-07
+  review_history: []
+  next_review_date: 2026-08-18
+  review_status: pending
+- problem:
+    leetcode: 819
+    title: Most Common Word
+  pattern: string-tokenize-hash-count
+  result: unsolved_within_time
+  session_date: 2026-09-01
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - implemented longest-word comparison instead of the planned frequency count
+  - inverted banned check (updated answer only when word was banned)
+  - reported O(nB) after choosing hash-set lookup; correct is O(n + B)
+  - never skipped empty tokens from consecutive punctuation despite stating the rule in clarify
+  implementation_mistakes:
+  - string ans = 0 null-pointer construction
+  - isalpha misspelled in all four drafts
+  - non-existent unordered_set::is_exist
+  - unused variable max_len left in final draft
+  communication_notes:
+  - fixed only one of four listed bugs on the second draft
+  - skipped requested example walkthrough twice
+  - did not propose any edge cases when asked
+  mastered_during_session:
+  - appending a trailing separator flushes the last word without a post-loop check
+  - lowercase while accumulating characters avoids a second pass over each word
+  - single pass can update the running maximum immediately after incrementing the count
+  review_dates:
+  - 2026-09-02
+  - 2026-09-04
+  - 2026-09-08
+  - 2026-09-22
+  review_history: []
+  next_review_date: 2026-09-02
+  review_status: pending
+- problem:
+    leetcode: 937
+    title: Reorder Data in Log Files
+  pattern: custom-sort-comparator
+  result: solved_with_hint
+  session_date: 2026-09-01
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - sorted digit-logs during the adversarial walkthrough instead of preserving input order
+  - hard-coded the type check position as index 3 instead of first character after the first space
+  - proposed set<string> for the follow-up, which orders by identifier and deduplicates
+  implementation_mistakes:
+  - unused variable ans
+  - range-for copies each log string
+  communication_notes:
+  - asked about duplicate logs
+  - resubmitted identical incomplete edge cases twice without expected outputs
+  - completed the comparator, classification, and merge correctly in one draft after skeleton hint
+  mastered_during_session:
+  - classify by isdigit on the character after the first space, never by identifier
+  - digit-logs preserve order by push_back in input order with no sorting
+  - comparator compares content first and identifier on ties
+  - pre-splitting into (content, id, original) tuples removes per-comparison substr cost and needs no custom comparator
+  review_dates:
+  - 2026-09-02
+  - 2026-09-04
+  - 2026-09-08
+  - 2026-09-22
+  review_history: []
+  next_review_date: 2026-09-02
+  review_status: pending
+- problem:
+    leetcode: 49
+    title: Group Anagrams
+  pattern: hash-key-design
+  result: solved_then_regressed
+  session_date: 2026-09-01
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - reported complexity as n log k instead of O(n * k log k)
+  - final refactor keyed the map by the original string and stored the sorted copy, breaking grouping
+  implementation_mistakes:
+  - sorted a const loop variable
+  - variable name mismatches (l_m/lm, original_str/original)
+  - refactored a passing solution without re-running tests
+  communication_notes:
+  - asked to be taught edge-case derivation, then applied it with expected outputs
+  - follow-up count-key with delimiter answered correctly
+  mastered_during_session:
+  - sorted string is a canonical anagram key; map value is the vector of originals
+  - normal = smallest complete input, boundary = each constraint at equality, adversarial = counterexample to a wrong approach
+  - count-per-letter key needs a delimiter or fixed 26 slots to stay unambiguous
+  - any edit after a passing run must be followed by re-running the same tests
+  review_dates:
+  - 2026-09-02
+  - 2026-09-04
+  - 2026-09-08
+  - 2026-09-22
+  review_history: []
+  next_review_date: 2026-09-02
+  review_status: pending
+- problem:
+    leetcode: 128
+    title: Longest Consecutive Sequence
+  pattern: hash-set-sequence-start
+  result: solved_with_hint
+  session_date: 2026-09-01
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - reported complexity as n * k instead of the amortized O(n) argument
+  - O(n) plan omitted the upward-count step, so draft 1 had no inner loop
+  - kept the length counter alive across iterations and reset it in an else branch, failing on adjacent starts
+  implementation_mistakes:
+  - undeclared variable x copied from a hint snippet
+  - final draft shadows outer cnt and leaves a dead else branch
+  communication_notes:
+  - self-generated duplicate-value adversarial case with expected output
+  - each draft addressed the given feedback
+  mastered_during_session:
+  - x is a sequence start iff x - 1 is not in the set
+  - count upward from each start only; every element is expanded at most once, so total inner steps are at most n
+  - per-start length must be a fresh local variable, not a counter carried across iterations
+  - sorted approach must skip duplicates rather than reset on them
+  review_dates:
+  - 2026-09-02
+  - 2026-09-04
+  - 2026-09-08
+  - 2026-09-22
+  review_history: []
+  next_review_date: 2026-09-02
+  review_status: pending
+- problem:
+    leetcode: 200
+    title: Number of Islands
+  pattern: grid-dfs-flood-fill
+  result: solved_with_hint
+  session_date: 2026-09-01
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - answered 1 for an all-zero grid
+  - planned an integer comparison on a char grid
+  - initial plan marked a cell without spreading to neighbors
+  - amortized argument lacked the because-clause
+  implementation_mistakes:
+  - off-by-one x > x_size
+  - parameter named g but body used grid
+  - function name numIsland missing the s
+  - missing return in draft 1
+  communication_notes:
+  - skipped two direct questions across three rounds
+  - fixed all four listed bugs in one draft
+  mastered_during_session:
+  - outer scan triggers one dfs per unvisited land cell and counts it
+  - dfs checks bounds and value first, marks on entry, then recurses in four directions
+  - each cell is entered at most once because it is marked on entry, so total O(m*n)
+  - right/down-only traversal misses cells reachable only by moving up or left
+  review_dates:
+  - 2026-09-02
+  - 2026-09-04
+  - 2026-09-08
+  - 2026-09-22
+  review_history: []
+  next_review_date: 2026-09-02
+  review_status: pending
+- problem:
+    leetcode: 994
+    title: Rotting Oranges
+  pattern: multi-source-bfs-layer-counting
+  result: solved_with_hint
+  session_date: 2026-09-02
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - all-zero boundary answered -1 instead of 0, and draft 1 return shipped the same wrong logic after correction
+  - adversarial case missed two-source simultaneity ([2,1,1,1,2] expected 2)
+  - draft 1 skipped explicit requirements (mark 2 on push, track fresh), so -1 was undetectable and cells re-enqueued
+  - answered ans++ belongs inside the per-layer loop, which counts oranges instead of layers
+  implementation_mistakes:
+  - q.pop_front() on std::queue (API is pop())
+  - undeclared g instead of grid parameter, repeat of drill 200
+  - no neighbor bounds check in draft 1
+  - unconditional ans++ per layer plus 'ans != 0 ? ans: -1' return, off-by-one on [[2,1]]
+  communication_notes:
+  - skipped the interviewer's direct questions three times, third drill in a row with this pattern
+  - draft 2 fixed all seven flagged issues in one pass, 10/10 curated tests
+  mastered_during_session:
+  - per-layer rotted flag gates ans++, solving the last-layer off-by-one
+  - final grid rescan is a valid alternative to a fresh counter for -1 detection
+  - self-stated amortized argument, each cell enqueued at most once because it is marked 2 on push
+  review_dates:
+  - 2026-09-03
+  - 2026-09-05
+  - 2026-09-09
+  - 2026-09-23
+  review_history:
+  - date: 2026-09-04
+    type: cold-redo (fresh-counter variant, per next_actions)
+    result: passed 6/6 after 4 drafts
+    recurred:
+    - all-zero boundary answered -1 again (correct 0)
+    - adversarial case again lacked a rotten source; two-source case not produced
+    - skipped the direct question 'which line sets found=1' three rounds
+    - amortized because-clause not stated unprompted
+    - API spelling guessed twice after correction (orangesRottings vs orangesRotting)
+    new_mistakes:
+    - pushed cell value instead of coordinates into queue<pair<int,int>>
+    - declared flag found but never assigned it (born 0, dies 0)
+    - executed only 2 of 4 fix-list items in the next draft
+    improved:
+    - fresh-counter variant used as prescribed, ending logic correct first try
+    - mark-on-push written unprompted this time (was a draft-1 bug on 09-02)
+    - q_size layer snapshot correct from draft 1
+  - date: 2026-09-05
+    type: quiz (scheduled review)
+    result: passed
+    notes:
+    - all-zero grid answered 0 with the definition-based reason (no fresh oranges, nothing to wait for) - correct for the first time after two failures
+  next_review_date: 2026-09-08
+  review_status: pending
+- problem:
+    leetcode: 238
+    title: Product of Array Except Self
+  pattern: prefix-suffix-products
+  result: solved_with_hint
+  session_date: 2026-09-02
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - edge-case expected outputs guessed, 0/3 correct (total product 16 instead of except-self 8, illegal n=1 input, [0,0] instead of [0,1])
+  - clarify question (empty array) already answered by the stated n >= 2 constraint
+  - inclusive prefix/suffix design forced head-tail special cases that failed in three separate drafts, including a prefix[-1] out-of-bounds crash
+  - rolling variable not propagated (prefix[i] *= nums[i] never writes i+1)
+  implementation_mistakes:
+  - ans head and tail assigned nums themselves in draft 1
+  - tail fix used inclusive prefix[sz-1] (total product) instead of prefix[sz-2]
+  - O(1) version kept the O(n) prefix vector in two drafts
+  - second pass overwrote first pass with = instead of *=
+  - sufix spelling (suffix) consistent but wrong throughout
+  communication_notes:
+  - three-item bug lists fixed one item at a time, twice - relapse of the 49-era pattern
+  - required test walks and diagnostic questions skipped repeatedly; every answered-in-words question produced a correct next draft
+  - first self-initiated typo catch of the week
+  mastered_during_session:
+  - exclusive prefix definition (prefix[i] excludes self, init 1) eliminates all special cases
+  - two-pass rolling-variable O(1) extra space technique
+  - why prefix-suffix beats total-product-division (single and double zeros)
+  review_dates:
+  - 2026-09-03
+  - 2026-09-05
+  - 2026-09-09
+  - 2026-09-23
+  review_history:
+  - date: 2026-09-07
+    type: quiz (overdue review, 4 days late)
+    result: passed
+    notes:
+    - '[1,2,3,4] -> [24,12,8,6] computed correctly, the walk that was ordered twice and skipped twice'
+  next_review_date: 2026-09-09
+  review_status: pending
+- problem:
+    leetcode: 347
+    title: Top K Frequent Elements
+  pattern: hash-count-heap-top-k
+  result: solved_with_hint
+  session_date: 2026-09-02
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - clarify question (k vs unique count) already answered by stated constraints, same miss as 238
+  - paired max-heap with size-k eviction; top-k largest needs a size-k MIN-heap or a full max-heap popped k times
+  - stated pop cost as O(n*k) full re-heapify; a pop is one root-to-leaf sift, O(log u)
+  - gave one approach when two paths with complexities were required
+  implementation_mistakes:
+  - push_back on priority_queue (API is push) - second container API mixup of the week after 994 pop_front
+  - ignored the range-constructor requirement in draft 1, per-element push is O(u log u)
+  - l_m loop variable name returned (flagged in drill 49); pair copied without const ref
+  communication_notes:
+  - edge-case expected outputs 3/3 on first attempt, first clean sweep of the week
+  - said "I don't understand point 2" before coding instead of guessing; next draft fixed all four items in one pass, 6/6
+  mastered_during_session:
+  - min-heap for top-k largest (root is weakest candidate), max-heap for top-k smallest
+  - range-constructor heapify is O(u) vs O(u log u) per-element pushes, and why (half the nodes sit at the bottom)
+  - full complexity chain O(n + u + k log u) time, O(n) space
+  review_dates:
+  - 2026-09-03
+  - 2026-09-05
+  - 2026-09-09
+  - 2026-09-23
+  review_history:
+  - date: 2026-09-07
+    type: quiz (overdue review, 4 days late)
+    result: passed
+    notes:
+    - min-heap for top-k-largest with the right reason (root is the weakest of the k kept, it gets evicted) - direction was inverted during the drill
+  next_review_date: 2026-09-09
+  review_status: pending
+- problem:
+    leetcode: 394
+    title: Decode String
+  pattern: two-stack-decode-counts-and-prefix-strings
+  result: solved_with_hint
+  session_date: 2026-09-04
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - clarify asked about k=0 though constraints state 1 <= k <= 300 (238/347 class), but it surfaced the digit-0-in-multi-digit nuance
+  - approach named only the number half of the stack state; the saved-prefix-string half required the 3[a2[c]] counterexample
+  - ''']'' merge repeated the popped prev string instead of the current segment, then twice stored the result into a variable nothing reads (same class as 994 found)'
+  - complexity answered 'prenumber'; O(n + output length) and the output-exceeds-input insight had to be given
+  implementation_mistakes:
+  - is_digit with underscore (819 is_alpaha class)
+  - s[i] == "]" string literal vs char while the correct '[' comparison sat two lines above
+  - inner loop variable shadowed outer i in every draft, never fixed (flagged in 994 redo same day)
+  - draft 2 executed 1 of 5 fix-list items
+  communication_notes:
+  - line-pointing checklist demanded twice, never submitted; required since drill 49 with zero submissions to date
+  - asked to be taught adversarial construction instead of guessing (good, second time after 49); own nested case 3[ab1[b]] then correct with expected output
+  - draft 3 fixed 4 of 5 items in one pass, 8/8 tests
+  mastered_during_session:
+  - multi-digit accumulation num = num*10 + (c - '0') unprompted in draft 1
+  - '[-branch discipline: push count and prefix, reset both accumulators'
+  - ''']'' merge formula ss = prev + ss*k stored back into ss so nesting and tails compose'
+  - nested-bracket adversarial construction (wrong solution pairs first ']' with wrong '[')
+  review_dates:
+  - 2026-09-05
+  - 2026-09-07
+  - 2026-09-11
+  - 2026-09-25
+  review_history:
+  - date: 2026-09-05
+    type: quiz (scheduled review)
+    result: passed
+    notes:
+    - complexity O(n + output length) restated unprompted with the output-exceeds-input reason
+    - named-pattern quiz half right - described the unread-variable death (394 cur) but not the never-assigned death (994 found); three-link rule (declare, assign, READ - missing any link) retaught
+  - date: 2026-09-07
+    type: quiz (scheduled review)
+    result: partial
+    notes:
+    - repeat target correct - the CURRENT accumulated string is repeated, not the popped prefix (this was the 3-round drill error, now fixed)
+    - merge destination wrong again - answered save to stack_str; the result goes back into the current string variable ss, nothing is pushed back onto the stack. Same store-into-the-wrong-place family as the original cur bug
+  - date: &id001 2026-09-11
+    result: partial
+    notes: stack top (a,2) correct; said the current string was empty at the inner ] when it is "c"; gave the repeated part "cc" but dropped the popped prefix - the formula is ss = pre + ss*n. Different error from the previous two rounds (repeat target now correct, prefix concatenation now the gap)
+  next_review_date: 2026-09-12
+  review_status: pending
+- problem:
+    leetcode: 735
+    title: Asteroid Collision
+  pattern: stack-collision-simulation
+  result: solved_with_hint
+  session_date: 2026-09-05
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - collision table rows 1/3 push-pop inverted on first fill (row 2 correct); draft 1 then coded the row-1 error anyway minutes after correction
+  - adversarial case answered no idea until taught, then built valid [5,3,-4] with correct output
+  - draft 2 fragment had abs on the wrong operand (abs(top) < negative ast is always false) and no top>0 sign check
+  implementation_mistakes:
+  - shadowed re-declaration inside loop made the while condition never change (first time shadowing caused an actual infinite loop, not just a warning)
+  - st.top() on possibly-empty stack; surviving negative never pushed; unconditional push of dead asteroid
+  - output block written with parentheses ( ) instead of braces { }
+  - stack drain without reverse (3 of 8 tests failed order-reversed, despite reverse being on the fix list)
+  - given exact spelling reverse(ans.begin(), ans.end()) rewritten as ans.reverse() (orangesRottings class)
+  communication_notes:
+  - FIRST-EVER line-pointing checklist submitted, all line numbers correct - required since drill 49, obtained only by withholding test results after 4 skips
+  - honest 1-2 no-understand ask, then answered concept check [10,2,-5] correctly (pop 1, remain [10])
+  - first fully self-stated amortized because-clause (push 1 pop 1, pop means exploded, O(n))
+  mastered_during_session:
+  - only collision pair is positive top vs negative incoming
+  - 'mnemonic: stack 上的東西用 pop 殺, 還沒進 stack 的東西用不 push 殺'
+  - is_alive flag pattern - fight all battles first, push only if still alive
+  - reverse after stack drain when output must keep original order
+  review_dates:
+  - 2026-09-06
+  - 2026-09-08
+  - 2026-09-12
+  - 2026-09-26
+  review_history:
+  - date: 2026-09-07
+    type: quiz (overdue review, 1 day late)
+    result: partial
+    notes:
+    - '[8,-8] vs [-8,8] reasoning fully correct (face-to-face collides, back-to-back never meets)'
+    - wrote the empty result as [0] instead of [] - imprecise expected-output notation, same family as the 994 all-zero and 238 misses
+  - date: *id001
+    result: partial
+    notes: direction reasoning correct (face-to-face vs back-to-back); collision condition correct apart from writing st.top() >= 0 instead of > 0; the pop / do-not-push mnemonic was answered with a condition instead of the two kill mechanisms
+  next_review_date: 2026-09-12
+  review_status: pending
+- problem:
+    leetcode: 3
+    title: Longest Substring Without Repeating Characters
+  pattern: variable-sliding-window-count-map
+  result: solved_with_hint
+  session_date: 2026-09-05
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - because-clause skipped on the 3-question list first pass (answered 2 of 3), then stated correctly when re-asked
+  - adversarial expected output omitted until demanded (case itself self-constructed correctly)
+  implementation_mistakes:
+  - r++ placed mid-loop so every later r reference (while check, window length) pointed at the next char; draft 1 scored 1/8
+  - r - l + 1 kept after the increment (window had become [l, r-1]); single space returned 2
+  - sign-compare warning left unfixed across both drafts (third drill running)
+  - required pre-submit 3-case walk skipped; draft 1 returned 7 on the 6-char "abcabc" (impossible output, would have been caught by step one of the walk)
+  communication_notes:
+  - checklist regressed from 735's correct full submission to bare "4, 2"
+  - clarify answered "constraints are clear" - first drill without a constraint-answered question
+  - fastest recovery to date - draft 2 fixed both logic bugs in one pass, 8/8
+  mastered_during_session:
+  - variable-size window shrink discipline - insert first, then while (m[s[r]] > 1) shrink with paired m[s[l]]-- and l++
+  - self-constructed adversarial (zaaac kills shrink-by-one) - first unassisted adversarial
+  - amortized argument transferred to a new problem unaided in wording (chars enter once leave once, never return)
+  - increment placement rule - moving r++ changes the meaning of every r below it
+  review_dates:
+  - 2026-09-06
+  - 2026-09-08
+  - 2026-09-12
+  - 2026-09-26
+  review_history:
+  - date: 2026-09-07
+    type: quiz (overdue review, 1 day late)
+    result: passed
+    notes:
+    - named the root cause in one line - after r++ every reference to r below it means the next character
+  - date: *id001
+    result: partial
+    notes: '"abba" correctly named as the case that kills the if-instead-of-while shrink, but stated the buggy output backwards (buggy returns 3, correct is 2); the r++ relocation question was not answered (answer 7 on a 6-char string)'
+  next_review_date: 2026-09-12
+  review_status: pending
+- problem:
+    leetcode: 53
+    title: Maximum Subarray
+  pattern: kadane-running-sum-reset
+  result: solved_clean
+  session_date: 2026-09-07
+  time_minutes: null
+  hint_level: 1
+  conceptual_mistakes:
+  - first-stated approach was the textbook wrong one (accumulate, reset to 0 when negative, no init guard) - dies on all-negative input
+  - proposed adversarial [2,3,-9,4] fails to kill that wrong solution (it returns the correct 5); the real killer [-3,-1,-2] came only after a prompt
+  - because-clause skipped on the 3-item list for the second drill running, supplied on the third prompt
+  implementation_mistakes:
+  - sign-compare warning i < nums.size() unfixed for the fourth consecutive drill
+  - abandoned approach left in as commented-out dead code
+  communication_notes:
+  - FIRST-EVER draft 1 pass, 10/10 curated tests including all three self-declared cases
+  - required pre-submit walk line delivered for the first time (as a header comment)
+  - follow-up (return indices) - both trigger points named correctly, missed that a reset start is only a candidate
+  mastered_during_session:
+  - ans initialized to nums[0] with the loop from i=1 is what makes all-negative input work
+  - loop order - check-and-reset, then add, then record; reversing it makes cur never negative and breaks all-negative
+  - 'index-tracking follow-up: tmp_start moves on reset, start/end commit together only when ans actually improves (counterexample [5,-10,4,-1])'
+  - an adversarial case is only adversarial if the WRONG solution fails it - test it before submitting
+  review_dates:
+  - 2026-09-08
+  - 2026-09-10
+  - 2026-09-14
+  - 2026-09-28
+  review_history:
+  - date: *id001
+    result: partial
+    notes: all-negative answer -1 correct and the i=1 start explained correctly (nums[0] already consumed by the initializers); said the swapped loop order returns -1 when it actually returns 0
+  next_review_date: 2026-09-12
+  review_status: pending
+- problem:
+    leetcode: 56
+    title: Merge Intervals
+  pattern: sort-then-sweep-merge
+  result: solved_with_hints
+  session_date: 2026-09-07
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - could not construct an adversarial case at all ("no idea"); the killer [[1,10],[2,3],[4,5]] had to be supplied
+  - stated the overlap test as a bare symbol ("using <=") with no operands; applied to his own operand order that is the NON-overlap condition
+  - answered O(n) for a sort-based algorithm; corrected to O(n log n) with the sort-dominates because-clause after one prompt
+  - merged right endpoint initially unspecified (would have taken the later interval's end instead of the max)
+  implementation_mistakes:
+  - 'the carry-forward bug: second_val was compared against but updated from intervals[i-1][1], so a swallowed long interval was overwritten by a shorter one - third instance of writing into or reading from the wrong variable (994 found, 394 cur)'
+  - second_val initialized to INT_MAX, making the first comparison unconditionally true
+  - sort() left commented out in draft 1 - the whole algorithm's first step
+  - ans declared vector<int> against a vector<vector<int>> return type
+  - final push after the loop missing in draft 1 - the last group was never emitted
+  - intervals[first_idx] pushed where intervals[first_idx][0] was required - the SAME compile error survived three explicit corrections naming the line and the exact three characters
+  - sign-compare warning unfixed for the fifth consecutive drill (fixed on draft 3 after being listed twice)
+  - declared vector<int> tmp and never assigned or read it - three-link rule again
+  communication_notes:
+  - line-pointing verification checklist demanded four times including one hard gate, never submitted in this drill
+  - required pre-submit walk trimmed the supplied adversarial from [[1,10],[2,3],[4,5]] to [[1,10],[2,3]] - deleting exactly the element that exposed the bug; real walk (10, 10) delivered only at the very end and was correct
+  - clarify clean for the second consecutive drill ("constraints all clear")
+  - 'fix-list compliance is now the top weakness: 6 of 8 items skipped on the first pass, and the interval/intervals rename was skipped with the correct spelling and three line numbers already given'
+  mastered_during_session:
+  - overlap test is prev_end >= cur_start (>= not >, because touching endpoints merge per Example 2)
+  - merged end is max(running_end, cur_end), never the later interval's end alone
+  - 'the running end must be BOTH read and written: second_val = max(second_val, intervals[i][1])'
+  - sorting dominates, so the algorithm is O(n log n) not O(n)
+  - a fix list must be applied line by line in the editor, not memorised and applied in bulk
+  review_dates:
+  - 2026-09-08
+  - 2026-09-10
+  - 2026-09-14
+  - 2026-09-28
+  review_history:
+  - date: *id001
+    result: partial
+    notes: '[[0,5]] written as [0,5] - return-type notation wrong for the 4th consecutive review/drill; sorted order and the >= / max(end,...) lines both recalled correctly; could not state what the unsorted scan actually returns ([[1,5]], losing the 0); final push recalled'
+  next_review_date: 2026-09-12
+  review_status: pending
+- problem:
+    leetcode: 763
+    title: Partition Labels
+  pattern: greedy-last-index-sweep
+  result: solved_with_hints
+  session_date: 2026-09-08
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - misread the rule as "each letter appears once" instead of "all occurrences of a letter stay in one segment" - asked about it, which was the right move
+  - proposed storing character COUNTS; the needed information is each character's LAST INDEX (a count cannot bound a segment)
+  - space complexity answered O(n) one line after himself writing '26 char last occur index' - the array is 26 entries regardless of n, so O(1); constraints said lowercase only and that hint was not converted
+  - 'did not reach the per-character sweep on his own: the loop was structured as one jump per segment, reading only the FIRST character''s last index'
+  implementation_mistakes:
+  - char c_arr[26] for indices up to 499 - char holds -128..127, so any index above 127 wraps negative (constraints gave 500 explicitly)
+  - referenced i from a dead loop in the new loop body (compile error), twice in two different drafts (i, then last_idx)
+  - left the replaced for-loop header sitting above its while replacement in one draft
+  - 'first-char-only segmentation failed both LeetCode examples: ex1 gave [9,6,1,4,1,1,1,1], ex2 gave [9,1]'
+  - sign-compare warning on the first loop unfixed through the entire drill despite being listed three times; the second occurrence was fixed
+  - dead commented-out range-for left in every draft
+  communication_notes:
+  - asked a real clarify question about the problem rule before answering anything - correct behavior, credited
+  - self-caught his own wrong normal-case answer (abac -> [4] then questioned it and produced [3,1])
+  - 'second self-constructed valid adversarial ever: abca, and it does kill the cut-on-new-letter heuristic'
+  - expected outputs given in the wrong TYPE twice - wrote the segment COUNT (1) where a vector of lengths ([4]) was required, and gave only the input for the boundary case; third drill of this family after 735 [0] vs [] and 56's operator-with-no-operands
+  - checklist bounced three times before a partial one arrived (items 1-4 filled, item 5 left blank) - and the blank item was exactly the unfixed core bug, which is the argument for the checklist
+  - required walk of abab never delivered despite being asked three times
+  mastered_during_session:
+  - 'store last[26] = last index of each letter, then sweep: end = max(end, last[s[i]]), cut when i == end'
+  - i == end means every letter seen so far ends at or before i, so cutting here splits nothing
+  - segment length is i - start + 1 and the next segment starts at i + 1
+  - a fixed-size table (26 letters) is O(1) space, not O(n) - space complexity asks whether it grows with the input
+  - the first character's last index does not bound the segment; every character inside it can extend the end - same running-max shape as 56
+  review_dates:
+  - 2026-09-09
+  - 2026-09-11
+  - 2026-09-15
+  - 2026-09-29
+  review_history:
+  - date: *id001
+    result: correct
+    notes: two separate quizzes in one session, 6/6. last-index vs count, i==end reasoning, O(1)/26 space, the no-max variant returning [3,1], last[d]=8 last[a]=9, and start=i+1 vs end+1 equivalence all correct unaided
+  next_review_date: 2026-09-14
+  review_status: pending
