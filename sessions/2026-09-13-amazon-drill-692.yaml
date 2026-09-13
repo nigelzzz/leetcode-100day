@@ -1,0 +1,74 @@
+session:
+  date: 2026-09-13
+  track: amazon
+  drill: 16
+  problem:
+    leetcode: 692
+    title: Top K Frequent Words
+    pattern: hash count + size-k heap with tie-break comparator
+    tier: 2
+
+scorecard:
+  overall: 5
+  clarify: 8        # "no" - fourth consecutive clean clarify
+  edge_cases: 5     # FIRST time all expected outputs were in the return type's shape; but k omitted from every case, adversarial expected output was the wrong solution's output (twice), three-step format skipped
+  approach: 5       # comparator eviction direction stated backwards twice - resubmitted unchanged after a worked walk; fixed through single-question mode; O(n log k) / O(n) correct, because-clause skipped twice
+  implementation: 6 # draft 1 - 8 compile errors plus 4 logic bugs, but both comparator directions were correct; skeleton 5/6 then 6/6, 9/9
+  communication: 4  # resubmitted the pre-code answers with only k added; walk narrated a pop the code did not contain
+
+drafts:
+  - n: 1
+    result: COMPILE FAIL (8 errors); with syntax patched and logic kept - ex1 ["coding","coding"], ex2 ["the","the","the","the"]
+    issues:
+      - map<string> with one template argument
+      - member function cmp passed as priority_queue's comparator type
+      - "comparator tie branch if (a < b) return true had no m[a] == m[b] guard, so it fired across different counts"
+      - pushed every entry of words (duplicates) instead of every key of the map
+      - heap never trimmed to size k
+      - top() read k times with no pop() - same element k times
+      - ans.push instead of push_back
+      - no reverse of the loser-first pop order
+    right:
+      - comparator directions (higher count sinks, smaller word sinks) were both correct
+  - n: 2
+    result: skeleton blanks 5/6 - tie branch flipped to a > b, 2/9 (only the tie-free example passed)
+    right:
+      - "iterate m, pq.pop() when size > k, pq.pop() in the drain, reverse(ans.begin(), ans.end()) spelled exactly"
+  - n: 3
+    result: 9/9 PASS - tie branch restored to a < b with the reason "winner sinks"
+
+tests_passed:
+  - '["i","love","leetcode","i","love","coding"], k=2 -> ["i","love"]'
+  - '["the","day","is","sunny","the","the","the","sunny","is","is"], k=4 -> ["the","is","sunny","day"]'
+  - '["a","c","b"], k=3 -> ["a","b","c"] (own normal)'
+  - '["a"], k=1 -> ["a"] (own boundary)'
+  - '["b","b","a","a","c"], k=2 -> ["a","b"] (own adversarial, after correction)'
+  - '["b","b","a","a"], k=1 -> ["a"]'
+  - '["i","love","leetcode","i","love","coding"], k=3 -> ["i","love","coding"] (tie at the cut)'
+  - '["aaa","aa","a"], k=1 -> ["a"]'
+  - '["x","y","z","x","y","z"], k=3 -> ["x","y","z"]'
+
+conceptual:
+  right:
+    - expected outputs written as vector<string> literals on the first attempt - first clean return-type shape after four sessions of misses
+    - through single questions derived that ["b","b","a","a"], k=1 is ["a"], that b must be evicted, and that ties evict the larger word
+    - self-corrected the adversarial expected output to ["a","b"]
+    - comparator rule stated correctly at the end - "a < b, winner sinks"
+  wrong:
+    - eviction direction "kick lexicographically smaller" stated twice, the second time after a full worked walk
+    - adversarial expected output was the tie-ignoring solution's output
+    - flipped a correct a < b from draft 1 into a > b in the skeleton
+
+communication:
+  - "multi-item correction answered by resubmitting the same answers with only k added - the top weakness showing up before any code existed"
+  - single-question mode recovered every item in three short exchanges
+  - walk claimed "pop 2" while the code had no pop
+  - because-clause skipped on complexity twice
+
+next_actions:
+  - "when a correction arrives, the resubmission must visibly change every item it names - if an item is unchanged, say why"
+  - walk the code with a finger on each line; a walk that mentions an operation the code lacks is not a walk
+  - "priority_queue comparator rule: cmp(a,b) true means a sinks; top is the element nobody sinks - write it as a comment above every comparator"
+  - complexity answers are not complete without the because-clause
+  - reviews overdue - 56, 735, 394, LC 3, 53 (09-12), 155 (09-13); 763 and 692 due 09-14
+  - next problem 973 K Closest Points to Origin (Tier 2, same size-k heap and comparator direction; follow-up quickselect)

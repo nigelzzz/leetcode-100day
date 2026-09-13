@@ -912,3 +912,78 @@ records:
     notes: two separate quizzes in one session, 6/6. last-index vs count, i==end reasoning, O(1)/26 space, the no-max variant returning [3,1], last[d]=8 last[a]=9, and start=i+1 vs end+1 equivalence all correct unaided
   next_review_date: 2026-09-14
   review_status: pending
+- problem:
+    leetcode: 155
+    title: Min Stack
+  pattern: design-parallel-min-stack
+  result: solved_with_hints
+  session_date: 2026-09-12
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - 'no approach before teaching ("no idea") - the parallel min_st design was taught in full'
+  - 'adversarial push(1),push(2),push(3),pop() pops a NON-minimum, so the single-min_val solution survives it; same failure as 53 [2,3,-9,4]'
+  - could not construct push(3),push(1),pop() after a targeted hint; then asked whether pop must remove the minimum, which revealed that the construction idea (arrange the input so pop hits the weak point) was missing
+  - 'follow-up c) could not derive min_old = min - diff'
+  implementation_mistakes:
+  - 'push guarded min_st.top() with if (!min_st.empty()) and gave the empty case no branch - min_st was never filled, getMin() segfaulted'
+  - getmin instead of the given signature getMin (fourth given-signature slip)
+  - missing semicolon after the class definition
+  communication_notes:
+  - complete, correct walk of the example delivered with the first submission - first since 53
+  - the walk traced the intended algorithm while the submitted push did something different - walk the code, not the idea
+  - checklist not submitted on draft 2
+  - space complexity O(n) with a correct because-clause after one prompt
+  mastered_during_session:
+  - min_st holds the minimum up to each level and is pushed and popped in lockstep with st
+  - min_st.push(empty ? v : min(v, min_st.top())) - pushing v directly breaks push(3),push(5)
+  - 'adversarial method: name the wrong solution''s state, find the operation that should change it but cannot, build the shortest triggering sequence'
+  - 'O(1)-space follow-up: store diff = val - min, update min on negative diff, restore with min = min - diff on pop, use long long for the diff'
+  review_dates:
+  - 2026-09-13
+  - 2026-09-15
+  - 2026-09-19
+  - 2026-10-03
+  review_history: []
+  next_review_date: 2026-09-13
+  review_status: pending
+- problem:
+    leetcode: 692
+    title: Top K Frequent Words
+  pattern: heap-top-k-tie-break-comparator
+  result: solved_with_hints
+  session_date: 2026-09-13
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - stated the tie eviction backwards ("kick lexicographically smaller") twice, the second time unchanged after a worked k=1 walk
+  - 'wrote the tie-ignoring wrong solution''s output ["b","a"] as the adversarial expected output; correct is ["a","b"]'
+  - omitted k from all three edge cases
+  - 'flipped the tie branch from a correct a < b (draft 1) to a > b in the skeleton'
+  implementation_mistakes:
+  - map<string> with a single template argument
+  - member function used as priority_queue's comparator type (needs a lambda with decltype or a struct)
+  - 'tie branch if (a < b) return true lacked the m[a] == m[b] guard, so it overrode different counts'
+  - pushed words (duplicates) instead of map keys
+  - never popped when the heap exceeded k
+  - read pq.top() k times without pq.pop()
+  - ans.push instead of ans.push_back
+  communication_notes:
+  - expected outputs were vector<string> literals from the first answer - return-type shape correct for the first time in five sessions
+  - pre-code corrections resubmitted with only k changed; single-question mode then fixed each item
+  - walk said "pop 2" while the code contained no pop
+  - because-clause skipped on complexity twice
+  - reverse(ans.begin(), ans.end()) spelled exactly - the 735 ans.reverse() slip did not recur
+  mastered_during_session:
+  - 'priority_queue cmp(a,b) == true means a sinks; top() is the loser to evict in a size-k min-heap'
+  - 'loser = fewer occurrences, or equal occurrences and lexicographically larger; so cmp = m[a] != m[b] ? m[a] > m[b] : a < b'
+  - 'push map keys, pop when size > k, drain with top+pop, reverse because the drain is loser-first'
+  - O(n log k) time, O(n) space dominated by the count map
+  review_dates:
+  - 2026-09-14
+  - 2026-09-16
+  - 2026-09-20
+  - 2026-10-04
+  review_history: []
+  next_review_date: 2026-09-14
+  review_status: pending

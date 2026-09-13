@@ -1,0 +1,78 @@
+session:
+  date: 2026-09-12
+  track: amazon
+  drill: 15
+  problem:
+    leetcode: 155
+    title: Min Stack
+    pattern: design - parallel min stack
+    tier: 2
+
+scorecard:
+  overall: 6
+  clarify: 8        # "constraints is clear" - third consecutive clean clarify
+  edge_cases: 5     # normal and boundary correct with return values; adversarial sequence popped a non-minimum and did not kill the single-min_val solution; could not construct one after a hint, method taught
+  approach: 4       # "no idea"; the two-stack design had to be taught; then B (why min(v, top)) correct, time O(1) because no loop, space O(n) because min_st is as tall as st
+  implementation: 8 # draft 1 had an if with no else path, getmin casing, and a missing class semicolon; draft 2 cleared all three, 14/14
+  communication: 7  # FIRST complete, correct walk since 53 - every step of both stacks; checklist not submitted on draft 2
+
+drafts:
+  - n: 1
+    result: COMPILE FAIL, then SEGFAULT once the compile errors were patched
+    issues:
+      - "push guarded min_st.top() with if (!min_st.empty()) but gave the empty case no branch - min_st stayed empty forever, getMin() segfaulted"
+      - getmin instead of the given signature getMin
+      - missing semicolon after the class closing brace
+  - n: 2
+    result: 14/14 PASS
+    fixed:
+      - else branch pushes val when min_st is empty
+      - getMin casing
+      - class semicolon
+
+tests_passed:
+  - 'push(-2),push(0),push(-3), getMin() -> -3, pop(), top() -> 0, getMin() -> -2 (example)'
+  - 'push(1), getMin() -> 1 (own boundary)'
+  - 'push(3),push(1),pop(), getMin() -> 3 (taught adversarial - kills single min_val)'
+  - 'push(1),push(2),push(3),pop(), getMin() -> 1 (his original adversarial - does NOT kill the wrong solution)'
+  - 'push(2),push(2),pop(), getMin() -> 2 (duplicate minimum)'
+  - 'push(0),push(1),push(0), getMin() -> 0, pop(), getMin() -> 0'
+  - 'push(INT_MAX),push(INT_MIN), getMin() -> INT_MIN, pop(), getMin() -> INT_MAX'
+  - 'push(5),pop(),push(7), getMin() -> 7 (empty then reuse)'
+  - '30000 descending pushes, getMin() -> 1; 29999 pops, getMin() -> 30000'
+
+follow_up:
+  question: one stack, O(1) extra space
+  user_answer: "a) negative diff means val is the new minimum - correct; b) min updates to val - correct; c) i don't know"
+  taught:
+    - store diff = val - min; negative diff means val became the new min
+    - "restore on pop: min = min - diff, because min_new - (val - min_old) = min_old"
+    - "top(): diff > 0 -> min + diff, else the element is min itself"
+    - long long diff is required - INT_MAX - INT_MIN overflows int, and the constraints range is the hint
+  reference: scratchpad t155f.cpp, 17/17 including INT_MIN/INT_MAX and 30k stress
+
+conceptual:
+  right:
+    - self-identified that a single min_val breaks on pop (the reason for the adversarial was correct)
+    - "B: pushing v directly makes push(3),push(5) return 5 - correct and concrete"
+    - space O(n) with a correct because-clause after one prompt - first correct space answer with reasoning
+    - follow-up a) and b) correct
+    - asked whether pop has to remove the minimum - exposed and resolved a real misunderstanding of adversarial construction
+  wrong:
+    - adversarial sequence popped a non-minimum, so the wrong solution survived - same failure as 53 [2,3,-9,4]
+    - could not construct the killer sequence after the hint
+    - no approach at all before teaching
+
+communication:
+  - complete correct walk delivered unprompted with the first code submission - the requirement that was missed in 238, LC 3, 56 and 763
+  - "walk described the right algorithm while the code did something else (empty min_st never filled) - next step is walking the CODE, not the idea"
+  - checklist not submitted on draft 2
+  - getmin casing is the fourth API-signature slip after being given the signature
+
+next_actions:
+  - "adversarial method taught explicitly: 1) what state does the wrong solution keep, 2) which operation should change that state but cannot, 3) shortest sequence that triggers it. Next drill require the three steps written out"
+  - walk the code line by line, not the intended algorithm - draft 1's walk was correct while its push was broken
+  - "every if that guards something: say what happens on the else path"
+  - copy the given signature verbatim - getMin, not getmin
+  - reviews overdue - 56, 735, 394, LC 3, 53 were due 2026-09-12; 763 due 2026-09-14
+  - next problem 692 Top K Frequent Words (Tier 2, heap + tie-break comparator; direct extension of 347)
