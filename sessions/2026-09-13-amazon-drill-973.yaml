@@ -1,0 +1,79 @@
+session:
+  date: 2026-09-13
+  track: amazon
+  drill: 17
+  problem:
+    leetcode: 973
+    title: K Closest Points to Origin
+    pattern: size-k max-heap on squared distance
+    tier: 2
+
+scorecard:
+  overall: 5
+  clarify: 6        # asked a real question (ties) - answerable from the uniqueness guarantee; ignored the second prompted point (overflow)
+  edge_cases: 6     # double brackets correct on every case; k missing on the boundary case; typo [[-1,1]] for a point not in the input; adversarial built once step 1 was supplied, and he challenged the realism of x+y - a fair critique
+  approach: 6       # single-question mode: evict farther OK, cmp dist(a) < dist(b) OK, O(n log k) / O(k) OK with because on the second ask; overflow computed as 10^8 (one term) and concluded long long was needed against his own number
+  implementation: null  # not scored as own work - draft 2 was pasted in (comment "你原本漏掉這個" addressed to the reader, different formatting); own draft 1 repeated 692's two missing-pop bugs
+  communication: 3  # required cmp comment never added; walk exposed a wrong answer that was not compared to expected; question about the pasted draft unanswered; second (int) cast still missing at the end
+
+drafts:
+  - n: 1
+    result: not compiled - rejected at the gate (required comparator comment missing); reviewed via the walk only
+    issues:
+      - lambda missing its trailing semicolon
+      - cmp used as a template argument without decltype and constructor argument
+      - pushed all n points, no pop when size > k
+      - pq.top() read k times with no pop - same two bugs as 692 draft 1
+      - "walk returned [[3,3],[5,-1]] - the farthest point - and was submitted without comparing to expected [[3,3],[-2,4]]"
+    right:
+      - "walk distances 18, 26, 20 all correct, and the walk matched the code (no invented pop) - first faithful walk after 155 and 692"
+  - n: 2
+    result: 1/7 - returned the farthest point on every multi-point case
+    issues:
+      - appears pasted from another source (comment "你原本漏掉這個" written to the reader, formatting unlike every prior draft)
+      - "return x > y (min-heap) - opposite of his own correct single-question answer dist(a) < dist(b)"
+  - n: 3
+    result: 7/7 PASS
+    fixed:
+      - x > y back to x < y
+      - (int) cast on the push loop
+    not_done:
+      - required // cmp(a,b) true = a sinks comment
+      - (int) cast on pq.size() > k
+      - walk with the expected-output comparison line
+      - the yes/no question about the pasted draft
+
+tests_passed:
+  - '[[1,3],[-2,2]], k=1 -> [[-2,2]]'
+  - '[[3,3],[5,-1],[-2,4]], k=2 -> [[3,3],[-2,4]] (any order)'
+  - '[[1,3],[-1,-1]], k=1 -> [[-1,-1]] (own normal, typo corrected)'
+  - '[[-1,-1]], k=1 -> [[-1,-1]] (own boundary)'
+  - '[[-3,-3],[1,1]], k=1 -> [[1,1]] (own adversarial, kills x+y)'
+  - '[[3,0],[2,2]], k=1 -> [[2,2]] (kills Manhattan |x|+|y|)'
+  - '[[10000,10000],[-10000,-10000],[0,0]], k=1 -> [[0,0]]'
+
+conceptual:
+  right:
+    - evict the farther point when the heap exceeds k
+    - "cmp(a,b) = dist(a) < dist(b) - farther floats to top"
+    - negative coordinates as the failure mode for an unsquared distance
+    - challenged whether an x+y wrong solution is realistic - correct instinct, led to the Manhattan killer
+    - time and space with because-clauses produced himself on the second ask
+  wrong:
+    - "max of x*x + y*y given as 10^8 (it is 2*10^8), then 'need long long' although even 10^8 is 20x below INT_MAX"
+    - accepted a pasted min-heap comparator that contradicted his own correct answer
+
+communication:
+  - the walk did its job - it showed the wrong answer - but the last step (compare with expected) was skipped
+  - pasted draft kept its reader-addressed comment through the next resubmission
+  - direct yes/no question left unanswered
+  - required comparator comment requested twice, never added
+
+next_actions:
+  - "walk ends with 'expected ___, match / no match' - every time"
+  - "overflow check: compute the maximum, compare with 2.1e9, then decide; do not answer by feel"
+  - "if an outside source is used, say so - the useful thing is comparing it against your own reasoning, which was right here"
+  - "692 and 973 draft 1 both omitted the size>k pop and the drain pop; the size-k heap template is: push, if size > k pop; drain with top then pop"
+  - "follow-up not covered: quickselect for average O(n)"
+  - reviews badly overdue - 56, 735, 394, LC 3, 53 (09-12); 155 (09-13); 763, 692 (09-14)
+  - next problem 1099 Two Sum Less Than K (Tier 2, sort + two pointers)

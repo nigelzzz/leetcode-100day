@@ -37,10 +37,11 @@ curriculum:
   amazon_track:
     roadmap: AMAZON_INTERVIEW_ROADMAP.md
     started: 2026-09-01
-    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3, 53, 56, 763, 155, 692]
+    phone_screen: 2026-09-17
+    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3, 53, 56, 763, 155, 692, 973]
     next_problem:
-      leetcode: 973
-      title: K Closest Points to Origin
+      leetcode: 1099
+      title: Two Sum Less Than K
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
@@ -58,10 +59,13 @@ weaknesses:
   - variable shadowing recurred until it caused a real infinite loop (735 draft 1; warned in 994 redo and 394)
   - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques, 394 k=0; first clean drill LC 3 on 09-05 — answered "constraints are clear")
   - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back)
-  - pre-submit walk (238 skipped twice; LC 3 skipped; 56 trimmed the supplied case; 763 never delivered) - BREAKTHROUGH on 155, a complete correct walk arrived with the first submission; the remaining gap is walking the CODE rather than the intended algorithm (155 walk was right while push never filled min_st); 692 walk narrated a pop the code did not contain
+  - pre-submit walk (238 skipped twice; LC 3 skipped; 56 trimmed the supplied case; 763 never delivered) - BREAKTHROUGH on 155, a complete correct walk arrived with the first submission; the remaining gap is walking the CODE rather than the intended algorithm (155 walk was right while push never filled min_st); 692 walk narrated a pop the code did not contain; 973 walk matched the code for the first time but its wrong result was never compared to expected - rule: last line of every walk is 'expected ___, match / no match'
   - builds adversarial cases that the wrong solution survives (53 [2,3,-9,4]; 155 push 1,2,3 then pop removes a non-minimum); the three-step method was taught on 155 - name the wrong solution's state, find the operation that should change it but cannot, build the shortest sequence that triggers it; valid killers so far - LC 3 zaaac, 763 abca
   - leaves the sign-compare warning unfixed (i < v.size()); 7 drills running - 763's final submission still carries it on the first loop after three separate reminders; fix is (int)v.size()
   - writes an if that guards one case and gives the other case no path (155 if (!min_st.empty()) with no else - min_st never filled, segfault; 692 tie branch if (a < b) with no equal-count guard); rule - for every guard, say what the else path does
+  - size-k heap written without either pop twice running (692 and 973 draft 1 - no pop when size > k, top read k times with no pop)
+  - overflow judged by feel (973 - computed 10^8 instead of 2*10^8, then called for long long against his own number); rule - compute the max, compare with 2.1e9
+  - accepts outside code over his own correct reasoning (973 pasted min-heap comparator contradicted his correct dist(a) < dist(b)) and does not say when a draft came from elsewhere
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
@@ -94,4 +98,5 @@ strengths:
   - clears a three-item fix list in a single draft to a full pass (155 draft 2, 14/14)
   - recovers fully in single-question mode after a failed multi-item round (692 - eviction direction, adversarial expected output, and tie branch each fixed in one short exchange)
   - retained the exact reverse(ans.begin(), ans.end()) spelling across drills (735 slip, correct on 692)
+  - challenges an unrealistic premise from the interviewer (973 - 'noone can use x+y'), which led to a better adversarial
 last_updated: 2026-09-13

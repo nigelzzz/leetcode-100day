@@ -987,3 +987,43 @@ records:
   review_history: []
   next_review_date: 2026-09-14
   review_status: pending
+- problem:
+    leetcode: 973
+    title: K Closest Points to Origin
+  pattern: heap-size-k-max-heap-distance
+  result: solved_with_hints
+  session_date: 2026-09-13
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - 'max squared distance computed as 10^8 (it is 2*10^8), then concluded long long was required although 10^8 is 20x below INT_MAX'
+  - no approach before single-question mode; first complexity answer O(n log n) "because heapify" for a push-everything heap
+  - clarify covered ties only and skipped the prompted overflow check
+  - accepted a pasted min-heap comparator (x > y) that contradicted his own correct answer dist(a) < dist(b)
+  implementation_mistakes:
+  - lambda comparator missing its trailing semicolon
+  - lambda passed as priority_queue's third template argument without decltype(cmp) and pq(cmp)
+  - no pop when the heap exceeded k (same as 692 draft 1)
+  - pq.top() read k times with no pop (same as 692 draft 1)
+  - (int) cast missing on pq.size() > k through the final draft
+  - '[[-1,1]] typed as the expected output for an input containing [-1,-1]'
+  - k omitted on the boundary case immediately after the rule was stated
+  communication_notes:
+  - walk matched the code faithfully for the first time (no invented operations) and its result was wrong - but it was never compared to expected
+  - draft 2 appears pasted from another source (reader-addressed comment "你原本漏掉這個", different formatting); a direct yes/no question about it went unanswered
+  - required comparator comment requested twice, never added
+  - challenged the realism of the x+y wrong solution - fair, and it produced the better Manhattan adversarial
+  mastered_during_session:
+  - 'to keep the k closest, evict the farthest; max-heap by squared distance, cmp(a,b) = dist(a) < dist(b)'
+  - compare squared distances, no sqrt, int is enough for |x|,|y| <= 10^4
+  - '[[3,0],[2,2]], k=1 kills a Manhattan-distance solution - a realistic adversarial'
+  - 'size-k heap template: push; if size > k pop; drain with top then pop'
+  - O(n log k) time because n pushes of O(log k), O(k) space because the heap holds at most k
+  review_dates:
+  - 2026-09-14
+  - 2026-09-16
+  - 2026-09-20
+  - 2026-10-04
+  review_history: []
+  next_review_date: 2026-09-14
+  review_status: pending
