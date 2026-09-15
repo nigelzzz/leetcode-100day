@@ -38,10 +38,10 @@ curriculum:
     roadmap: AMAZON_INTERVIEW_ROADMAP.md
     started: 2026-09-01
     phone_screen: 2026-09-17
-    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3, 53, 56, 763, 155, 692, 973]
+    completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3, 53, 56, 763, 155, 692, 973, 102, 104, 226, 206, 21]
     next_problem:
-      leetcode: 1099
-      title: Two Sum Less Than K
+      leetcode: 146
+      title: LRU Cache (after the 2026-09-17 phone screen; before it - mocks and LP stories)
 weaknesses:
   - tends to skip clarification and brute-force reasoning before optimized code
   - needs deliberate off-by-one checks for legal window counts and index ranges
@@ -50,15 +50,15 @@ weaknesses:
   - variable-name and API-spelling inconsistencies across drafts (isalpha, l_m/lm, original_str/original; grid/g in both 200 and 994; queue pop_front in 994)
   - refactors a passing solution without re-running tests (49 draft 3 regressed)
   - resubmits near-identical drafts after a multi-item bug list instead of addressing each item (improved by 200: fixed four items in one draft)
-  - skips direct interviewer questions and submits code instead (200 two skipped; 994 three skipped; 994 redo 09-04 three skipped again — recurring Earn Trust risk)
+  - skips direct interviewer questions and submits code instead (200 two skipped; 994 three skipped; 994 redo 09-04 three skipped again — recurring Earn Trust risk); 09-15 tree session skipped checkpoints a and b three times while answering c, then answered both instantly one at a time
   - first drafts ignore explicit written requirements from the prompt (994 — mark-on-push and fresh tracking both listed, both skipped)
   - TOP RECURRING SLIP - writes expected outputs in the wrong TYPE (994 all-zero grid, wrong again on 09-04 redo; 238 scored 0/3; 09-07 review wrote [] as [0]; 56 gave an operator with no operands; 763 gave the segment count 1 instead of [4]; 09-11 review wrote [0,5] instead of [[0,5]]) - four straight sessions, then CLEAN on 692 (09-13, all vector<string> literals) - but k was omitted from every case; rule - look at the function's return type BEFORE writing an expected output
-  - state variable read from one source and written from another (994 redo found never set; 394 cur written twice while ss was returned; 56 second_val compared against but updated from intervals[i-1][1]) - named pattern: declaration/assignment/READ three-liner
+  - state variable read from one source and written from another (994 redo found never set; 394 cur written twice while ss was returned; 56 second_val compared against but updated from intervals[i-1][1]; 226 swap(left, right) on local copies left the tree unchanged) - named pattern: declaration/assignment/READ three-liner
   - line-pointing fix-list verification submitted twice ever (735 complete; 763 partial after three bounces, and the ONE row left blank was exactly the unfixed bug) - the gate demonstrably works, it is not yet voluntary
   - TOP WEAKNESS - does not apply a fix list that names the exact line and the exact text (994 orangesRottings twice; 735 ans.reverse() after being handed reverse(ans.begin(), ans.end()); 56 interval->intervals skipped with the spelling and 3 line numbers given, and the same push_back [0] error survived 3 explicit corrections; 155 getmin for the given getMin; 692 resubmitted pre-code answers with only k changed after a worked walk showed the eviction direction was wrong); rule - open the file and fix each item before replying, never in bulk from memory
   - variable shadowing recurred until it caused a real infinite loop (735 draft 1; warned in 994 redo and 394)
   - clarify questions answerable from stated constraints (238 empty array, 347 k vs uniques, 394 k=0; first clean drill LC 3 on 09-05 — answered "constraints are clear")
-  - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back)
+  - container API mixups under time pressure (994 queue pop_front, 347 priority_queue push_back, 199 mock queue top)
   - pre-submit walk (238 skipped twice; LC 3 skipped; 56 trimmed the supplied case; 763 never delivered) - BREAKTHROUGH on 155, a complete correct walk arrived with the first submission; the remaining gap is walking the CODE rather than the intended algorithm (155 walk was right while push never filled min_st); 692 walk narrated a pop the code did not contain; 973 walk matched the code for the first time but its wrong result was never compared to expected - rule: last line of every walk is 'expected ___, match / no match'
   - builds adversarial cases that the wrong solution survives (53 [2,3,-9,4]; 155 push 1,2,3 then pop removes a non-minimum); the three-step method was taught on 155 - name the wrong solution's state, find the operation that should change it but cannot, build the shortest sequence that triggers it; valid killers so far - LC 3 zaaac, 763 abca
   - leaves the sign-compare warning unfixed (i < v.size()); 7 drills running - 763's final submission still carries it on the first loop after three separate reminders; fix is (int)v.size()
@@ -66,6 +66,8 @@ weaknesses:
   - size-k heap written without either pop twice running (692 and 973 draft 1 - no pop when size > k, top read k times with no pop)
   - overflow judged by feel (973 - computed 10^8 instead of 2*10^8, then called for long long against his own number); rule - compute the max, compare with 2.1e9
   - accepts outside code over his own correct reasoning (973 pasted min-heap comparator contradicted his correct dist(a) < dist(b)) and does not say when a draft came from elsewhere
+  - spoken approach contradicts the code he then writes (199 mock - said 'push val if node->right exists', coded right-first BFS taking each level's first node); interviewers score what they hear
+  - states an untraced output as if walked (141 mock 2 - 'it print true' while the code returned false at line 2); never claim a result that was not traced
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division
@@ -99,4 +101,7 @@ strengths:
   - recovers fully in single-question mode after a failed multi-item round (692 - eviction direction, adversarial expected output, and tie branch each fixed in one short exchange)
   - retained the exact reverse(ans.begin(), ans.end()) spelling across drills (735 slip, correct on 692)
   - challenges an unrealistic premise from the interviewer (973 - 'noone can use x+y'), which led to a better adversarial
-last_updated: 2026-09-13
+  - adapts a just-taught template to a new problem independently and compile-clean on draft 1 (09-15, 104 BFS from 102; 226 DFS shape unaided)
+  - first unaided draft-1 pass on a new problem (21 Merge Two Sorted Lists, 09-15, 8/8, compile-clean, checklist fully applied)
+  - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
+last_updated: 2026-09-15

@@ -1,0 +1,32 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: mock phone screen 1 (coding only, no hints, no compiler until done)
+  problem:
+    leetcode: 199
+    title: Binary Tree Right Side View
+    pattern: tree BFS layer snapshot, rightmost per level
+
+verdict: Lean No Hire (borderline) - code at Lean Hire level, spoken process pulled it down
+
+scorecard:
+  clarify: 5          # "no" - acceptable but asked nothing
+  examples: 2         # only root = nullptr; no normal example, no expected output beyond []
+  approach_spoken: 2  # "if node->right exist push val" - wrong algorithm, and different from the code written
+  complexity: 3       # "O(number of tree)" - no because, no space
+  code: 8             # correct algorithm incl. the deeper-left-subtree case; one API error q.top() on a queue
+  walk_and_test: 0    # declared done without walking any example
+
+result:
+  as_submitted: "COMPILE FAIL - queue has no member top"
+  with_front: 8/8 PASS
+
+notes:
+  - right child pushed before left and the first node of each level taken - correct and slightly unusual; not explained
+  - -101 sentinel derived from the -100 lower bound - valid use of constraints; if (i == 0) is clearer
+  - container API mixup third instance (994 pop_front, 347 push_back, 199 queue top)
+  - the gap across 104, 226, 21 and 199 today is communication, not coding - code is near first-try, walks absent, spoken approach unreliable
+
+next:
+  - mock 2 enforcing the six spoken steps before code is accepted
+  - LP stories still zero

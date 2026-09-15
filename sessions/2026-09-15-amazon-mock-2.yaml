@@ -1,0 +1,47 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: mock phone screen 2 (process-focused; interviewer follow-up questions only, no hints)
+  problem:
+    leetcode: 141
+    title: Linked List Cycle
+    pattern: fast/slow pointers
+
+verdict: Lean Hire (borderline) - one level up from mock 1
+
+scorecard:
+  clarify: 4            # "no" again
+  examples: 3           # only the problem's own [1]; no self-built or adversarial case
+  approach_spoken: 7    # "fast slow pointer" - terse but matched the code (mock 1 did not)
+  complexity: 8         # O(n)/O(1); when asked why fast catches slow - "fast gains one step each loop", the key argument
+  code: 7               # draft 1 had an inverted guard and no in-loop meeting check (infinite loop on a cycle); final 12/12
+  walk_and_test: 5      # first "walk" was a claimed output ("it print true") the code could not produce; under follow-up questions he walked line by line and found both bugs himself
+
+drafts:
+  - n: 1
+    issues:
+      - "if (head->next) return false - inverted, returned false for every list of 2+ nodes"
+      - no slow == fast check inside the loop - infinite loop when a cycle exists
+      - "claimed walk result 'it print true' that the code would not produce"
+  - n: 2
+    fixed: inverted guard, found while walking Example 2 at the interviewer's request
+  - n: 3
+    result: 12/12 PASS
+    fixed: meeting check placed after moving, return false after the loop - found by continuing the walk; explained "both start at head, before moving always equal"
+
+tests_passed:
+  - '[3,2,0,-4] tail->1 true; [1,2] tail->0 true; [1] false; [] false'
+  - '[1] self-loop true; [1,2], [1,2,3], [1,2,3,4] no cycle false; [1..5] tail self-loop true'
+  - '10^4 nodes: cycle to head true, no cycle false, tail self-loop true'
+
+progress_vs_mock_1:
+  - spoken approach now matches the code
+  - both bugs self-found through walking - interviewer only asked to walk
+  - complexity reasoning strong when prompted
+still_missing:
+  - clarify and self-built examples unchanged from mock 1
+  - walks and complexity still only on request
+  - stated an untraced output as fact - trust risk
+
+next:
+  - LP stories - zero written, phone screen 2026-09-17

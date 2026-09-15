@@ -1,0 +1,39 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: template study (phone screen prep, 2 days before 2026-09-17)
+  problems:
+    - {leetcode: 102, title: Binary Tree Level Order Traversal, mode: taught}
+    - {leetcode: 104, title: Maximum Depth of Binary Tree, mode: independent BFS, then DFS taught}
+    - {leetcode: 226, title: Invert Binary Tree, mode: independent DFS}
+  pattern: tree BFS with layer snapshot; tree DFS "base case + combine children"
+
+results:
+  "102":
+    checkpoint_a: '[1,2,3,4,5,6,7] -> [[1],[2,3],[4,5,6,7]] correct'
+    checkpoint_b: 'no-snapshot variant on [1,2,3] - answered [[1,2,3]], actual [[1,2],[3]]; direction right, simulation not done'
+    checkpoint_c: 'why no visited in a tree - half right ("dir can duplicate"); taught single-parent / edges only point down'
+  "104":
+    bfs_draft: '5/6 - compiled clean on the FIRST draft with no hints; empty tree segfaulted (checklist item 1 was in the prompt); walk not submitted'
+    fix: 'guard added after q.push(root) - works; taught to put guards first'
+    dfs_walk: '[1,2,null,3] -> 1, 2, 3 correct'
+    base_case_removed: 'root->left on nullptr, segfault - correct'
+  "226":
+    draft_1: '2/5 - swap(left, right) swapped local copies, tree unchanged (three-link rule: assigned, never read)'
+    draft_2: '5/5 - swap(root->left, root->right); left/right locals now unused-variable warnings'
+
+strengths_seen:
+  - first independent adaptation of a just-taught template to a new problem, compile-clean on draft 1 (104 BFS from 102)
+  - DFS shape (base case, recurse left, recurse right, return root) written unaided on 226
+  - single-question answers on recursion were all correct and immediate
+
+weaknesses_seen:
+  - checkpoint questions a and b skipped three times while only c was answered; answered instantly once asked one at a time
+  - given checklist item "empty tree guarded?" not applied before submitting 104
+  - "226 swap on local copies - fourth instance of the declaration/assignment/READ pattern (994 found, 394 cur, 56 second_val)"
+  - walk not submitted for 104
+
+next:
+  - linked list templates 206 Reverse Linked List, 21 Merge Two Sorted Lists (teaching mode)
+  - mock interview 1 (2 LP + 1 coding, no hints, no compiler)
+  - LP stories - none written yet

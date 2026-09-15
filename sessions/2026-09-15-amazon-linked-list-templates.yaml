@@ -1,0 +1,27 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: template study (phone screen prep, 2 days before 2026-09-17)
+  problems:
+    - {leetcode: 206, title: Reverse Linked List, mode: taught}
+    - {leetcode: 21, title: Merge Two Sorted Lists, mode: independent after dummy-node explanation}
+  pattern: three-pointer in-place reversal; dummy head + tail pointer
+
+results:
+  "206":
+    single_question: 'empty list - "cur is nullptr, loop skipped, returns prev = nullptr, no guard needed" - correct, derived from the code'
+  "21":
+    draft_1: '8/8 PASS, compile-clean, all four checklist items satisfied - first new problem on the track passed on draft 1 with no hints'
+    walk: 'not submitted (third walk request of the day skipped); single question answered correctly - with <, equal values take list2 because 1 < 1 is false'
+
+strengths_seen:
+  - "first unaided draft-1 pass on a new problem (21) - correct dummy node, tail advance, remainder attach"
+  - reasons about nullptr from the loop condition rather than adding guards by habit (206)
+  - traces his own comparison operator precisely when asked (21 equal-value step)
+
+weaknesses_seen:
+  - walk skipped on 104, 226 and 21 in one day; every single-question walk request was answered correctly
+
+next:
+  - LP stories - none written, phone screen in 2 days; highest remaining risk
+  - mock interview 1 (2 LP + 1 coding, no hints, no compiler, verbal walk required)

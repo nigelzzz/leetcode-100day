@@ -1027,3 +1027,130 @@ records:
   review_history: []
   next_review_date: 2026-09-14
   review_status: pending
+- problem:
+    leetcode: 104
+    title: Maximum Depth of Binary Tree
+  pattern: tree-bfs-layer-count-and-dfs-combine
+  result: solved_with_hints
+  session_date: 2026-09-15
+  time_minutes: null
+  hint_level: 1
+  conceptual_mistakes:
+  - no empty-tree guard although it was the first item of the checklist in the prompt
+  implementation_mistakes:
+  - q.push(root) with root == nullptr, then tmp->right on nullptr - segfault on []
+  communication_notes:
+  - compiled clean on draft 1, adapted from the 102 template with no hints
+  - walk not submitted
+  mastered_during_session:
+  - 'BFS depth = number of while iterations with a layer snapshot'
+  - 'DFS depth: if (!root) return 0; return 1 + max(left, right)'
+  - 'space O(h): log n balanced, n for a skewed tree'
+  - base case is the only exit of the recursion - removing it dereferences nullptr
+  review_dates:
+  - 2026-09-16
+  - 2026-09-18
+  - 2026-09-22
+  - 2026-10-06
+  review_history: []
+  next_review_date: 2026-09-16
+  review_status: pending
+- problem:
+    leetcode: 226
+    title: Invert Binary Tree
+  pattern: tree-dfs-combine
+  result: solved_with_hints
+  session_date: 2026-09-15
+  time_minutes: null
+  hint_level: 1
+  conceptual_mistakes: []
+  implementation_mistakes:
+  - 'swap(left, right) on local copies of the child pointers - tree returned unchanged (2/5)'
+  - left and right locals left unused after the fix (unused-variable warnings)
+  communication_notes:
+  - DFS shape written unaided; fixed in one line once the local-copy issue was shown
+  mastered_during_session:
+  - 'swap(root->left, root->right) changes the tree; swapping locals does not'
+  - O(n) time, O(h) space
+  review_dates:
+  - 2026-09-16
+  - 2026-09-18
+  - 2026-09-22
+  - 2026-10-06
+  review_history: []
+  next_review_date: 2026-09-16
+  review_status: pending
+- problem:
+    leetcode: 102
+    title: Binary Tree Level Order Traversal
+  pattern: tree-bfs-layer-snapshot
+  result: taught
+  session_date: 2026-09-15
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - 'predicted [[1,2,3]] for the no-snapshot variant on [1,2,3]; actual [[1,2],[3]] because i grows while q.size() shrinks'
+  - 'why a tree needs no visited set - answered vaguely; each node has one parent and pointers only go down'
+  implementation_mistakes: []
+  communication_notes:
+  - connected immediately to the 994 layer snapshot
+  mastered_during_session:
+  - 'guard nullptr root, int sz = (int)q.size() before the inner loop, push only non-null children'
+  - O(n) time, O(width) space
+  review_dates:
+  - 2026-09-16
+  - 2026-09-18
+  - 2026-09-22
+  - 2026-10-06
+  review_history: []
+  next_review_date: 2026-09-16
+  review_status: pending
+- problem:
+    leetcode: 21
+    title: Merge Two Sorted Lists
+  pattern: linked-list-dummy-head-merge
+  result: solved_clean
+  session_date: 2026-09-15
+  time_minutes: null
+  hint_level: 1
+  conceptual_mistakes: []
+  implementation_mistakes: []
+  communication_notes:
+  - draft 1 passed 8/8 including both-empty, one-empty, all-equal and negatives
+  - walk not submitted until asked as a single question, then correct
+  mastered_during_session:
+  - 'dummy node removes the first-node special case; return dummy.next'
+  - 'while (l1 && l2) pick smaller, advance that list and tail; then attach the remaining list whole'
+  - '< vs <= both correct; <= keeps list1 first on ties (stable)'
+  review_dates:
+  - 2026-09-16
+  - 2026-09-18
+  - 2026-09-22
+  - 2026-10-06
+  review_history: []
+  next_review_date: 2026-09-16
+  review_status: pending
+- problem:
+    leetcode: 206
+    title: Reverse Linked List
+  pattern: linked-list-three-pointer-reverse
+  result: taught
+  session_date: 2026-09-15
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes: []
+  implementation_mistakes: []
+  communication_notes:
+  - empty-list behavior derived correctly from the loop condition
+  mastered_during_session:
+  - 'order: save nxt, reverse cur->next = prev, prev = cur, cur = nxt'
+  - return prev, not cur (nullptr) and not head (now the tail)
+  - O(n) time, O(1) space
+  review_dates:
+  - 2026-09-16
+  - 2026-09-18
+  - 2026-09-22
+  - 2026-10-06
+  review_history: []
+  next_review_date: 2026-09-16
+  review_status: pending
