@@ -1,0 +1,36 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: LP behavioral prep 1 (phone screen 2026-09-17)
+  lp_story: dive-deep-wifi-no-internet
+  primary_lps: [Dive Deep, Ownership]
+
+story_card:
+  keywords:
+    - agent on -> WiFi "No internet", blocked the customer project (duration - fill with a real number or omit)
+    - with/without comparison -> WiFi route present but Android stopped treating WiFi as usable -> ruled out several causes
+    - two agent modes, only one broke WiFi -> points to the kernel re-route path
+    - could not rebuild the kernel -> live kernel probes logging each packet's mark before/after -> mark scrambled -> network ID lost -> Android's internet check dropped
+    - back to our code -> one line read the mark without byte-order conversion; three sibling fields were correct
+    - one-line fix + non-zero unit test + audited other fields + root-cause report; lesson - trace data fit two explanations, confirmed against source
+  ruled_out_causes:
+    - "WiFi/connection dead or agent blocking all traffic - local ping worked, outside ping failed, so the link was fine and the problem was routing"
+    - "agent inspection logic wrong in general - only one of two modes broke WiFi (user to confirm the modes share the same logic)"
+  mechanism_sentence: "after the agent handles a packet, the kernel's routing rules check the network ID in the mark; a wrong ID means no WiFi route, so Android's internet check fails"
+
+observations:
+  - asked for samples twice; the first was provided (295 words, plain language), the second declined because it required his own evidence
+  - retyped the sample nearly verbatim; dropped the customer outcome, the prevention steps and the reflection from Result
+  - real recalled detail surfaced under follow-up (local ping OK / outside ping fails, netd, network ID check) - more convincing than the script
+  - answered a different question than asked on the first follow-up (mechanism instead of ruled-out causes)
+  - corrected who checks the network ID (kernel routing rules, not the agent's hook)
+  - one-word and fragment answers late in the session - needs observation -> so -> conclusion sentences
+
+confidentiality:
+  - no customer, platform, or internal product names in the interview
+
+next:
+  - say the story out loud once, recorded, target 2-2.5 minutes, including the full Result and reflection
+  - answer the two ruled-out causes out loud
+  - second story (disagreement or deadline) if time allows
+  - Wednesday full mock - 1 LP + 1 coding, spoken

@@ -68,6 +68,8 @@ weaknesses:
   - accepts outside code over his own correct reasoning (973 pasted min-heap comparator contradicted his correct dist(a) < dist(b)) and does not say when a draft came from elsewhere
   - spoken approach contradicts the code he then writes (199 mock - said 'push val if node->right exists', coded right-first BFS taking each level's first node); interviewers score what they hear
   - states an untraced output as if walked (141 mock 2 - 'it print true' while the code returned false at line 2); never claim a result that was not traced
+  - fixes whatever an interviewer's question points at but initiates almost none of the process himself (mocks 2 and 3 - walks, expected-output checks, space complexity and compile checks all only after being asked); mock 3 sent code before clarify/examples/approach
+  - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
   - maintains fixed-size sliding-window sums in O(n) time
   - recognizes integer comparisons that avoid unnecessary floating-point division

@@ -1,0 +1,43 @@
+session:
+  date: 2026-09-15
+  track: amazon
+  type: mock phone screen 3 (full format - LP then coding)
+  lp_question: "Tell me about a time when you took on a problem that was outside your area of responsibility (Ownership)"
+  coding_problem:
+    leetcode: 695
+    title: Max Area of Island
+    pattern: grid DFS with in-place visited marking
+
+verdict:
+  overall: Lean No Hire - LP question not answered
+  coding_only: borderline Lean Hire - correct algorithm, every defect self-found but only under interviewer questions
+
+lp:
+  result: not answered - asked for a sample, was taught how to reframe the Dive Deep story for Ownership (open with "not code my team owns", close with the prevention work), then chose to move to coding
+  note: in the real screen an unanswered LP question is close to disqualifying; the fallback line is "let me take a few seconds to think of an example"
+
+coding_scorecard:
+  clarify: 0          # skipped; the natural question was whether modifying the grid in place is allowed
+  examples: 4         # [[1,0],[0,1]] is a good adversarial (kills 8-direction search) but its expected output was given as 2; self-corrected to 1 when asked to walk
+  approach_spoken: 5  # sent after the code; described dfs returning a count while the code used a global area
+  complexity: 4       # "O(m, n)" with no because; space O(1) wrong - corrected to O(n^2) when asked about recursion depth
+  code: 8             # algorithm correct incl. 50x50 all-land recursion and a 50x50 snake; five calls missing the grid argument (compile fail), self-identified when asked
+  walk_and_test: 5    # only when asked; the walk was correct and exposed the wrong expected output
+
+results:
+  as_submitted: COMPILE FAIL - too few arguments to dfs (5 calls)
+  with_arguments_added: 10/10 PASS
+
+interviewer_error:
+  - the problem's Example 1 stated Output 4; the correct answer is 3 - corrected during the mock
+
+pattern_across_mocks:
+  - mock 1 (199) - spoken approach contradicted code, no walk, queue top
+  - mock 2 (141) - approach matched code, both bugs self-found once asked to walk
+  - mock 3 (695) - code sent before clarify/examples/approach/complexity; wrong expected output, wrong space, compile error - all three self-found once asked
+  - "he fixes everything an interviewer's question points at, and initiates almost none of it himself"
+
+next:
+  - Wednesday - say the Dive Deep story and the Ownership reframe out loud (recorded)
+  - one last short mock where he must run the six steps unprompted, in order, before any code
+  - reviews due 2026-09-16 - 102, 104, 226, 206, 21
