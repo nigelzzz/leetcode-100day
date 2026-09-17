@@ -1,0 +1,35 @@
+session:
+  date: 2026-09-17
+  track: amazon
+  type: REAL Amazon phone screen
+  outcome: pending (awaiting recruiter)
+
+coding:
+  problems:
+    - {leetcode: 200, title: Number of Islands, previously_drilled: 2026-09-01}
+    - {leetcode: 695, title: Max Area of Island, previously_drilled: 2026-09-15 (mock 3)}
+  both_completed: true
+  known_deduction:
+    - "space complexity answered O(1), justified by in-place marking g[i][j] = 2 instead of a visited array"
+    - "the in-place half is correct and worth saying; the recursion stack was not accounted for - worst case all-land grid is O(m*n) deep"
+    - "third instance of a space-complexity miss: 763 said O(n) for a fixed 26-entry table, 695 in mock 3 said O(1) for the same DFS, and the same answer was repeated today"
+  unknown:
+    - whether the pre-submit walk was self-initiated
+    - whether the interviewer pushed back on the space answer
+    - other follow-ups
+
+behavioral:
+  - WiFi "No internet" story used (the Dive Deep / Ownership story prepared 2026-09-15)
+  - a question about how he runs tests
+
+preparation_that_paid_off:
+  - both coding problems had been drilled; 695 was the mock 3 problem two days earlier
+  - grid DFS template, in-place visited marking, and area counting were all fresh
+
+lessons:
+  - "recursion always has two space components: the data structures allocated, and the call-stack depth. Answer both."
+  - "the BFS answer is the natural follow-up: an iterative queue version removes the stack-depth risk on a huge grid"
+
+next:
+  - wait for recruiter response
+  - loop prep - Tier 3 (146 LRU Cache, 543, 236, 98, 15, 33, 207, 215, 253), plus two more LP stories (Have Backbone and a genuine failure story)
