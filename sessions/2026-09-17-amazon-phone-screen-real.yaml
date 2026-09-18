@@ -2,7 +2,7 @@ session:
   date: 2026-09-17
   track: amazon
   type: REAL Amazon phone screen
-  outcome: pending (awaiting recruiter)
+  outcome: not passed (confirmed 2026-09-18)
 
 coding:
   problems:
@@ -19,7 +19,8 @@ coding:
     - other follow-ups
 
 behavioral:
-  - WiFi "No internet" story used (the Dive Deep / Ownership story prepared 2026-09-15)
+  - asked Learn and Be Curious; answered with the WiFi "No internet" story (prepared 2026-09-15 as Dive Deep / Ownership)
+  - "fit issue: the learning in that story was forced by an incident, while Learn and Be Curious looks for learning driven by curiosity on his own initiative; the coach had listed LBC as a reframe of that story, which overstated the fit"
   - a question about how he runs tests
 
 preparation_that_paid_off:

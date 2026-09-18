@@ -41,7 +41,7 @@ curriculum:
     started: 2026-09-01
     phone_screen:
       date: 2026-09-17
-      status: done, awaiting result
+      status: not passed (confirmed 2026-09-18)
       coding: [200, 695]
       note: both problems had been drilled; space complexity for the DFS answered O(1) instead of O(m*n) recursion stack
     completed_drills: [819, 937, 49, 128, 200, 994, 238, 347, 394, 735, 3, 53, 56, 763, 155, 692, 973, 102, 104, 226, 206, 21]
