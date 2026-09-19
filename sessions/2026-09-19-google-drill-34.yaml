@@ -1,0 +1,57 @@
+session:
+  date: 2026-09-19
+  track: google
+  drill: 2
+  problem:
+    leetcode: 34
+    title: Find First and Last Position of Element in Sorted Array
+    pattern: two lower bounds (lower_bound(t), lower_bound(t+1) - 1)
+    cluster: Binary Search (Phase 1)
+
+scorecard:
+  overall: 6
+  clarify: 7
+  edge_cases: 6       # boundary [2,2,2,2] -> [0,3] well chosen; normal written [2] instead of [2,2]; adversarial method taught on request
+  approach: 9         # derived the two-lower-bound solution himself; both complexity because-clauses correct ("range halves every loop")
+  implementation: 5   # draft 1 had three independent bugs, one a regression from LC 35; all four fix items applied in one pass
+  communication: 5    # not-found condition order explained via short-circuit; walk skipped two rounds and wrote hi's value as lo
+
+drafts:
+  - n: 1
+    result: target=8 returned [-1,-1]; both lower_bound calls looped forever
+    issues:
+      - "while (lo <= hi) again - the LC 35 bug, one day after he derived why lo < hi prevents it"
+      - "nums[mid] > target (upper bound) instead of >= (lower bound)"
+      - "if (first = nums.size() || ...) - assignment, parsed as first = (size || ...), always true"
+      - helper took vector<int> by value - O(n) copy per call, overall O(n)
+      - invariant stated as hi side < target (should be >=)
+      - no walk
+  - n: 2
+    result: 12/12 PASS
+    fixed: lo < hi, >=, ==, const reference - all in one pass
+    remaining:
+      - "walk: 'loop 1 ... hi = 3; 3 < 3 break' - lo was still 0; two rounds skipped"
+      - sign-compare on first == nums.size()
+
+tests_passed:
+  - '[5,7,7,8,8,10] t=8 -> [3,4]; t=6 -> [-1,-1]; t=11 -> [-1,-1]; t=4 -> [-1,-1]; t=5 -> [0,0]; t=10 -> [5,5]'
+  - '[] t=0 -> [-1,-1]'
+  - '[2,2,2,2] t=2 -> [0,3]; [1,2,3,4] t=3 -> [2,2]; [1] t=1 -> [0,0]'
+  - '1e5 equal values -> [0,99999]'
+  - 'target = 1e9 - target + 1 fits in int'
+
+conceptual:
+  right:
+    - "approach: first = lower_bound(target), last = lower_bound(target + 1) - 1"
+    - "not-found check: first == n || nums[first] != target, and the order matters because || short-circuits before nums[n] is read"
+    - lower bound can return n - carried over from LC 35
+    - complexity because-clauses for both time and space
+  wrong:
+    - rewrote the template from memory with lo <= hi and > instead of >=
+    - invariant's hi side stated as < target
+
+next_actions:
+  - "memorise version B as one unit: hi = n, while (lo < hi), hi = mid on nums[mid] >= target"
+  - "walk rule: write both lo and hi every round, never only the one that changed"
+  - "scan every if for = versus == before submitting - Google Doc has no compiler"
+  - next - 704 warm-up, then Day 2 of the Phase 1 week (278, 33)

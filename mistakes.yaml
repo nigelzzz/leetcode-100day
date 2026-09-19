@@ -1154,3 +1154,72 @@ records:
   review_history: []
   next_review_date: 2026-09-16
   review_status: pending
+- problem:
+    leetcode: 35
+    title: Search Insert Position
+  pattern: binary-search-lower-bound-half-open
+  result: solved_with_hints
+  session_date: 2026-09-19
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - missed the target-past-the-end case (answer n), the case that kills hi = n - 1
+  - invariant stated one side at a time; the hi side (indices >= hi hold values >= target) was never produced unaided
+  - mixed version A's lo <= hi with version B's hi = n and hi = mid
+  - complexity because-clause was circular ("because it uses binary search")
+  implementation_mistakes:
+  - function renamed func, nums passed by value, return type vector<int> (compile error)
+  - 'while (lo <= hi) caused an infinite loop at lo = hi = 1 for target 2 and a read of nums[4] for target 7'
+  - resubmitted with only the return type changed and the loop bug intact
+  communication_notes:
+  - both walks skipped the iteration that breaks, on three consecutive submissions
+  - once asked a single question, derived that mid < hi under lo < hi, so nums[n] is never read
+  mastered_during_session:
+  - 'lower bound invariant: indices < lo hold values < target, indices >= hi hold values >= target; answer in [lo, hi]'
+  - 'hi = n, while (lo < hi), hi = mid / lo = mid + 1, return lo'
+  - 'lo < hi => mid < hi => no out-of-bounds read and the interval strictly shrinks'
+  - binary search is O(log n) because the interval halves every round
+  review_dates:
+  - 2026-09-20
+  - 2026-09-22
+  - 2026-09-26
+  - 2026-10-10
+  review_history: []
+  next_review_date: 2026-09-20
+  review_status: pending
+- problem:
+    leetcode: 34
+    title: Find First and Last Position of Element in Sorted Array
+  pattern: binary-search-two-lower-bounds
+  result: solved_with_hints
+  session_date: 2026-09-19
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - normal case expected output written as [2] instead of [2,2]
+  - invariant's hi side stated as < target instead of >= target
+  - asked to be taught adversarial construction; the not-found case was the adversarial for his own approach
+  implementation_mistakes:
+  - 'while (lo <= hi) - regression of the LC 35 bug one day later (infinite loop)'
+  - 'nums[mid] > target makes it an upper bound, not a lower bound'
+  - 'if (first = nums.size() || ...) - assignment instead of comparison, always true'
+  - helper took the vector by value, making the whole solution O(n)
+  - sign-compare on first == nums.size()
+  communication_notes:
+  - derived the two-lower-bound approach himself
+  - fixed all four items of the fix list in a single pass - first time for a multi-item list
+  - explained the short-circuit order of first == n || nums[first] != target correctly
+  - walk skipped two rounds and recorded hi's value as lo
+  mastered_during_session:
+  - 'first = lowerBound(t); if (first == n || nums[first] != t) return {-1,-1}; last = lowerBound(t + 1) - 1'
+  - check the index range before reading the value; || short-circuits left to right
+  - '>= gives lower bound (first >= t), > gives upper bound (first > t)'
+  - an adversarial can target complexity rather than correctness (linear expansion on all-equal input)
+  review_dates:
+  - 2026-09-20
+  - 2026-09-22
+  - 2026-09-26
+  - 2026-10-10
+  review_history: []
+  next_review_date: 2026-09-20
+  review_status: pending

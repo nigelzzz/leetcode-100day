@@ -1,0 +1,54 @@
+session:
+  date: 2026-09-19
+  track: google
+  drill: 1
+  problem:
+    leetcode: 35
+    title: Search Insert Position
+    pattern: binary search, lower bound (half-open)
+    cluster: Binary Search (Phase 1)
+
+scorecard:
+  overall: 5
+  clarify: 8          # "constraints is clear"
+  edge_cases: 6       # three correct outputs; missed the target-past-the-end case (answer n), the one that kills hi = n - 1; no three-step adversarial
+  approach: 5         # approach not stated at first; invariant given one side at a time; then derived mid < hi correctly
+  implementation: 5   # signature changed (func, pass by value, vector<int> return); lo <= hi mixed with hi = n / hi = mid -> infinite loop and nums[n] read; fixed after the character was named
+  communication: 4    # both walks skipped the exact iteration that breaks, three submissions running; the requested per-round loop-condition format was not used; complexity because-clause circular then vague
+
+drafts:
+  - n: 1
+    result: COMPILE FAIL - vector<int> return type
+    issues:
+      - "function renamed to func, nums passed by value (O(n) copy), return type vector<int>"
+      - "while (lo <= hi) with hi = n and hi = mid - version A condition mixed with version B updates"
+      - "with the return type fixed: target=2 loops forever at lo=hi=1; target=7 reads nums[4] past the end"
+      - "walks stopped at the step where the loop was assumed to end, without re-checking lo <= hi"
+  - n: 2
+    result: same logic, only the return type changed - still infinite loop / out of bounds
+  - n: 3
+    result: 12/12 PASS
+    fixed: signature, reference parameter, while (lo < hi)
+
+tests_passed:
+  - '[1,3,5,6] t=5 -> 2; t=2 -> 1; t=7 -> 4; t=0 -> 0'
+  - '[1] t=1 -> 0; t=0 -> 0; t=2 -> 1'
+  - '[1,2,3,4] t=2 -> 1; t=1 -> 0 (own normal, boundary)'
+  - '[1,3,4] t=2 -> 1 (own adversarial)'
+  - '10001-element even array: last element and between the first two'
+
+conceptual:
+  right:
+    - "hi = n so that the answer n (insert past the end) is reachable"
+    - "lo side of the invariant: every index below lo holds a value < target"
+    - "with lo < hi, mid is always < hi, so nums[n] is never read"
+  wrong:
+    - did not produce the hi side of the invariant (every index >= hi holds a value >= target)
+    - mixed the closed-interval loop condition with half-open updates despite the cheat sheet's A/B table
+    - "complexity because-clause: 'because it uses binary search', then 'every loop boundary'"
+
+next_actions:
+  - "walk rule: read the loop condition aloud at the start of every round - 'lo=1, hi=1, 1 < 1 is false, stop'"
+  - "binary search: pick version A or B and keep all three parts together (hi init, loop condition, shrink)"
+  - "complexity because for binary search: the interval halves each round, n -> n/2 -> ... -> 1, so at most log2(n) rounds of O(1) work"
+  - next problem 34 Find First and Last Position (two lower bounds - reuses today's template)
