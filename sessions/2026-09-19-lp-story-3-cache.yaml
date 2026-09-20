@@ -1,0 +1,32 @@
+session:
+  date: 2026-09-19
+  type: LP story mining (story 3)
+  lp_story: kernel-hash-cache-memory-reduction
+  primary_lps: [Frugality, Invent and Simplify]
+  secondary_lps: [Dive Deep, Earn Trust, Are Right A Lot]
+
+confidentiality:
+  - no company, product, repository or internal URL names in interviews or in these notes
+
+facts_confirmed_by_user:
+  - "problem: a kernel module cached file hashes keyed by full path; each entry held a PATH_MAX name buffer (~4 KB per entry)"
+  - "change: key by device ID + inode number + ctime; hash input 12 bytes instead of up to 4 KB; three integer compares instead of strcmp"
+  - "ctime in the key makes the cache miss automatically when a file changes; write/delete hooks kept because ctime may not update immediately"
+  - "inode reuse was considered at design time: ctime in the key distinguishes a new file that reuses a freed inode number"
+  - "result: documented ~4 KB -> ~68 B per entry; 1,024 entries ~4 MB -> ~69 KB (~98% less)"
+  - "benchmark (UnixBench index): 3217.9 -> 3266.0, ~1.5%, within ~1% run-to-run deviation, reported as no significant CPU change"
+
+trigger: noticed the hash cache was consuming more memory than it should
+
+attribution:
+  noticed_the_problem: me
+  idea_dev_inode_ctime_key: me
+  implementation: me
+  memory_math_and_struct_design: me
+  benchmark_runs: colleague
+  write_up_and_noise_judgement: together
+  decision_to_keep_hooks: me
+
+open_items:
+  - "per-entry size: the listed inode_key has 4 bytes of padding after dev_t (ctime needs 8-byte alignment), so the key is 40 B not 36 B, plus any list/hash linkage not shown; verify with pahole or say 'about 70 bytes, roughly 98% less'"
+  - reflection

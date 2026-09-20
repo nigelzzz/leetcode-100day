@@ -17,6 +17,7 @@ training_policy:
   no_full_solution_before_attempt_minutes: 30
   required_edge_cases: 3
   review_intervals_days: [1, 3, 7, 21]
+  practice_mode_from_2026_09_19: quick mode on LeetCode (one-line reports, hand-walk before submit, complexity with because) plus one full mock per week
   daily_target_minutes: 60-90
   weekly_problem_target: 8-12
 baseline_context:
