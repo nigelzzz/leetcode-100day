@@ -1,0 +1,23 @@
+log:
+  mode: quick mode (LeetCode, one-line reports, hand-walk before submit, complexity with because)
+  started: 2026-09-19
+  entries:
+    - date: 2026-09-20
+      leetcode: 704
+      title: Binary Search
+      minutes: 10
+      independence: self
+      complexity: "O(log n), range halves each round; O(1)"
+      first_draft: "4/7 - the two branches were swapped (nums[mid] > target set l = mid + 1)"
+      walk: "not done before the first paste; after the fix the walk was complete and correct for the first time in three problems"
+      pattern_trigger: "sorted array + find an exact value -> binary search version A"
+    - date: 2026-09-20
+      leetcode: 278
+      title: First Bad Version
+      minutes: 8
+      independence: self
+      complexity: "O(log n), range halves each round; O(1)"
+      first_draft: "8/8 PASS including n = INT_MAX"
+      walk: "written in the code as comments before submitting - guardrail followed"
+      notes: "version B written as one consistent unit (hi = n, lo < hi, hi = mid); mid = lo + (hi - lo) / 2 avoids the lo + hi overflow that n = 2^31 - 1 would cause"
+      pattern_trigger: "monotonic predicate (false...false true...true) -> binary search version B, find the first true"
