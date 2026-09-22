@@ -1249,3 +1249,31 @@ records:
   review_history: []
   next_review_date: 2026-09-21
   review_status: pending
+- problem:
+    leetcode: 33
+    title: Search in Rotated Sorted Array
+  pattern: binary-search-rotated-sorted-half
+  result: solved_with_hints
+  session_date: 2026-09-21
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - 'started with nums[mid] > target -> right side, inverted (target is left) and meaningless in a rotated array'
+  - skipped the which-half-is-sorted test and tried to open a nested binary search inside a branch
+  implementation_mistakes: []
+  communication_notes:
+  - derived nums[lo] <= nums[mid] and the in-sorted-half range test himself once asked one question at a time
+  - asked two good invariant questions (can lo overshoot hi by more than one; why < next to mid)
+  mastered_during_session:
+  - 'cut a rotated array anywhere: at least one half is sorted'
+  - 'left sorted: nums[lo] <= target < nums[mid] -> hi = mid - 1 else lo = mid + 1; right sorted mirrors it'
+  - 'endpoints still in range use <=, the already-checked mid uses <'
+  - 'closed-interval loop invariant lo <= hi + 1, so the loop exits with lo == hi + 1'
+  review_dates:
+  - 2026-09-22
+  - 2026-09-24
+  - 2026-09-28
+  - 2026-10-12
+  review_history: []
+  next_review_date: 2026-09-22
+  review_status: pending

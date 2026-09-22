@@ -21,3 +21,13 @@ log:
       walk: "written in the code as comments before submitting - guardrail followed"
       notes: "version B written as one consistent unit (hi = n, lo < hi, hi = mid); mid = lo + (hi - lo) / 2 avoids the lo + hi overflow that n = 2^31 - 1 would cause"
       pattern_trigger: "monotonic predicate (false...false true...true) -> binary search version B, find the first true"
+    - date: 2026-09-21
+      leetcode: 33
+      title: Search in Rotated Sorted Array
+      minutes: null
+      independence: hint (stuck, structure taught, then rewritten himself)
+      complexity: "O(log n), every loop halves; O(1), no extra allocation"
+      first_draft: "stuck - skipped the which-half-is-sorted check and tried to start a nested binary search inside a branch"
+      final: "59/59 PASS including every rotation of 0..6 against every target"
+      questions_asked: "can lo end at 6 and hi at 0 (no - invariant lo <= hi + 1, exit is always lo == hi + 1); why < rather than <= next to mid (mid is already excluded by the equality check; <= is equivalent there)"
+      pattern_trigger: "rotated sorted array -> one half is always sorted; check nums[lo] <= nums[mid], then test whether target lies inside that sorted half"
