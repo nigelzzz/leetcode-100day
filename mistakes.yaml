@@ -921,12 +921,12 @@ records:
   time_minutes: null
   hint_level: 3
   conceptual_mistakes:
-  - 'no approach before teaching ("no idea") - the parallel min_st design was taught in full'
-  - 'adversarial push(1),push(2),push(3),pop() pops a NON-minimum, so the single-min_val solution survives it; same failure as 53 [2,3,-9,4]'
+  - no approach before teaching ("no idea") - the parallel min_st design was taught in full
+  - adversarial push(1),push(2),push(3),pop() pops a NON-minimum, so the single-min_val solution survives it; same failure as 53 [2,3,-9,4]
   - could not construct push(3),push(1),pop() after a targeted hint; then asked whether pop must remove the minimum, which revealed that the construction idea (arrange the input so pop hits the weak point) was missing
-  - 'follow-up c) could not derive min_old = min - diff'
+  - follow-up c) could not derive min_old = min - diff
   implementation_mistakes:
-  - 'push guarded min_st.top() with if (!min_st.empty()) and gave the empty case no branch - min_st was never filled, getMin() segfaulted'
+  - push guarded min_st.top() with if (!min_st.empty()) and gave the empty case no branch - min_st was never filled, getMin() segfaulted
   - getmin instead of the given signature getMin (fourth given-signature slip)
   - missing semicolon after the class definition
   communication_notes:
@@ -936,7 +936,7 @@ records:
   - space complexity O(n) with a correct because-clause after one prompt
   mastered_during_session:
   - min_st holds the minimum up to each level and is pushed and popped in lockstep with st
-  - min_st.push(empty ? v : min(v, min_st.top())) - pushing v directly breaks push(3),push(5)
+  - min_st.push(empty ? v: min(v, min_st.top())) - pushing v directly breaks push(3),push(5)
   - 'adversarial method: name the wrong solution''s state, find the operation that should change it but cannot, build the shortest triggering sequence'
   - 'O(1)-space follow-up: store diff = val - min, update min on negative diff, restore with min = min - diff on pop, use long long for the diff'
   review_dates:
@@ -957,13 +957,13 @@ records:
   hint_level: 3
   conceptual_mistakes:
   - stated the tie eviction backwards ("kick lexicographically smaller") twice, the second time unchanged after a worked k=1 walk
-  - 'wrote the tie-ignoring wrong solution''s output ["b","a"] as the adversarial expected output; correct is ["a","b"]'
+  - wrote the tie-ignoring wrong solution's output ["b","a"] as the adversarial expected output; correct is ["a","b"]
   - omitted k from all three edge cases
-  - 'flipped the tie branch from a correct a < b (draft 1) to a > b in the skeleton'
+  - flipped the tie branch from a correct a < b (draft 1) to a > b in the skeleton
   implementation_mistakes:
   - map<string> with a single template argument
   - member function used as priority_queue's comparator type (needs a lambda with decltype or a struct)
-  - 'tie branch if (a < b) return true lacked the m[a] == m[b] guard, so it overrode different counts'
+  - tie branch if (a < b) return true lacked the m[a] == m[b] guard, so it overrode different counts
   - pushed words (duplicates) instead of map keys
   - never popped when the heap exceeded k
   - read pq.top() k times without pq.pop()
@@ -975,9 +975,9 @@ records:
   - because-clause skipped on complexity twice
   - reverse(ans.begin(), ans.end()) spelled exactly - the 735 ans.reverse() slip did not recur
   mastered_during_session:
-  - 'priority_queue cmp(a,b) == true means a sinks; top() is the loser to evict in a size-k min-heap'
+  - priority_queue cmp(a,b) == true means a sinks; top() is the loser to evict in a size-k min-heap
   - 'loser = fewer occurrences, or equal occurrences and lexicographically larger; so cmp = m[a] != m[b] ? m[a] > m[b] : a < b'
-  - 'push map keys, pop when size > k, drain with top+pop, reverse because the drain is loser-first'
+  - push map keys, pop when size > k, drain with top+pop, reverse because the drain is loser-first
   - O(n log k) time, O(n) space dominated by the count map
   review_dates:
   - 2026-09-14
@@ -996,7 +996,7 @@ records:
   time_minutes: null
   hint_level: 4
   conceptual_mistakes:
-  - 'max squared distance computed as 10^8 (it is 2*10^8), then concluded long long was required although 10^8 is 20x below INT_MAX'
+  - max squared distance computed as 10^8 (it is 2*10^8), then concluded long long was required although 10^8 is 20x below INT_MAX
   - no approach before single-question mode; first complexity answer O(n log n) "because heapify" for a push-everything heap
   - clarify covered ties only and skipped the prompted overflow check
   - accepted a pasted min-heap comparator (x > y) that contradicted his own correct answer dist(a) < dist(b)
@@ -1014,7 +1014,7 @@ records:
   - required comparator comment requested twice, never added
   - challenged the realism of the x+y wrong solution - fair, and it produced the better Manhattan adversarial
   mastered_during_session:
-  - 'to keep the k closest, evict the farthest; max-heap by squared distance, cmp(a,b) = dist(a) < dist(b)'
+  - to keep the k closest, evict the farthest; max-heap by squared distance, cmp(a,b) = dist(a) < dist(b)
   - compare squared distances, no sqrt, int is enough for |x|,|y| <= 10^4
   - '[[3,0],[2,2]], k=1 kills a Manhattan-distance solution - a realistic adversarial'
   - 'size-k heap template: push; if size > k pop; drain with top then pop'
@@ -1043,7 +1043,7 @@ records:
   - compiled clean on draft 1, adapted from the 102 template with no hints
   - walk not submitted
   mastered_during_session:
-  - 'BFS depth = number of while iterations with a layer snapshot'
+  - BFS depth = number of while iterations with a layer snapshot
   - 'DFS depth: if (!root) return 0; return 1 + max(left, right)'
   - 'space O(h): log n balanced, n for a skewed tree'
   - base case is the only exit of the recursion - removing it dereferences nullptr
@@ -1065,12 +1065,12 @@ records:
   hint_level: 1
   conceptual_mistakes: []
   implementation_mistakes:
-  - 'swap(left, right) on local copies of the child pointers - tree returned unchanged (2/5)'
+  - swap(left, right) on local copies of the child pointers - tree returned unchanged (2/5)
   - left and right locals left unused after the fix (unused-variable warnings)
   communication_notes:
   - DFS shape written unaided; fixed in one line once the local-copy issue was shown
   mastered_during_session:
-  - 'swap(root->left, root->right) changes the tree; swapping locals does not'
+  - swap(root->left, root->right) changes the tree; swapping locals does not
   - O(n) time, O(h) space
   review_dates:
   - 2026-09-16
@@ -1089,13 +1089,13 @@ records:
   time_minutes: null
   hint_level: 4
   conceptual_mistakes:
-  - 'predicted [[1,2,3]] for the no-snapshot variant on [1,2,3]; actual [[1,2],[3]] because i grows while q.size() shrinks'
-  - 'why a tree needs no visited set - answered vaguely; each node has one parent and pointers only go down'
+  - predicted [[1,2,3]] for the no-snapshot variant on [1,2,3]; actual [[1,2],[3]] because i grows while q.size() shrinks
+  - why a tree needs no visited set - answered vaguely; each node has one parent and pointers only go down
   implementation_mistakes: []
   communication_notes:
   - connected immediately to the 994 layer snapshot
   mastered_during_session:
-  - 'guard nullptr root, int sz = (int)q.size() before the inner loop, push only non-null children'
+  - guard nullptr root, int sz = (int)q.size() before the inner loop, push only non-null children
   - O(n) time, O(width) space
   review_dates:
   - 2026-09-16
@@ -1119,9 +1119,9 @@ records:
   - draft 1 passed 8/8 including both-empty, one-empty, all-equal and negatives
   - walk not submitted until asked as a single question, then correct
   mastered_during_session:
-  - 'dummy node removes the first-node special case; return dummy.next'
-  - 'while (l1 && l2) pick smaller, advance that list and tail; then attach the remaining list whole'
-  - '< vs <= both correct; <= keeps list1 first on ties (stable)'
+  - dummy node removes the first-node special case; return dummy.next
+  - while (l1 && l2) pick smaller, advance that list and tail; then attach the remaining list whole
+  - < vs <= both correct; <= keeps list1 first on ties (stable)
   review_dates:
   - 2026-09-16
   - 2026-09-18
@@ -1169,15 +1169,15 @@ records:
   - complexity because-clause was circular ("because it uses binary search")
   implementation_mistakes:
   - function renamed func, nums passed by value, return type vector<int> (compile error)
-  - 'while (lo <= hi) caused an infinite loop at lo = hi = 1 for target 2 and a read of nums[4] for target 7'
+  - while (lo <= hi) caused an infinite loop at lo = hi = 1 for target 2 and a read of nums[4] for target 7
   - resubmitted with only the return type changed and the loop bug intact
   communication_notes:
   - both walks skipped the iteration that breaks, on three consecutive submissions
   - once asked a single question, derived that mid < hi under lo < hi, so nums[n] is never read
   mastered_during_session:
   - 'lower bound invariant: indices < lo hold values < target, indices >= hi hold values >= target; answer in [lo, hi]'
-  - 'hi = n, while (lo < hi), hi = mid / lo = mid + 1, return lo'
-  - 'lo < hi => mid < hi => no out-of-bounds read and the interval strictly shrinks'
+  - hi = n, while (lo < hi), hi = mid / lo = mid + 1, return lo
+  - lo < hi => mid < hi => no out-of-bounds read and the interval strictly shrinks
   - binary search is O(log n) because the interval halves every round
   review_dates:
   - 2026-09-20
@@ -1200,9 +1200,9 @@ records:
   - invariant's hi side stated as < target instead of >= target
   - asked to be taught adversarial construction; the not-found case was the adversarial for his own approach
   implementation_mistakes:
-  - 'while (lo <= hi) - regression of the LC 35 bug one day later (infinite loop)'
-  - 'nums[mid] > target makes it an upper bound, not a lower bound'
-  - 'if (first = nums.size() || ...) - assignment instead of comparison, always true'
+  - while (lo <= hi) - regression of the LC 35 bug one day later (infinite loop)
+  - nums[mid] > target makes it an upper bound, not a lower bound
+  - if (first = nums.size() || ...) - assignment instead of comparison, always true
   - helper took the vector by value, making the whole solution O(n)
   - sign-compare on first == nums.size()
   communication_notes:
@@ -1211,7 +1211,7 @@ records:
   - explained the short-circuit order of first == n || nums[first] != target correctly
   - walk skipped two rounds and recorded hi's value as lo
   mastered_during_session:
-  - 'first = lowerBound(t); if (first == n || nums[first] != t) return {-1,-1}; last = lowerBound(t + 1) - 1'
+  - first = lowerBound(t); if (first == n || nums[first] != t) return {-1,-1}; last = lowerBound(t + 1) - 1
   - check the index range before reading the value; || short-circuits left to right
   - '>= gives lower bound (first >= t), > gives upper bound (first > t)'
   - an adversarial can target complexity rather than correctness (linear expansion on all-equal input)
@@ -1238,7 +1238,7 @@ records:
   - no hand-walk before the first submission, which is exactly what would have caught it in 30 seconds
   - after the fix the walk was complete and correct - first correct walk in three problems
   mastered_during_session:
-  - 'value too big shrink r, value too small shrink l'
+  - value too big shrink r, value too small shrink l
   - 'version A: hi = n - 1, while (lo <= hi), hi = mid - 1'
   - 'trigger: sorted array plus find an exact value'
   review_dates:
@@ -1258,7 +1258,7 @@ records:
   time_minutes: null
   hint_level: 3
   conceptual_mistakes:
-  - 'started with nums[mid] > target -> right side, inverted (target is left) and meaningless in a rotated array'
+  - started with nums[mid] > target -> right side, inverted (target is left) and meaningless in a rotated array
   - skipped the which-half-is-sorted test and tried to open a nested binary search inside a branch
   implementation_mistakes: []
   communication_notes:
@@ -1267,8 +1267,8 @@ records:
   mastered_during_session:
   - 'cut a rotated array anywhere: at least one half is sorted'
   - 'left sorted: nums[lo] <= target < nums[mid] -> hi = mid - 1 else lo = mid + 1; right sorted mirrors it'
-  - 'endpoints still in range use <=, the already-checked mid uses <'
-  - 'closed-interval loop invariant lo <= hi + 1, so the loop exits with lo == hi + 1'
+  - endpoints still in range use <=, the already-checked mid uses <
+  - closed-interval loop invariant lo <= hi + 1, so the loop exits with lo == hi + 1
   review_dates:
   - 2026-09-22
   - 2026-09-24
@@ -1276,4 +1276,67 @@ records:
   - 2026-10-12
   review_history: []
   next_review_date: 2026-09-22
+  review_status: pending
+- problem:
+    leetcode: 153
+    title: Find Minimum in Rotated Sorted Array
+  pattern: binary-search-first-true-compare-with-hi
+  result: solved_with_hints
+  session_date: 2026-09-23
+  time_minutes: 10
+  hint_level: 3
+  conceptual_mistakes:
+  - paired hi = mid with while (lo <= hi) - infinite loop at lo == hi; fourth occurrence of mixing the two binary-search shapes
+  - unsure when hi starts at n versus n - 1
+  implementation_mistakes:
+  - returned the index where the problem asks for the value
+  - took the vector by value
+  communication_notes:
+  - reported complexity with a because-clause without being asked
+  mastered_during_session:
+  - hi = mid must pair with lo < hi; hi = mid - 1 must pair with lo <= hi - memorise each shape as one unit
+  - hi starts at n only when index n can be the answer (35) and never when nums[hi] is read (153)
+  - compare nums[mid] with nums[hi] to tell which segment mid is in; comparing with nums[lo] fails on a non-rotated array
+  review_dates:
+  - 2026-09-24
+  - 2026-09-26
+  - 2026-09-30
+  - 2026-10-14
+  review_history:
+  - date: 2026-09-23
+    result: correct
+    notes: 'rewrote 153 with the single half-open template: lo=0, hi=n, p = nums[mid] <= nums[n-1], return nums[lo]; then explained that p true means hi = mid'
+  next_review_date: 2026-09-26
+  review_status: pending
+- problem:
+    leetcode: 875
+    title: Koko Eating Bananas
+  pattern: binary-search-on-the-answer
+  result: solved_with_hints
+  session_date: 2026-09-23
+  time_minutes: null
+  hint_level: 2
+  conceptual_mistakes:
+  - predicate direction reversed (total_h >= h instead of <= h)
+  - branch direction reversed - feasible should shrink hi, not advance lo
+  - complexity first given as O(log n), then O(n log n); correct is O(n log(max pile)) - the binary search is over the answer range, not the array
+  implementation_mistakes:
+  - 'missing parentheses: nums[i] + k - 1 / k instead of (nums[i] + k - 1) / k, so ceil became 15 instead of 3 for 11/4'
+  - int accumulator would overflow (1e4 piles of 1e9 with k = 1 is 1e13)
+  - missing semicolons after the lambda and after hi = mid
+  - sign-compare on i < nums.size()
+  communication_notes:
+  - built the binary-search-on-the-answer skeleton unaided (lo = 1, hi = max, check lambda, shape B) and stated the monotonicity himself
+  mastered_during_session:
+  - 'binary search on the answer needs: a computable range, a check(x), and monotone feasibility'
+  - ceil(a / b) = (a + b - 1) / b
+  - cost = log(answer range) times the cost of one check, so O(n log(max))
+  - watch for overflow when a check accumulates over the whole input
+  review_dates:
+  - 2026-09-24
+  - 2026-09-26
+  - 2026-09-30
+  - 2026-10-14
+  review_history: []
+  next_review_date: 2026-09-24
   review_status: pending

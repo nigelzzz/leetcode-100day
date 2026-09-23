@@ -18,6 +18,7 @@ training_policy:
   required_edge_cases: 3
   review_intervals_days: [1, 3, 7, 21]
   practice_mode_from_2026_09_19: quick mode on LeetCode (one-line reports, hand-walk before submit, complexity with because) plus one full mock per week
+  binary_search_style: classic closed range chosen 2026-09-23 - l = 0, r = n - 1, while (l <= r), mid +/- 1, record ans when good(mid) holds and keep shrinking; do not mix with the half-open form. Two rules - never return on the first match when the first or last occurrence is wanted, and keep the comparison anchor fixed (153 uses nums[n-1], never nums[r])
   daily_target_minutes: 60-90
   weekly_problem_target: 8-12
 baseline_context:
