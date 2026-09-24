@@ -1184,8 +1184,11 @@ records:
   - 2026-09-22
   - 2026-09-26
   - 2026-10-10
-  review_history: []
-  next_review_date: 2026-09-20
+  review_history:
+  - date: &id002 2026-09-24
+    result: partial
+    notes: card 1 - gave r = n-1 and r = mid-1 but omitted the loop condition l <= r; the three lines must be stated together
+  next_review_date: 2026-09-26
   review_status: pending
 - problem:
     leetcode: 34
@@ -1220,8 +1223,11 @@ records:
   - 2026-09-22
   - 2026-09-26
   - 2026-10-10
-  review_history: []
-  next_review_date: 2026-09-20
+  review_history:
+  - date: *id002
+    result: correct
+    notes: card 2 covered the left-bound form used twice by 34
+  next_review_date: 2026-09-27
   review_status: pending
 - problem:
     leetcode: 704
@@ -1246,8 +1252,11 @@ records:
   - 2026-09-23
   - 2026-09-27
   - 2026-10-11
-  review_history: []
-  next_review_date: 2026-09-21
+  review_history:
+  - date: *id002
+    result: correct
+    notes: 'card 2 - first-occurrence variant: on equality r = mid - 1 and return l'
+  next_review_date: 2026-09-27
   review_status: pending
 - problem:
     leetcode: 33
@@ -1274,8 +1283,11 @@ records:
   - 2026-09-24
   - 2026-09-28
   - 2026-10-12
-  review_history: []
-  next_review_date: 2026-09-22
+  review_history:
+  - date: *id002
+    result: correct
+    notes: card 8 - predicate not monotone (F T F T); check nums[l] <= nums[mid] for the sorted half, then whether target lies in its range
+  next_review_date: 2026-09-27
   review_status: pending
 - problem:
     leetcode: 153
@@ -1306,7 +1318,10 @@ records:
   - date: 2026-09-23
     result: correct
     notes: 'rewrote 153 with the single half-open template: lo=0, hi=n, p = nums[mid] <= nums[n-1], return nums[lo]; then explained that p true means hi = mid'
-  next_review_date: 2026-09-26
+  - date: *id002
+    result: correct
+    notes: card 5 - nums[mid] < nums[n-1]; verified that strict < also works for distinct values (45/45), <= is the canonical form
+  next_review_date: 2026-09-27
   review_status: pending
 - problem:
     leetcode: 875
@@ -1337,6 +1352,135 @@ records:
   - 2026-09-26
   - 2026-09-30
   - 2026-10-14
+  review_history:
+  - date: *id002
+    result: partial
+    notes: card 6 complexity O(n log max) correct with because; card 5 defined 夠好 as infeasible (sum > h) instead of feasible, which flips the branches
+  next_review_date: 2026-09-26
+  review_status: pending
+- problem:
+    leetcode: 1283
+    title: Find the Smallest Divisor Given a Threshold
+  pattern: binary-search-on-the-answer
+  result: solved_with_hints
+  session_date: 2026-09-24
+  time_minutes: 15
+  hint_level: 2
+  conceptual_mistakes:
+  - brute force complexity first given as O(n); it is O(n * max) because every candidate divisor rescans the array
+  - optimised complexity first given as O(log n); it is O(n log max)
+  - second example violated the stated guarantee (threshold >= n), so it could not occur
+  implementation_mistakes:
+  - lo = 0 would divide by zero; the divisor range starts at 1
+  - ceil(nums[i] / mid) does nothing - integer division happens first; use (p + mid - 1) / mid
+  - lo <= hi paired with hi = mid - infinite loop on all four test cases (fifth occurrence of mixing the two templates)
+  - ans = hi instead of ans = mid - returned 9 instead of 5
+  - sign-compare on i < nums.size(); stale walk comments left in the code
+  communication_notes:
+  - FIRST unprompted set of four real clarifying questions, including the one that decides the algorithm (round up per element or on the sum)
+  - complexity restated correctly with because-clauses after two corrections
+  - walk in the comments traced the intended algorithm rather than the submitted code
+  mastered_during_session:
+  - ceil(a / b) = (a + b - 1) / b; C++ ceil() cannot rescue integer division
+  - ans records the value just verified (mid), not the boundary
+  - 'adversarial idea: put the answer exactly on a boundary - [44,22,33,11,1] th=5 has answer max and sum exactly threshold, killing both hi = max - 1 and a strict < comparison'
+  - 'half-open form for binary search on the answer: lo < hi, hi = mid, return lo - needs hi to be a known-feasible bound'
+  review_dates:
+  - 2026-09-25
+  - 2026-09-27
+  - 2026-10-01
+  - 2026-10-15
   review_history: []
-  next_review_date: 2026-09-24
+  next_review_date: 2026-09-25
+  review_status: pending
+- problem:
+    leetcode: 70
+    title: Climbing Stairs
+  pattern: dp-1d-fibonacci-memo
+  result: solved_clean
+  session_date: 2026-09-24
+  time_minutes: 10
+  hint_level: 0
+  conceptual_mistakes:
+  - 'brute force complexity given as O(N!) instead of O(2^n) - factorial only appears when the branching factor shrinks each level (permutations)'
+  - 'time because given as "memo reduces recursion depth"; memo removes repeated work, the depth is still n'
+  - space because covered the memo array but not the recursion stack
+  implementation_mistakes:
+  - void return type instead of int
+  - function not named climbStairs as the problem states
+  communication_notes:
+  - first DP problem of the track, recursion plus memo written with no hints, 6/6 including n = 45
+  - step 6 walk not performed
+  mastered_during_session:
+  - 'DP time = number of distinct subproblems x cost per subproblem'
+  - 'recursive DP space has two parts: the memo table and the call stack'
+  - 'the O(1)-space iterative version (prev2, prev1) is the expected follow-up'
+  - 'branching recursion of factor 2 and depth n is O(2^n), not O(n!)'
+  review_dates:
+  - 2026-09-25
+  - 2026-09-27
+  - 2026-10-01
+  - 2026-10-15
+  review_history: []
+  next_review_date: 2026-09-25
+  review_status: pending
+- problem:
+    leetcode: 198
+    title: House Robber
+  pattern: dp-1d-pick-or-skip
+  result: solved_clean
+  session_date: 2026-09-24
+  time_minutes: 10
+  hint_level: 0
+  conceptual_mistakes:
+  - 'brute-force space given as O(2^n); the recursion tree has 2^n nodes but the stack holds only n frames, so space is O(n)'
+  - only one example given; [100,1,1,100] -> 200 would have killed a greedy alternate-house approach
+  - the O(1)-space version was not volunteered
+  implementation_mistakes:
+  - recursive helper called without passing nums
+  communication_notes:
+  - stated dp definition, transition and base cases before coding, unprompted
+  - walk performed with correct dp values
+  mastered_during_session:
+  - 'dp[i] = max(dp[i-1], dp[i-2] + nums[i]) with dp[0] = nums[0], dp[1] = max(nums[0], nums[1])'
+  - 'time counts how many nodes are computed; space counts how deep the stack goes - they differ for branching recursion'
+  - 'two rolling variables replace the dp array: O(1) space and no size special cases'
+  review_dates:
+  - 2026-09-25
+  - 2026-09-27
+  - 2026-10-01
+  - 2026-10-15
+  review_history: []
+  next_review_date: 2026-09-25
+  review_status: pending
+- problem:
+    leetcode: 746
+    title: Min Cost Climbing Stairs
+  pattern: dp-1d-reach-top
+  result: solved_with_hints
+  session_date: 2026-09-24
+  time_minutes: 10
+  hint_level: 3
+  conceptual_mistakes:
+  - 'mixed two dp definitions: base case from "standing on i includes cost[i]" with a transition shaped like 198'
+  - 'proposed min(dp[i-2] + cost[i], dp[i-1]) - asymmetric, one branch pays and the other does not, and dp[i-1] alone implies a free move'
+  - 'time complexity written as O(1) although the because-clause said n loops'
+  implementation_mistakes:
+  - 'vector<int> dp(n, 0) while writing and reading dp[n] - heap-buffer-overflow confirmed by AddressSanitizer; it still returned 15, which is the dangerous kind of bug'
+  - 'earlier rolling attempt stored raw cost values in prev1/prev2 instead of dp values'
+  communication_notes:
+  - '[1,10,1] -> 2 is his first genuine adversarial example, killing the assumption that every stair must be stepped on'
+  - rolling O(1) version written correctly once the definition was fixed
+  mastered_during_session:
+  - 'pin the dp definition in one sentence first; transition and base case follow from it'
+  - 'an asymmetric transition is always wrong - both branches must account for the same cost'
+  - 'dp array size = largest index used + 1; the top is index n, so dp needs n + 1 slots'
+  - 'to write a transition: where could the previous position be, and what does that move cost'
+  review_dates:
+  - 2026-09-25
+  - 2026-09-27
+  - 2026-10-01
+  - 2026-10-15
+  review_history: []
+  next_review_date: 2026-09-25
   review_status: pending

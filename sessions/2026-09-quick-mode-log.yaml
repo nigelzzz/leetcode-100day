@@ -73,3 +73,71 @@ log:
       template: "l = 0, r = n - 1, ans = default; while (l <= r) { mid; if (good(mid)) { ans = mid; r = mid - 1; } else l = mid + 1; } return ans"
       verified: "works for 35 (3000 random distinct arrays), 34 (2000 random), 278, 153 (45 rotations), 875, and 162 (3379 random zigzags); 33 stays the exception"
       traps: "do not return on first match when the first or last index is wanted; keep the comparison anchor fixed - 153 must compare with nums[n-1], and comparing with the moving nums[r] failed 11 of 45 rotations"
+    - date: 2026-09-24
+      leetcode: 1283
+      title: Find the Smallest Divisor Given a Threshold
+      minutes: 15
+      independence: hint (three bugs corrected)
+      complexity: "O(n log max); O(1)"
+      first_draft: "lo = 0 (divisor zero), ceil(nums[i] / mid) which is a no-op after integer division, and lo <= hi paired with hi = mid - infinite loop on all four cases"
+      second_draft: "ans = hi instead of ans = mid - returned 9 for [1,2,5,9] th=6"
+      final: "4007/4007 including 4000 random cases against brute force, and 5e4 piles of 1e6"
+      clarify: "FIRST time he asked four real clarifying questions unprompted (zeros? round up per element or on the sum? is threshold >= n guaranteed? ranges?) - the rounding question is the one that changes the algorithm"
+      learned:
+        - "ceil in C++ cannot fix integer division: ceil(5/2) is 2; use (a + b - 1) / b"
+        - "ans records the value just verified (mid), never the boundary (hi)"
+        - "the two templates: lo <= hi with hi = mid - 1 and ans, or lo < hi with hi = mid and return lo - the three lines move together"
+        - "binary search on the answer needs a legal lower bound (divisor cannot be 0)"
+      note: "walk written in comments described the intended algorithm, not the code he wrote (third occurrence); stale walk comments left in the submission"
+    - date: 2026-09-24
+      leetcode: 70
+      title: Climbing Stairs
+      minutes: 10
+      independence: self (first DP problem, recursion + memo written unaided)
+      complexity: "O(n) time, O(n) space - because-clauses needed correcting twice"
+      cluster: Dynamic Programming (first problem, cluster was 0/26)
+      issues:
+        - "void return type instead of int"
+        - "brute force complexity given as O(N!); it is O(2^n) - measured 21891 calls at n=20, 29.8M at n=35"
+        - "time because given as 'memo reduces recursion depth'; correct is 'n distinct subproblems, each computed once, O(1) each'"
+        - "space because covered only the memo array, not the O(n) recursion stack - same miss as the Amazon phone screen"
+        - step 6 walk not done
+      right:
+        - "recursion f(n) = f(n-1) + f(n-2) with base n <= 1 and the memo check written without hints; 6/6 tests including n=45"
+      taught: "DP time = number of subproblems x cost each; the O(1)-space iterative version as the standard follow-up"
+    - date: 2026-09-24
+      leetcode: 198
+      title: House Robber
+      minutes: 10
+      independence: self (recursion and bottom-up DP both written unaided)
+      complexity: "O(n) time because a single loop; O(1) space with the two-variable version"
+      cluster: Dynamic Programming (2/26)
+      right:
+        - "dp definition, transition dp[i] = max(dp[i-1], dp[i-2] + nums[i]) and both base cases stated before coding"
+        - "walk of [2,7,9,3,1] done with correct dp values (11, 11, 12)"
+        - "3007/3007 including 3000 random arrays checked against exhaustive enumeration of all legal subsets"
+      issues:
+        - "brute-force SPACE given as O(2^n); it is O(n) - the tree has 2^n nodes but only n frames are on the stack"
+        - recursive calls omitted the nums argument
+        - only one example given instead of two
+        - the O(1)-space follow-up was not volunteered until asked
+      taught: "time counts nodes computed, space counts stack depth; [100,1,1,100] kills a greedy alternate-house approach"
+    - date: 2026-09-24
+      leetcode: 746
+      title: Min Cost Climbing Stairs
+      minutes: 10
+      independence: hint (dp definition had to be pinned down first)
+      complexity: "O(n) time, O(1) space with the rolling version (wrote O(1) for time by slip)"
+      cluster: Dynamic Programming (3/26)
+      root_cause: "definition, transition and base case came from two different definitions at once - dp[0] = cost[0] (definition B) with a transition shaped like 198 (definition A)"
+      taught:
+        - "definition A: dp[i] = cost to REACH step i, dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]), answer dp[n]"
+        - "definition B: dp[i] = cost to STAND on step i, dp[i] = cost[i] + min(dp[i-1], dp[i-2]), answer min(dp[n-1], dp[n-2])"
+        - "an asymmetric transition (cost added on only one branch) is always wrong"
+        - "to write a transition ask: where could the previous step have been, and what does that move cost"
+      right:
+        - "[1,10,1] -> 2 is his first genuine adversarial example (kills 'step on every stair')"
+        - rolling version correct on the first try, 3004/3004
+      issues:
+        - "array version declared dp(n, 0) but writes and reads dp[n] - AddressSanitizer confirms heap-buffer-overflow, and it still returned the right answer, which is the dangerous case"
+        - "time complexity written as O(1) while the because said n loops"
