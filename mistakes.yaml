@@ -1446,7 +1446,10 @@ records:
   - date: *id003
     result: wrong
     notes: 'gave dp[i] = min(dp[i-1], nums[i] + dp[i-2]) - confused the counting problem with 746; correct is dp[i] = dp[i-1] + dp[i-2]. Rule taught: the noun in the definition (ways / amount / cost) decides addition vs max vs min'
-  next_review_date: 2026-09-29
+  - date: 2026-09-30
+    result: correct
+    notes: definition "total number of ways to reach step i" and transition dp[i] = dp[i-1] + dp[i-2] both correct; the noun-decides-the-operation rule stuck after one wrong attempt
+  next_review_date: 2026-10-04
   review_status: pending
 - problem:
     leetcode: 198
@@ -1513,4 +1516,67 @@ records:
     result: correct
     notes: transition dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]) recalled exactly, symmetry preserved
   next_review_date: 2026-10-02
+  review_status: pending
+- problem:
+    leetcode: 322
+    title: Coin Change
+  pattern: dp-1d-unbounded-knapsack
+  result: solved_with_hints
+  session_date: 2026-09-29
+  time_minutes: null
+  hint_level: 3
+  conceptual_mistakes:
+  - definition noun wrong (said minimum "method" instead of minimum number of coins)
+  - transition given as min(dp[i-1]); each coin is its own candidate, dp[i] = min over coins of dp[i - c] + 1
+  - base case dp[0] = 1 instead of 0
+  - chose -1 as the unreachable sentinel; -1 wins min() and poisons the table - demonstrated returning -1 for [1,2,5] amount 11
+  - did not answer why 322 cannot be rolled to O(1) space
+  implementation_mistakes:
+  - inner guard written coin >= i instead of i >= coin
+  - dp[coin - i] instead of dp[i - coin] - read dp[-1] immediately
+  - dp[0] = 0 omitted in the second draft, so amount = 0 returned -1
+  communication_notes:
+  - complexity numbers correct (O(amount x coins), O(amount)) but without because-clauses
+  - walked the dp table to dp[11] correctly once the first ten entries were shown
+  mastered_during_session:
+  - the unreachable sentinel must exceed any valid answer (amount + 1), never -1
+  - i - coin is what remains after placing that coin
+  - dp[i] depends on dp[i - c] for arbitrary c, so the whole table is needed - no O(1) rolling version
+  review_dates:
+  - 2026-09-30
+  - 2026-10-02
+  - 2026-10-06
+  - 2026-10-20
+  review_history: []
+  next_review_date: 2026-09-30
+  review_status: pending
+- problem:
+    leetcode: 19
+    title: Remove Nth Node From End of List
+  pattern: linked-list-two-pointer-gap
+  result: solved_with_hints
+  session_date: 2026-09-30
+  time_minutes: 15
+  hint_level: 3
+  conceptual_mistakes:
+  - 'gap set to n - 1 instead of n, so slow stopped one node too early'
+  - no dummy node, so deleting the head had no predecessor to link from
+  implementation_mistakes:
+  - 'while (!fast) inverted - the inner loop ran zero times (measured), slow never advanced'
+  - void return type instead of ListNode*
+  - parameter named n but the body used k; fast and slow never declared
+  communication_notes:
+  - examples and walk steps left blank for the second problem in a row
+  - complexity correct with a because for time
+  mastered_during_session:
+  - 'slow starts at dummy, fast at head, gap = n; when fast reaches null slow is on the node before the target'
+  - 'return dummy.next, never head, when the head itself may be removed'
+  - 'loop while (fast) means keep going until fast falls off the end; while (!fast) never runs'
+  review_dates:
+  - 2026-10-01
+  - 2026-10-03
+  - 2026-10-07
+  - 2026-10-21
+  review_history: []
+  next_review_date: 2026-10-01
   review_status: pending

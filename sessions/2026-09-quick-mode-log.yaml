@@ -141,3 +141,53 @@ log:
       issues:
         - "array version declared dp(n, 0) but writes and reads dp[n] - AddressSanitizer confirms heap-buffer-overflow, and it still returned the right answer, which is the dangerous case"
         - "time complexity written as O(1) while the because said n loops"
+    - date: 2026-09-29
+      leetcode: 322
+      title: Coin Change
+      minutes: null
+      independence: hint (transition, base case and sentinel all corrected)
+      complexity: "O(amount x coins) time, O(amount) space - numbers correct, because-clauses not given"
+      cluster: Dynamic Programming (4/26)
+      issues:
+        - "definition noun wrong: said 'minimum method' instead of minimum number of coins"
+        - "transition given as min(dp[i-1]) - missed that each coin is a separate candidate, dp[i] = min over coins of dp[i - c] + 1"
+        - "base case dp[0] = 1 instead of 0"
+        - "initialised dp to -1 as the unreachable marker - demonstrated that -1 wins min() and poisons the table (returned -1 for [1,2,5] amount 11)"
+        - "inner guard written coin >= i instead of i >= coin"
+        - "dp[coin - i] instead of dp[i - coin] - read dp[-1] on the first iteration"
+        - "forgot dp[0] = 0 in the next draft, so amount = 0 returned -1"
+      final: "3009/3009 including amount 6249 and a 2147483647 coin"
+      taught:
+        - "sentinel must be LARGER than any valid answer (amount + 1), never -1"
+        - "i - coin = what is left to make after placing that coin"
+        - "322 cannot roll to O(1) space because dp[i] depends on dp[i - c] for arbitrary coin values"
+    - date: 2026-09-30
+      leetcode: 2
+      title: Add Two Numbers
+      minutes: 15
+      independence: hint (four bugs plus a conceptual correction)
+      complexity: "O(max(m,n)) time; output O(max(m,n)), auxiliary O(1) - because-clauses not given"
+      cluster: Linked List (4/18)
+      conceptual: "tried to build the integer (ans = ans * 10 + sum); with up to 100 nodes the number has 100 digits, which no integer type holds - that is why the problem uses lists"
+      issues:
+        - "carry and digit swapped (carry = sum % 10 instead of sum / 10)"
+        - "created a stack-local ListNode and assigned it to a ListNode* - needs new ListNode(digit)"
+        - "dereferenced l1->val and l2->val without null checks, crashing on unequal lengths"
+        - "loop condition missed carry, dropping the final 1 of example 3"
+        - "digit and ans never declared; examples step left blank"
+        - "walk wrote ans = 708 - the answer is the list [7,0,8] and the numeric sum is 807; fifth instance of answer-type confusion"
+      note: "coach could not compile this round (tool outage); review was by inspection"
+    - date: 2026-09-30
+      leetcode: 19
+      title: Remove Nth Node From End of List
+      minutes: 15
+      independence: hint (three bugs)
+      complexity: "O(n) time because one pass; O(1) space"
+      cluster: Linked List (5/18)
+      issues:
+        - "while (!fast) inverted - measured: the inner loop ran 0 times, so slow never moved and the second node was deleted instead"
+        - "fast advanced n - 1 steps instead of n"
+        - "no dummy node, so deleting the head crashed or returned the wrong list"
+        - void return type, parameter named n but code used k, fast/slow never declared
+        - steps 2 and 6 (examples, walk) left blank again
+      taught: "slow starts at dummy, fast starts at head, gap = n; when fast hits null slow sits on the node before the target; return dummy.next because head may be the deleted node"
