@@ -191,3 +191,40 @@ log:
         - void return type, parameter named n but code used k, fast/slow never declared
         - steps 2 and 6 (examples, walk) left blank again
       taught: "slow starts at dummy, fast starts at head, gap = n; when fast hits null slow sits on the node before the target; return dummy.next because head may be the deleted node"
+    - date: 2026-10-01
+      leetcode: 92
+      title: Reverse Linked List II
+      minutes: null
+      independence: taught (stuck at the reconnection; solution shown, then he reproduced all six steps)
+      cluster: Linked List (6/18)
+      code: "correct - identical to the reference verified 63/63 over every left/right pair for lengths 1..6"
+      issues:
+        - "walk's final line said dummy.next = 4; the list is [3,5] so the answer is 5 -> [5,3]. Sixth answer-value/type slip"
+        - "walk did not end with 'expected ..., matches'"
+        - steps 2 (examples) and 4 (complexity) skipped in the delivery
+      learned:
+        - "prev starts at dummy and walks left - 1 steps, so left = 1 needs no special case"
+        - "start = prev->next becomes the TAIL of the reversed segment, so start->next = cur is the link people forget"
+        - "reverse exactly right - left + 1 nodes; afterwards pv is the new head and cur is the node after the segment"
+        - "return dummy.next, never head"
+      note: "first end-to-end six-step delivery, though following the coach's script; the real test is the next problem unaided"
+    - date: 2026-10-01
+      leetcode: 876
+      title: Middle of the Linked List
+      minutes: null
+      independence: self (first unaided six-step delivery)
+      complexity: "O(n) time, O(1) space - numbers right, because-clauses missing"
+      cluster: Linked List (7/18)
+      result: 7/7 PASS including 1, 2, 4 and 100 nodes
+      six_step_score: "3 full, 3 partial, 0 missing - compare with mock 3 where steps 1, 2, 4 and 6 were blank"
+      right:
+        - "two examples chosen as one odd and one even length, both expected outputs correct"
+        - "brute force (length then half) stated with complexity before the one-pass version"
+        - "fast/slow condition while (fast && fast->next) correct, which is what returns the SECOND middle"
+      issues:
+        - "clarify asked about odd counts; the ambiguity is for EVEN counts (which of the two middles)"
+        - "wrote O(2n); Big-O drops constants, say O(n)"
+        - "no because-clauses for either complexity"
+        - "walk said fast = null at exit; fast was 3 and the loop ended because fast->next was null"
+        - "walk missing the final got/expected line"
+        - "typo LostNode"

@@ -116,6 +116,7 @@ strengths:
   - challenges an unrealistic premise from the interviewer (973 - 'noone can use x+y'), which led to a better adversarial
   - adapts a just-taught template to a new problem independently and compile-clean on draft 1 (09-15, 104 BFS from 102; 226 DFS shape unaided)
   - first unaided draft-1 pass on a new problem (21 Merge Two Sorted Lists, 09-15, 8/8, compile-clean, checklist fully applied)
+  - first unaided end-to-end six-step delivery (876, 2026-10-01 - three steps full, three partial, none blank; mock 3 had four blank)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-09-19
+last_updated: 2026-10-01

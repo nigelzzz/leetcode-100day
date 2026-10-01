@@ -1580,3 +1580,64 @@ records:
   review_history: []
   next_review_date: 2026-10-01
   review_status: pending
+- problem:
+    leetcode: 92
+    title: Reverse Linked List II
+  pattern: linked-list-reverse-sublist
+  result: taught
+  session_date: 2026-10-01
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - 'stuck on reconnection: did not see that start (the old first node) becomes the tail and must point at the node after the segment'
+  - prev walked from head instead of from dummy, leaving left = 1 without a predecessor
+  implementation_mistakes:
+  - loop counters never incremented in the first sketch and were undeclared
+  - 'walk reported dummy.next = 4 for the list [3,5]; the answer is 5'
+  communication_notes:
+  - produced all six steps end to end for the first time, following the coach's script
+  - examples and complexity steps skipped in the final delivery
+  mastered_during_session:
+  - 'dummy plus prev walking left - 1 steps removes the left = 1 special case'
+  - 'reverse right - left + 1 nodes; afterwards pv is the new head and cur is the node after the segment'
+  - 'two links to restore: prev->next = pv and start->next = cur'
+  - return dummy.next because the head can change
+  review_dates:
+  - 2026-10-02
+  - 2026-10-04
+  - 2026-10-08
+  - 2026-10-22
+  review_history: []
+  next_review_date: 2026-10-02
+  review_status: pending
+- problem:
+    leetcode: 876
+    title: Middle of the Linked List
+  pattern: linked-list-fast-slow-middle
+  result: solved_clean
+  session_date: 2026-10-01
+  time_minutes: null
+  hint_level: 0
+  conceptual_mistakes:
+  - 'clarify question aimed at odd counts; the ambiguity is for even counts - which of the two middles to return'
+  - 'wrote O(2n) instead of collapsing the constant to O(n)'
+  - no because-clauses for time or space
+  implementation_mistakes:
+  - typo LostNode instead of ListNode
+  - 'walk claimed fast = null at exit; fast was the last node and the loop ended because fast->next was null'
+  - walk missing the final got/expected line
+  communication_notes:
+  - FIRST unaided end-to-end six-step delivery; three steps full, three partial, none missing
+  - both examples well chosen (one odd length, one even) with correct expected outputs
+  - brute force stated with its complexity before the optimal approach
+  mastered_during_session:
+  - 'while (fast && fast->next) lands slow on the SECOND middle for even lengths'
+  - 'fast moves two steps per round, so the loop runs about n/2 times'
+  review_dates:
+  - 2026-10-02
+  - 2026-10-04
+  - 2026-10-08
+  - 2026-10-22
+  review_history: []
+  next_review_date: 2026-10-02
+  review_status: pending
