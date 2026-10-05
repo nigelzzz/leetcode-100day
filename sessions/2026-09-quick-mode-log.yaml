@@ -228,3 +228,22 @@ log:
         - "walk said fast = null at exit; fast was 3 and the loop ended because fast->next was null"
         - "walk missing the final got/expected line"
         - "typo LostNode"
+    - date: 2026-10-05
+      leetcode: 138
+      title: Copy List with Random Pointer
+      minutes: null
+      independence: taught
+      cluster: Linked List (8/18)
+      what_happened:
+        - "confused by the LeetCode serialization [val, randomIndex] - clarified that next comes from array order"
+        - "asked good question: why is the interleave version O(1) space when it calls new n times - led to the output-vs-auxiliary distinction he had missed on LC 2"
+        - "interleave method explained three times without landing; parked it as a verbal-only follow-up"
+        - "map version derived with micro-steps: he supplied m[cur->next] and m[cur->random] correctly"
+      bugs_found_in_his_drafts:
+        - "for (cur = head; cur; cur = head->next) - increment used head instead of cur, infinite loop"
+      taught:
+        - "pass 1 creates nodes only, because cur->random may point at a node not yet created"
+        - "m[nullptr] defaults to nullptr, so null next/random and an empty list need no special case"
+        - "interleave key line: p->next->random = p->random ? p->random->next : nullptr, since every copy sits behind its original"
+        - "output space is never counted; auxiliary space is the map (O(n)) versus the interleave trick (O(1))"
+      decision: "map version is the primary answer; interleave is a three-sentence verbal follow-up until pointer fluency improves (revisit after 206 rewrite, 21, then 25)"

@@ -1641,3 +1641,32 @@ records:
   review_history: []
   next_review_date: 2026-10-02
   review_status: pending
+- problem:
+    leetcode: 138
+    title: Copy List with Random Pointer
+  pattern: linked-list-deep-copy-hashmap
+  result: taught
+  session_date: 2026-10-05
+  time_minutes: null
+  hint_level: 4
+  conceptual_mistakes:
+  - misread the serialization [val, randomIndex] as needing a third field
+  - 'interleave method did not land after three explanations; parked as verbal-only'
+  implementation_mistakes:
+  - 'loop increment written cur = head->next instead of cur = cur->next (infinite loop)'
+  communication_notes:
+  - 'asked why new Node() n times still counts as O(1) space - produced the output-versus-auxiliary distinction himself, the thing he missed on LC 2'
+  - supplied both second-pass lines (m[cur->next], m[cur->random]) correctly once the first pass was separated out
+  mastered_during_session:
+  - 'pass 1 creates all copies, pass 2 wires next and random, because random may point forward'
+  - 'm[nullptr] is nullptr by default, so null links and the empty list need no special cases'
+  - 'output space is not counted; auxiliary space is what distinguishes the map version O(n) from the interleave version O(1)'
+  - 'interleave in one line: p->next->random = p->random ? p->random->next : nullptr'
+  review_dates:
+  - 2026-10-06
+  - 2026-10-08
+  - 2026-10-12
+  - 2026-10-26
+  review_history: []
+  next_review_date: 2026-10-06
+  review_status: pending
