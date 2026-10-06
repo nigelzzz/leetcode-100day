@@ -1670,3 +1670,61 @@ records:
   review_history: []
   next_review_date: 2026-10-06
   review_status: pending
+- problem:
+    leetcode: 23
+    title: Merge k Sorted Lists
+  pattern: linked-list-k-way-merge-heap
+  result: solved_with_hints
+  session_date: 2026-10-06
+  time_minutes: 15
+  hint_level: 2
+  conceptual_mistakes:
+  - 'pushed all N nodes into the heap instead of only the k heads, turning O(N log k) into O(N log N) and O(k) into O(N)'
+  implementation_mistakes:
+  - 'pq.push(cur->val) - pushed an int into a priority_queue<ListNode*>'
+  - typo b->va
+  - 'allocated new nodes (new ListNode(c->val)) where the existing nodes could be relinked'
+  communication_notes:
+  - complexity stated correctly as O(N log k) and O(k)
+  - 'asked four good why-questions: comparator direction, the if (h) null guard, push count versus heap size, and how to compute complexity generally'
+  mastered_during_session:
+  - 'heap holds the current front of each list, so size stays <= k while push count totals N'
+  - 'C++ comparator: cmp(a,b) true means a sinks, so > gives a min-heap'
+  - 'empty lists arrive as nullptr and must be skipped before pushing'
+  - 'complexity method: time = how many operations x cost each; space = structures allocated + recursion depth, output not counted'
+  review_dates:
+  - 2026-10-07
+  - 2026-10-09
+  - 2026-10-13
+  - 2026-10-27
+  review_history: []
+  next_review_date: 2026-10-07
+  review_status: pending
+- problem:
+    leetcode: 78
+    title: Subsets
+  pattern: backtracking-choose-or-skip
+  result: solved_clean
+  session_date: 2026-10-06
+  time_minutes: null
+  hint_level: 0
+  conceptual_mistakes:
+  - 'time complexity given as O(2^n); copying each subset into the answer costs O(n), so it is O(2^n * n)'
+  implementation_mistakes:
+  - 'nums referenced inside dfs but never made a member or passed as a parameter (compile error)'
+  communication_notes:
+  - backtracking skeleton (choose, recurse, undo, skip) correct on the first attempt including the pop_back
+  - space complexity answered correctly - recursion depth plus path, output excluded
+  - walk restated the expected output instead of tracing the recursion tree
+  mastered_during_session:
+  - 'subsets = each element is chosen or skipped, giving 2^n leaves'
+  - 'undo (pop_back) is what separates backtracking from plain DFS because path is shared'
+  - 'collecting a result costs O(n) to copy, so multiply the leaf count by n'
+  review_dates:
+  - 2026-10-07
+  - 2026-10-09
+  - 2026-10-13
+  - 2026-10-27
+  review_history: []
+  next_review_date: 2026-10-07
+  review_status: pending

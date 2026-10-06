@@ -247,3 +247,37 @@ log:
         - "interleave key line: p->next->random = p->random ? p->random->next : nullptr, since every copy sits behind its original"
         - "output space is never counted; auxiliary space is the map (O(n)) versus the interleave trick (O(1))"
       decision: "map version is the primary answer; interleave is a three-sentence verbal follow-up until pointer fluency improves (revisit after 206 rewrite, 21, then 25)"
+    - date: 2026-10-06
+      leetcode: 23
+      title: Merge k Sorted Lists
+      minutes: 15
+      independence: hint (three fixes after the first draft)
+      complexity: "O(N log k) time, O(k) auxiliary - both correct"
+      cluster: Linked List (9/18) - Phase 1 linked-list set complete
+      result: 8/8 PASS including k=0, empty lists, negatives, and 500 lists x 20 nodes
+      first_draft_issues:
+        - "pushed every node of every list (heap size N) instead of only the k heads - measured heap max 5000 vs 100 on N=5000, k=100"
+        - "pq.push(cur->val) pushed an int into a priority_queue<ListNode*>"
+        - "typo b->va"
+        - "push-all variant also needs an explicit cur->next = nullptr or the tail can form a cycle"
+      questions_asked:
+        - "why is the comparator > for a min-heap (C++ convention: true means a sinks)"
+        - "why if (h) - empty lists arrive as nullptr and the comparator would dereference them"
+        - "does pq only push k times - no: k pushes initially, N pushes in total, size stays <= k"
+        - "how to calculate complexity in general - taught the three-step method"
+      remaining_polish: "cur->next = c reuses the existing nodes instead of new ListNode(c->val), avoiding N allocations"
+    - date: 2026-10-06
+      leetcode: 78
+      title: Subsets
+      minutes: null
+      independence: self (backtracking skeleton written correctly on the first try)
+      complexity: "O(2^n) given; correct is O(2^n * n) because each collected subset is copied; space O(n) answered correctly including that output is not counted"
+      cluster: Backtracking (1/12) - cluster was 0
+      result: 4/4 PASS after adding the missing member (n=1, n=2, n=3, n=10 giving 1024 subsets)
+      issues:
+        - "nums used inside dfs but declared only as a parameter of subsets - compile error; ans/arr/sz were members, nums was not"
+        - "time complexity missed the x n copy cost"
+        - "walk restated the expected output instead of tracing the recursion"
+      right:
+        - "choose / recurse / undo / skip-and-recurse structure correct first time, including arr.pop_back()"
+        - "space complexity correct: recursion depth n plus path, output excluded"
