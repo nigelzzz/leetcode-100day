@@ -281,3 +281,69 @@ log:
       right:
         - "choose / recurse / undo / skip-and-recurse structure correct first time, including arr.pop_back()"
         - "space complexity correct: recursion depth n plus path, output excluded"
+    - date: 2026-10-07
+      leetcode: 46
+      title: Permutations
+      minutes: null
+      independence: self (both undos written correctly first try)
+      complexity: "gave O(2^n); correct is O(n! * n). Space O(n) correct (depth + path + used)"
+      cluster: Backtracking (2/12)
+      result: 6/6 PASS for n = 1..6, counts exactly n! with no duplicates
+      milestone: "FIRST correct recursion-tree walk with state - traced path and used through both undos on [1,2]"
+      issues:
+        - "swapped the exponential and factorial shapes: wrote O(n!) for 70 (should be 2^n) and O(2^n) here (should be n!)"
+        - walk missing only the closing 'expected ..., matches' line
+        - examples step left blank
+      taught: "fixed choices per level gives k^n; shrinking choices per level gives n!; the presence of used[] is the signal that choices shrink"
+    - date: 2026-10-07
+      leetcode: 39
+      title: Combination Sum
+      minutes: 15
+      independence: hint (missing start parameter)
+      complexity: "gave O(n!) with space O(n); correct is O(n^(target/min)) time and O(target/min) space"
+      cluster: Backtracking (3/12)
+      issues:
+        - "no start parameter, so every level restarted at i = 0 and produced duplicate combinations - measured [[2,2,3],[2,3,2],[3,2,2],[7]] instead of [[2,2,3],[7]]"
+        - "path passed by value (copies the vector on every call)"
+        - "sum kept as a global with a manual undo; passing sum + nums[i] removes that undo entirely"
+        - "example answer written as -1 for an empty result (seventh answer-type slip; return type is vector<vector<int>>)"
+        - "complexity: n! requires shrinking choices; here choices do not shrink and the DEPTH is target/min, shown by candidates=[2], target=100 giving depth 50 with n=1"
+      right:
+        - pruning (sum > target return) and both undos present in the first draft
+      taught:
+        - "for from start avoids duplicate combinations; dfs(i) allows reuse, dfs(i+1) forbids it"
+        - "backtracking time = branching factor ^ depth; ask what bounds the depth before naming a symbol"
+    - date: 2026-10-07
+      leetcode: 22
+      title: Generate Parentheses
+      minutes: 5
+      independence: hint (first draft had the branch structure collapsed)
+      complexity: "O(2^(2n)) upper bound with the right reason (2 choices, depth 2n); space O(n) - both correct"
+      cluster: Backtracking (4/12)
+      first_draft: "pushed '(' and ')' in the same call then recursed once - choice/recurse/undo had been split apart, so there were no branches; counters were int& with manual ++/-- and two of four updates used the wrong variable; return type vector<vector<char>>"
+      second_draft: "logic correct but the base-case brace closed too late, putting both branches after return - produced 0 results for n=1,2,3 and compiled without error"
+      third_draft: "one extra closing brace - compile error; after removing it, n=1..4 give 1, 2, 5, 14 (Catalan numbers)"
+      taught:
+        - "a branch is choice + recurse + undo bound together; splitting them removes the branching"
+        - "pass counters by value so no manual undo is needed for them"
+        - "')' needs close < open, not just 'closes remaining' - that is what enforces balance"
+        - "write base cases on one line so the brace cannot swallow the branches"
+      note: "two consecutive brace-structure bugs; Google Doc interviews have no compiler, so brace counting is a real risk"
+    - date: 2026-10-07
+      leetcode: 79
+      title: Word Search
+      minutes: 15
+      independence: self for the dfs (mark, four directions, restore all correct); outer exist() and complexity needed correction
+      complexity: "gave O(m*n) time and O(m*n) space; correct is O(m*n*3^L) time and O(L) space - measured recursion depth 15 on a 6x6 all-'a' board with a 15-char word"
+      cluster: Backtracking (5/12) - cluster complete for Phase 1 purposes
+      right:
+        - "temporary marking with '#' and restoring after all four directions - the key difference from 200, written unaided"
+        - "base-case order correct: index == size checked before bounds and mismatch"
+      issues:
+        - "outer exist() loop over every starting cell was missing"
+        - "opening brace after the dfs signature missing (third brace-structure slip in two days)"
+        - "time complexity counted each cell once, ignoring that cells are revisited from different starts and paths"
+        - "space complexity used the grid size; the depth is the word length, not the cell count"
+        - walk left blank
+      coach_error: "my ABCESEEEFS test expected true but that answer belongs to a different board ([1][2] = E); the user's false was correct"
+      taught: "recursion depth is set by the stopping condition - 695 stops when neighbours run out (O(m*n)), 79 stops when the word is consumed (O(L))"

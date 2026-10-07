@@ -1728,3 +1728,157 @@ records:
   review_history: []
   next_review_date: 2026-10-07
   review_status: pending
+- problem:
+    leetcode: 46
+    title: Permutations
+  pattern: backtracking-permutation-used-array
+  result: solved_clean
+  session_date: 2026-10-07
+  time_minutes: null
+  hint_level: 0
+  conceptual_mistakes:
+  - 'time complexity given as O(2^n); correct is O(n! * n) - the exponential and factorial shapes were swapped relative to problem 70'
+  implementation_mistakes: []
+  communication_notes:
+  - 'FIRST correct recursion-tree walk with state: traced path and used through both undo steps on [1,2]'
+  - both undos (path.pop_back and used[i] = false) written correctly on the first attempt
+  - examples step blank; walk missing the closing expected/matches line
+  mastered_during_session:
+  - 'fixed number of choices per level gives k^n; shrinking choices gives n!'
+  - 'the presence of a used[] array is the signal that the choice count shrinks each level'
+  - 'permutations need two undos, subsets only one'
+  - 'space is recursion depth + path + used, all O(n)'
+  review_dates:
+  - 2026-10-08
+  - 2026-10-10
+  - 2026-10-14
+  - 2026-10-28
+  review_history: []
+  next_review_date: 2026-10-08
+  review_status: pending
+- problem:
+    leetcode: 39
+    title: Combination Sum
+  pattern: backtracking-combination-reuse-start
+  result: solved_with_hints
+  session_date: 2026-10-07
+  time_minutes: 15
+  hint_level: 2
+  conceptual_mistakes:
+  - 'omitted the start parameter, so each level restarted at 0 and generated duplicate orderings ([2,3,2] and [3,2,2])'
+  - 'time complexity given as O(n!); choices do not shrink here, and the depth is bounded by target/min, not n'
+  - 'space complexity counted ans (the output) and used n as the depth'
+  - 'expected output for an impossible case written as -1 instead of an empty list (seventh answer-type slip)'
+  implementation_mistakes:
+  - path passed by value, copying the vector on every call
+  - sum kept as a global with a manual undo instead of being passed as sum + nums[i]
+  communication_notes:
+  - pruning and both undos were present unaided in the first draft
+  mastered_during_session:
+  - 'for i = start avoids duplicate combinations; dfs(i) permits reuse, dfs(i+1) forbids it'
+  - 'backtracking time = branching ^ depth; 78 is 2^n, 46 is n!, 39 is n^(target/min)'
+  - 'depth is set by the stopping condition - 39 stops when sum exceeds target, so target drives the depth'
+  review_dates:
+  - 2026-10-08
+  - 2026-10-10
+  - 2026-10-14
+  - 2026-10-28
+  review_history: []
+  next_review_date: 2026-10-08
+  review_status: pending
+- problem:
+    leetcode: 22
+    title: Generate Parentheses
+  pattern: backtracking-balanced-parens
+  result: solved_with_hints
+  session_date: 2026-10-07
+  time_minutes: 5
+  hint_level: 3
+  conceptual_mistakes:
+  - 'first draft placed both pushes in one call and recursed once, so choice/recurse/undo were split and no branching existed'
+  - "')' guard written as 'closes remaining >= 0' instead of close < open, which is what keeps the string balanced"
+  implementation_mistakes:
+  - 'counters passed as int& with manual ++/--; two of four updates used left where right was meant'
+  - 'return type vector<vector<char>> and an inner vector<vector<int>> - neither matches vector<string>'
+  - 'base-case brace closed too late, leaving both branches after return as dead code (compiled cleanly, produced 0 results)'
+  - one extra closing brace in the next draft (compile error)
+  - sign-compare on path.size() == 2*n
+  communication_notes:
+  - complexity upper bound and reason correct without help (2 choices, depth 2n)
+  mastered_during_session:
+  - 'a backtracking branch is choice + recurse + undo bound together, one block per branch'
+  - 'pass counters by value to eliminate their undo'
+  - 'close < open is the balance invariant'
+  - 'answer count is the Catalan number (1, 2, 5, 14, 42, ...), verified for n = 1..8'
+  review_dates:
+  - 2026-10-08
+  - 2026-10-10
+  - 2026-10-14
+  - 2026-10-28
+  review_history: []
+  next_review_date: 2026-10-08
+  review_status: pending
+- problem:
+    leetcode: 79
+    title: Word Search
+  pattern: backtracking-grid-word-search
+  result: solved_with_hints
+  session_date: 2026-10-07
+  time_minutes: 15
+  hint_level: 2
+  conceptual_mistakes:
+  - 'time complexity given as O(m*n), ignoring that each cell is revisited from different starts and paths; correct is O(m*n*3^L)'
+  - 'space complexity given as O(m*n); the recursion depth is the word length L, measured at 15 on a 6x6 all-a board'
+  implementation_mistakes:
+  - 'outer exist() loop over all starting cells was missing'
+  - 'opening brace after the dfs signature missing (third brace-structure slip in two days)'
+  communication_notes:
+  - 'temporary marking and restoring after all four directions written unaided - the key difference from 200'
+  - base-case ordering correct (word consumed before bounds and mismatch)
+  - walk left blank
+  mastered_during_session:
+  - 'mark with a sentinel then restore, because other starting points and paths still need the cell'
+  - 'recursion depth comes from the stopping condition: 695 stops when neighbours run out (O(m*n)), 79 stops when the word is consumed (O(L))'
+  - 'branching is 3 not 4 after the first step, because the direction you came from is already marked'
+  review_dates:
+  - 2026-10-08
+  - 2026-10-10
+  - 2026-10-14
+  - 2026-10-28
+  review_history: []
+  next_review_date: 2026-10-08
+  review_status: pending
+- problem:
+    source: LLAMA_CPP_EMBEDDED_PLAN.md M4
+    title: Bit-based ID Pool (ggml bitset, ggml-impl.h:211-231)
+  pattern: embedded-c-bitset
+  result: solved_with_hints
+  session_date: 2026-10-07
+  hint_level: 3
+  conceptual_mistakes:
+  - 'i >> 5 / i & 31 first answered as "set bit, prevent overflow"; correct is word index / bit position'
+  - 'preconditions for shift-and-mask replacing / and % not stated (divisor is a power of 2; i is unsigned)'
+  - '-1 written as 0xFFFFFFFE and shifted logically; signed negative >> is implementation-defined (usually arithmetic), and -1 / 32 is 0 in C99'
+  - '1 vs 1u: did not know 1 << 31 is signed-overflow UB'
+  - '64-bit bitset with 1u << (i & 63): first answer only "63"; full range is (i & 63) in 32..63, shift count >= width UB'
+  implementation_mistakes:
+  - 'asked for the sample code instead of writing it (solutions/embedded-m4-id-pool.c)'
+  communication_notes:
+  - 'answered only the first part of multi-part questions four times (clarify without edge cases, approach without complexity)'
+  - 'first answers were keywords only; full sentences only after the question was split into steps'
+  - 'free and space complexity, and the O(1) call stack, were not stated'
+  mastered_during_session:
+  - '70 >> 5 = 2 (word), 70 & 31 = 6 (bit)'
+  - '24 is not a power of 2, so shift/mask cannot replace / and %'
+  - '1u << 40 on a 32-bit type is shift-width UB; fix with (bitset_t)1 or 1ull'
+  - '!! normalizes 0x100 to 1; without it a uint8_t return truncates to 0 (false negative)'
+  - 'skip full words with == 0xFFFFFFFF, then __builtin_ctz(~w); set tail bits to 1 in create'
+  - 'create(40): nwords 2, r 8, bits[1] = 0xFFFFFF00; r == 0 must be skipped or a full last word is marked used'
+  review_dates:
+  - 2026-10-08
+  - 2026-10-10
+  - 2026-10-14
+  - 2026-10-28
+  review_history: []
+  next_review_date: 2026-10-08
+  review_status: pending

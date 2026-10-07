@@ -70,7 +70,7 @@ weaknesses:
   - pre-submit walk (238 skipped twice; LC 3 skipped; 56 trimmed the supplied case; 763 never delivered) - BREAKTHROUGH on 155, a complete correct walk arrived with the first submission; the remaining gap is walking the CODE rather than the intended algorithm (155 walk was right while push never filled min_st); 692 walk narrated a pop the code did not contain; 973 walk matched the code for the first time but its wrong result was never compared to expected - rule: last line of every walk is 'expected ___, match / no match'
   - builds adversarial cases that the wrong solution survives (53 [2,3,-9,4]; 155 push 1,2,3 then pop removes a non-minimum); the three-step method was taught on 155 - name the wrong solution's state, find the operation that should change it but cannot, build the shortest sequence that triggers it; valid killers so far - LC 3 zaaac, 763 abca
   - leaves the sign-compare warning unfixed (i < v.size()); 7 drills running - 763's final submission still carries it on the first loop after three separate reminders; fix is (int)v.size()
-  - writes an if that guards one case and gives the other case no path (155 if (!min_st.empty()) with no else - min_st never filled, segfault; 692 tie branch if (a < b) with no equal-count guard); rule - for every guard, say what the else path does
+  - writes an if that guards one case and gives the other case no path (155 if (!min_st.empty()) with no else - min_st never filled, segfault; 692 tie branch with no equal-count guard; 22 base-case brace closed too late, leaving both branches as dead code that still compiled); rule - for every guard, say what the else path does
   - size-k heap written without either pop twice running (692 and 973 draft 1 - no pop when size > k, top read k times with no pop)
   - overflow judged by feel (973 - computed 10^8 instead of 2*10^8, then called for long long against his own number); rule - compute the max, compare with 2.1e9
   - space complexity omits the recursion stack (763 O(n) for a 26-entry table; 695 O(1) in mock 3; SAME answer in the real phone screen 2026-09-17) - rule: recursion costs two things, the structures allocated AND the stack depth
@@ -117,6 +117,7 @@ strengths:
   - adapts a just-taught template to a new problem independently and compile-clean on draft 1 (09-15, 104 BFS from 102; 226 DFS shape unaided)
   - first unaided draft-1 pass on a new problem (21 Merge Two Sorted Lists, 09-15, 8/8, compile-clean, checklist fully applied)
   - first unaided end-to-end six-step delivery (876, 2026-10-01 - three steps full, three partial, none blank; mock 3 had four blank)
+  - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-01
+last_updated: 2026-10-07
