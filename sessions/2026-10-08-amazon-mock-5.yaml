@@ -1,0 +1,31 @@
+session:
+  date: 2026-10-08
+  track: google
+  type: mock interview 5 (silent interviewer; new gate - no "done" accepted without a walk)
+  problem:
+    leetcode: 300
+    title: Longest Increasing Subsequence
+    pattern: 1D DP, O(n^2); follow-up O(n log n) with binary search
+
+verdict: Lean Hire - best of the five mocks
+
+scorecard:
+  clarify: 4          # said "no" (mock 4 had asked two questions)
+  examples: 4         # one example, and its expected output was written as the subsequence instead of the length (eighth answer-type slip)
+  approach: 8         # stated the dp definition, base case and the two-loop shape before coding - unprompted
+  complexity: 9       # O(n^2) and O(n) both with correct because-clauses, unprompted
+  code: 7             # logic fully correct; declared arr but used dp, and return type void
+  walk_and_test: 8    # walk done unprompted and verified correct on [3,2,4,5]; missing only the closing expected/matches line
+
+measured: "with the naming fixed: 9/9 PASS including all-equal (1), all-decreasing (1), all-increasing (5), n=2500 random matching the O(n log n) version at 56"
+
+what_changed_from_mock_4: "one rule - the walk became the ticket to submit. Algorithm correct, complexity correct, walk correct, all in a silent setting"
+
+gap_to_hire:
+  - ask one or two real clarify questions
+  - two examples with the correct return type, one of them killing a naive solution ([7,7,7] kills >=)
+  - zero mechanical errors (consistent names, signature copied from the prompt)
+  - close the walk with "expected X, matches"
+  - volunteer the better bound ("there is an O(n log n) approach using binary search over tails")
+
+trend: "mock 2 Lean Hire / mock 3 Lean No Hire / mock 4 No Hire / mock 5 Lean Hire"

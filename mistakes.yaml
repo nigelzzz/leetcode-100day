@@ -1882,3 +1882,65 @@ records:
   review_history: []
   next_review_date: 2026-10-08
   review_status: pending
+- problem:
+    leetcode: 146
+    title: LRU Cache
+  pattern: design-hashmap-plus-list
+  result: solved_with_hints
+  session_date: 2026-10-08
+  time_minutes: 20
+  hint_level: 3
+  conceptual_mistakes:
+  - 'confused the two iterator levels: m.find() returns a map iterator whose ->second is the list iterator, while m[key] is already the list iterator'
+  - "put's existing-key branch omitted the value update, so put(1,1) then put(1,10) returned 1"
+  - 'used m.erase(l.end()) - end() is one past the last element and map::erase takes a key'
+  implementation_mistakes:
+  - 'l.begin()() stray parentheses, twice'
+  - 'l.erase() called with no argument instead of pop_back()'
+  - 'local variable named l shadowed the member list (same pattern as the 735 infinite loop)'
+  - missing void return type and class-closing semicolon
+  - sign-compare on l.size() == capacity
+  communication_notes:
+  - chose the idiomatic data structure unaided and answered all three design questions correctly
+  - 'asked what iterator invalidation means - got a measured demonstration of vector reallocation versus list stability'
+  mastered_during_session:
+  - 'map stores the list iterator (a position handle), the data lives in the list node'
+  - 'splice(l.begin(), l, it) moves a node to the front in O(1) and does not invalidate iterators'
+  - 'evict with m.erase(l.back().first) BEFORE l.pop_back()'
+  - 'std::list iterators survive insertion, erasure of other nodes and splice; vector iterators die on reallocation'
+  - 'O(1) per operation, O(capacity) space'
+  review_dates:
+  - 2026-10-09
+  - 2026-10-11
+  - 2026-10-15
+  - 2026-10-29
+  review_history: []
+  next_review_date: 2026-10-09
+  review_status: pending
+- problem:
+    leetcode: 1143
+    title: Longest Common Subsequence
+  pattern: dp-2d-two-sequence-lcs
+  result: completed after one fix round (teaching mode, lesson 1 of the 2D DP curriculum)
+  session_date: 2026-10-08
+  time_minutes: 35
+  hint_level: 'one hint on the state definition during mock 6, then taught in full as lesson 1'
+  conceptual_mistakes:
+    - 'drew the dp table transposed three times in a row - text1 on the top axis instead of the left; root cause is that i is the first index so i must be the row, and LCS being symmetric hid the error because the transposed table still gives the right number'
+    - 'LC 718 contrast - answered the unequal branch as "從左邊遞增"; for a contiguous substring the branch must be 0 because the definition is "ending at i and j", and the answer is the whole-table maximum rather than dp[m][n]'
+    - 'did not know how to reconstruct the LCS string from the table (part B2 unattempted); taught - walk back from dp[m][n], take the char and go up-left when equal, otherwise move to the larger neighbour'
+    - 'time complexity because-clause given as "2 loop" instead of "subproblem count (m+1)(n+1) times O(1) per cell"; two nested loops are not automatically O(m*n) when the inner bound depends on the outer index'
+  implementation_mistakes:
+    - 'inner element type written vector<vector<int>> instead of vector<int> - compile error, no matching constructor'
+    - 'first dimension declared m instead of m+1 while the inner n+1 was correct - AddressSanitizer confirmed heap-buffer-overflow; invisible when m == n'
+    - 'missing semicolon after the max assignment'
+    - 'int i compared against s.size() - sign-compare warning; dangerous in the s.size()-1 form on empty input'
+  communication_notes:
+    - 'state definition and both transition branches produced unaided - the hard part of 2D DP was self-derived'
+    - 'cleared the whole three-item fix list in one pass; second time ever after 34 on 2026-09-19, so the fix-list weakness is improving'
+    - 'asked the right diagnostic question ("why does i and j direction affect the answer") which forced the real answer - orientation does not change symmetric answers but breaks dimension-vs-index consistency, breaks asymmetric problems (115, 392, 10, 44, 97), and destroys the walk as a bug-catching tool'
+  mastered_during_session: true
+  review_dates: [2026-10-09, 2026-10-11, 2026-10-15, 2026-10-29]
+  review_history: []
+  next_review_date: 2026-10-09
+  review_status: scheduled

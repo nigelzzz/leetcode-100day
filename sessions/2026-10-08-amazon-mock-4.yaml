@@ -1,0 +1,38 @@
+session:
+  date: 2026-10-08
+  track: google
+  type: mock interview 4 (silent interviewer - no prompts, no hints, no compiler until "done")
+  problem:
+    leetcode: 15
+    title: 3Sum
+    pattern: sort + two pointers with dedup
+
+verdict: No Hire (worse than mock 3 on coding; clarify improved)
+
+scorecard:
+  clarify: 6          # asked two real questions (duplicates? sorted?) - best clarify in four mocks
+  examples: 3         # one example only, and it kills no wrong solution
+  approach: 2         # compared nums[left] + nums[right] against nums[i] instead of -nums[i]; wrong problem
+  complexity: 2       # said O(n log n) "sort + n loop + binary search"; it is O(n^2) and there is no binary search in the code
+  code: 2             # would not compile (i undeclared, missing semicolon, push_back without braces); right = nums.size() reads nums[6] on a 6-element array; equal-branch never moves the pointers (infinite loop); no dedup at all
+  walk_and_test: 0    # not attempted
+
+measured:
+  as_submitted: "compile errors; after minimal patching it read nums[6] out of bounds and returned []"
+  reference: 6/6 PASS including all-zeros dedup and 3000 identical elements
+
+key_finding: >
+  Knowledge grew a lot in three weeks (25 new problems, four clusters from zero) but the process did not
+  transfer to an unprompted setting. The pattern was: clarify asked about duplicates, yet the code handled
+  none; no walk, so the out-of-bounds and the infinite loop were never found; complexity was stated from
+  habit and described a binary search the code does not contain.
+
+cause: >
+  Every practice problem this month ran as hint -> write -> coach compiles -> fix. That trains convergence
+  with feedback available, not self-verification. Mock 4 removed the feedback and the process collapsed.
+
+next_actions:
+  - "next mock: no 'done' accepted until a walk is pasted - mirrors the interviewer's 'walk me through it'"
+  - "every practice problem: walk before the coach compiles, not after"
+  - "when clarify surfaces a requirement (dedup), write it into the code immediately or note it as a TODO in the code"
+  - "complexity must be derived from the code actually written, not from the shape of the problem"

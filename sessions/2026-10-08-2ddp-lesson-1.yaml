@@ -1,0 +1,68 @@
+session_date: 2026-10-08
+type: teaching
+track: 2D DP curriculum (lesson 1 of 4)
+trigger: user asked to finish learning 2D DP before resuming mocks ("我想先 學完 2 dim dp 在 mock, 再回來")
+taught:
+  - problem: {leetcode: 1143, title: Longest Common Subsequence}
+    role: worked example
+    points:
+      - how to recognise 2D DP - two independently advancing indices are needed to describe a subproblem
+      - state definition - first i chars of text1 vs first j chars of text2
+      - why "first i" and not "ending at i" - subsequence does not require contiguity
+      - transition - equal gives dp[i-1][j-1]+1, unequal gives max(dp[i-1][j], dp[i][j-1])
+      - scan order is valid because dp[i][j] only depends on up-left, up and left, all already computed
+      - time O(m*n) because subproblem count (m+1)(n+1) times O(1) per cell; space O(m*n) with no recursion so no stack term
+      - follow-up - rolling two rows gives O(min(m,n)) space
+  - problem: {leetcode: 718, title: Longest Common Substring}
+    role: contrast (part B1)
+    points:
+      - definition changes to "ending at s1[i-1] and s2[j-1]" because substring must be contiguous
+      - therefore the unequal branch is 0, not a max of neighbours
+      - therefore the answer is the maximum over the whole table, not dp[m][n]
+      - lesson - changing one sentence in the definition changes both the transition and where the answer lives
+  - topic: LCS string reconstruction (part B2)
+    points:
+      - walk back from dp[m][n]; equal means take the char and move up-left, otherwise move to the larger neighbour
+      - reverse at the end; O(m+n) because each step decrements i or j
+      - trade-off worth volunteering - reconstruction forbids the rolling-array optimisation
+  - topic: table conventions A vs B
+    points:
+      - A is (m+1)x(n+1) with a sentinel row and column; base case is free
+      - B is m x n with no sentinel; costs four hand-written boundary blocks plus an empty-input special case
+      - verified equivalent on 20000 random pairs, but the common B bug (skipping row 0 and col 0) silently gives wrong answers on 7 of 13 cases
+      - five things move together - sentinel ring, table dims, loop start, string index, answer cell
+      - decision - always use A for two-sequence 2D DP
+user_work:
+  draft_1:
+    errors:
+      - inner element type written as vector<vector<int>> instead of vector<int> (compile error)
+      - first dimension declared m instead of m+1 (heap-buffer-overflow confirmed by AddressSanitizer)
+      - missing semicolon after the max assignment
+    note: inner n+1 was correct while the outer m+1 was missed
+  draft_2:
+    result: compiles clean, 10/10 tests pass including 1000x1000 and three empty-string cases, ASan clean
+    note: whole three-item fix list cleared in one pass (second time ever, after 34 on 2026-09-19)
+    remaining_nit: int vs size_t sign-compare warning; use i <= m since m is already computed
+  walk:
+    attempts: 3
+    failure: rows and columns swapped all three times (text1 placed on the top axis instead of the left)
+    root_cause: i is the first index so i is the row so the row axis must be the first string
+    why_it_hid: LCS is symmetric, so a transposed table still yields the correct final number
+    cost: the walk stopped validating the code, which is how the dp(m) overflow survived into review
+    resolved: fourth attempt correct ("" 0 0 / a 0 1 / b 0 1) with the right orientation
+  part_b:
+    b1: definition direction correct, unequal branch answered "從左邊遞增" which is wrong; taught
+    b2: not attempted; taught
+scores:
+  state_definition: pass (unaided)
+  transition: pass (unaided)
+  implementation: pass after one fix round
+  walk: fail on attempts 1-3, pass on attempt 4
+  complexity: answer correct, time because-clause rejected ("2 loop" is observation not derivation)
+  verdict: Lean No Hire on the first submission, cleared after fixes
+new_rules_installed:
+  - dp[i][j] means i is the row means the row axis is the first string; label i and j on the drawn table before filling it
+  - always convention A for two-sequence 2D DP - trade one ring of zeros for four boundary blocks
+  - time complexity because-clause must be "subproblem count times cost per subproblem", never "two loops"
+  - transpose invariance (1143, 718, 72, 64, 62) is worth volunteering because it justifies putting the shorter string inside for O(min(m,n)) space; 115 and 392 are asymmetric and cannot be swapped
+next: lesson 2 - 62 Unique Paths and 63 Unique Paths II (64 withheld because it is the D1 mock problem on 2026-10-09)

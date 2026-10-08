@@ -347,3 +347,25 @@ log:
         - walk left blank
       coach_error: "my ABCESEEEFS test expected true but that answer belongs to a different board ([1][2] = E); the user's false was correct"
       taught: "recursion depth is set by the stopping condition - 695 stops when neighbours run out (O(m*n)), 79 stops when the word is consumed (O(L))"
+    - date: 2026-10-08
+      leetcode: 146
+      title: LRU Cache
+      minutes: 20
+      independence: hint (data structure chosen correctly unaided; five fixes needed)
+      complexity: "O(1) per operation, O(capacity) space - both correct"
+      cluster: Design (1/19) - cluster was 0
+      right:
+        - "picked list<pair<int,int>> + unordered_map<int, list::iterator> unaided - the idiomatic solution"
+        - "answered the three design questions correctly once asked: singly linked cannot delete in O(1), keep LRU at the back, move-to-front = detach + insert"
+      issues:
+        - "mixed the two iterator levels: m.find() gives a map iterator (needs ->second to reach the list iterator) while m[key] gives the list iterator directly; get used it->second as an iterator"
+        - "put's existing-key branch never updated the value - a dedicated test (put(1,1) then put(1,10)) catches it"
+        - "l.begin()() stray parens twice"
+        - "first draft used m.erase(l.end()) - end() is past-the-end and m.erase takes a key, not a list iterator"
+        - "l.erase() with no argument instead of pop_back()"
+        - "shadowed the member list with a local named l (same pattern as the 735 infinite loop)"
+        - missing void return type and the class semicolon
+      questions_asked:
+        - "so the map stores the list position? - yes, the iterator is the handle that makes splice and erase O(1)"
+        - "what does iterator invalidation mean? - demonstrated vector reallocation moving an element (0x...2ec4 -> 0x...2f44) versus list keeping the same address through 10 push_backs, a push_front, an erase and a splice"
+      taught: "splice(begin, l, it) moves a node in O(1) without invalidating iterators; m.erase(l.back().first) must precede pop_back()"
