@@ -1944,3 +1944,31 @@ records:
   review_history: []
   next_review_date: 2026-10-09
   review_status: scheduled
+- problem:
+    leetcode: 64
+    title: Minimum Path Sum
+  pattern: dp-2d-grid-min-cost
+  result: 'No Hire on the mock; correct on the fourth draft (9/9 plus 20000 random grids clean)'
+  session_date: 2026-10-09
+  time_minutes: 40
+  hint_level: 'no hints (daily-mock rule); one factual pointer that the spoken base case differed from the written code'
+  conceptual_mistakes:
+    - 'first complexity answer was O(n^2) with "two loop" as the because-clause; m and n are independent, and nested loops are not automatically O(m*n) when the inner bound depends on the outer index'
+    - 'skipped brute force in the approach step until prompted'
+    - 'ex2 [[1,2],[1,1]] was offered as an adversarial example but kills nothing - greedy also returns 3; the real boundary for a grid problem is 1x1, where no loop body runs, and both early drafts failed it'
+  implementation_mistakes:
+    - 'draft 1 assigned raw grid values to the base row and column instead of prefix sums, then patched the result with "return dp[m-1][n-1] + grid[0][0]" rather than fixing the cause - 2/7, 77.4 percent of random grids wrong'
+    - 'draft 2 wrote dp[i][0] = grid[i-1][0] (read grid where dp was needed, accumulation dropped) and dp[0][i] += grid[0][i-1] (+= onto a zero-initialised cell, index shifted) - 1/7, 93.8 percent wrong'
+    - 'draft 3 applied only the dp half of the fix line that had been spelled out verbatim, leaving grid[i-1][0] and grid[0][i-1] - 3/7, 87.0 percent wrong; same fix-list non-compliance shape as 56 on 2026-09-08'
+    - 'rule installed - grid DP base row/col is a prefix sum dp[previous cell] + grid[current cell]; the index paired with grid is always the current i or j and the previous index appears only on dp'
+  communication_notes:
+    - 'clarify step was the strongest part - asked about negatives, empty grid and ranges, and explained correctly that negatives do not break DP (right/down moves give a DAG with no cycles) but do break greedy'
+    - 'state definition, transition and base case were all correct when spoken, so the failure was purely in transcription, not understanding'
+    - 'the first walk was fabricated - wrote dp[1][1] = min(4,3)+3 = 6 while the submitted code produced min(1,1)+3 = 4; the numbers 4 and 3 existed only in the correct table. Third consecutive session where the walk traced the intended algorithm rather than the written code'
+    - 'the fourth walk was genuine and traced the fixed code cell by cell - first true walk of the curriculum'
+    - 'space complexity volunteered in full including "no recursion so no stack term" (week-1 gate 3 met); the O(n) rolling trade-off was correct but prompted rather than volunteered'
+  mastered_during_session: false
+  review_dates: [2026-10-10, 2026-10-12, 2026-10-16, 2026-10-30]
+  review_history: []
+  next_review_date: 2026-10-10
+  review_status: scheduled

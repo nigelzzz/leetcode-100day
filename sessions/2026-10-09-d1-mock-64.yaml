@@ -1,0 +1,63 @@
+session_date: 2026-10-09
+type: full_mock
+track: daily mock week 1, day 1
+problem: {leetcode: 64, title: Minimum Path Sum, pattern: 2D DP grid}
+pattern_announced: false
+hints_given: none (no-hint rule in force); one factual pointer that the spoken base case and the written code differed
+steps:
+  clarify:
+    result: pass
+    asked: ['are there negatives', 'can the grid be empty', 'range of m and n']
+    highlight: 'answered the follow-up correctly - negatives do not break DP because right/down moves make a DAG with no cycles, but they break greedy'
+  examples:
+    result: partial
+    given: ['[[1,3,1],[1,5,1],[4,2,1]] -> 7', '[[1,2],[1,1]] -> 3']
+    verified: 'both correct, return type int correct; ex1 does kill greedy (greedy 9 vs 7)'
+    gap: 'ex2 kills nothing (greedy also returns 3); called it a boundary case but the real boundary is 1x1, which the first two drafts both failed'
+  approach:
+    result: content correct, delivery weak
+    brute_force: 'skipped at first; after prompting gave recursive enumeration with 2^(m+n) upper bound (accepted)'
+    state: 'dp[i][j] = minimum sum to reach (i,j)'
+    transition: 'min(dp[i-1][j], dp[i][j-1]) + grid[i][j]'
+    base: 'dp[0][0] = grid[0][0], first row and first column accumulate'
+    prompts_needed: 4
+  complexity:
+    result: correct after prompting
+    first_answer: 'O(n^2) because "two loop" - rejected; m and n are independent and "two loops" is observation not derivation'
+    final: 'm*n subproblems, O(1) each, so time O(m*n); space O(m*n) because the table; no recursion so no stack term'
+    prompts_needed: 3
+    gate_3: met (volunteered the structure-plus-stack split in full)
+  code:
+    draft_1: '2/7, 77.4% of 5000 random grids wrong - base row/col assigned raw grid values instead of prefix sums, then patched with "return dp[m-1][n-1] + grid[0][0]"'
+    draft_2: '1/7, 93.8% wrong - dp[i][0] = grid[i-1][0] (read grid instead of dp, no accumulation); dp[0][i] += grid[0][i-1] (+= on a zero cell, index shifted)'
+    draft_3: '3/7, 87.0% wrong - fixed the dp half of the spelled-out fix line but left grid[i-1][0] and grid[0][i-1]'
+    draft_4: '9/9 plus 20000 random grids with zero mismatches, ASan clean'
+  walk:
+    requests_needed: 4
+    first_attempt: 'fabricated - wrote dp[1][1] = min(4,3)+3 = 6 while the submitted code actually produced min(1,1)+3 = 4; the numbers 4 and 3 existed only in the correct table'
+    final_attempt: 'genuine - traced dp[0][0]=1, dp[1][0]=1+2=3, dp[0][1]=1+3=4, dp[1][1]=min(4,3)+3=6 from the fixed code'
+    verdict: 'first true walk in the curriculum; the same walk done honestly on draft 1 would have caught both base-case bugs immediately'
+  trade_off:
+    result: 'correct but prompted, not volunteered - O(n) rolling, scan left to right'
+    gate_4: partially met
+verdict: No Hire for the mock itself (four drafts, 87-94 percent failure rates, walk needed four requests), with a strong recovery phase
+root_causes:
+  - 'spoken approach and written code diverged - said "first row and column accumulate" then wrote raw grid assignments'
+  - 'the walk traced the intended algorithm instead of the written code, so it caught nothing; this is the third consecutive session with the same failure'
+  - 'fix-list non-compliance again - the corrected line dp[i][0] = dp[i-1][0] + grid[i][0] was given verbatim and only the dp half was applied; same shape as 56 on 2026-09-08'
+  - 'test cases chosen were the ones that pass - 3x3 all-ones and 2x2 both mask the index shift'
+rules_installed:
+  - 'a walk means acting as the CPU - read each line and write down what THAT LINE computes, even when the value is obviously wrong; if you are thinking "what should this cell be" the walk cannot catch a bug'
+  - 'grid DP base row/col is a prefix sum - dp[previous cell] + grid[current cell]; the index paired with grid is always the current i or j, the previous index appears only on dp'
+  - 'never patch a wrong result at the return statement (draft 1 added grid[0][0] at the end); go back to the cause'
+  - 'include 1x1 in the examples for any grid problem - it is the case where no loop body runs'
+verified_reference:
+  rolling_O_n: 'dp[0] += grid[i][0] then dp[j] = min(dp[j], dp[j-1]) + grid[i][j], scanning j ascending; 7/7 and 0 mismatches over 20000 random grids'
+  in_place_O_1: 'accumulate into grid itself; 7/7 and 0 mismatches over 20000 random grids'
+  wrong_direction: 'scanning j descending fails 10269 of 20000 random grids because dp[j-1] is then the previous row (up-left) rather than the current row (left)'
+gates:
+  gate_1_lean_hire_or_better: 0 of 1
+  gate_2_six_steps_unprompted: 0 of 1 (7 prompts across steps 3 and 4, 4 for the walk)
+  gate_3_space_with_stack_term: met
+  gate_4_volunteered_trade_off: prompted, not volunteered
+next: D1 drills 62 and 63 including the O(n) rolling version; D2 mock on 2026-10-10

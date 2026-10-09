@@ -36,6 +36,7 @@ training_policy:
       mock: {leetcode: 64, title: Minimum Path Sum, pattern: 2D DP grid}
       drills: [62, 63]
       reviews: [704, 35, 34, 33, 153, 875, 1283]
+      result: 'No Hire - four code drafts, walk needed four requests; gate 3 met, gate 4 prompted. Log: sessions/2026-10-09-d1-mock-64.yaml'
     day_2:
       date: 2026-10-10
       mock: {leetcode: 11, title: Container With Most Water, pattern: two pointers}
@@ -102,6 +103,9 @@ curriculum:
       leetcode: 146
       title: LRU Cache (after the 2026-09-17 phone screen; before it - mocks and LP stories)
 weaknesses:
+  - writes a walk from the intended algorithm instead of the written code, so it catches no bugs (1143 twice on 2026-10-08, 64 on 2026-10-09 where the fabricated walk let two base-case bugs through at a 93.8 percent failure rate); rule - act as the CPU, write down what each line computes even when the value is obviously wrong
+  - grid DP base row/col written as raw grid values or with the previous index on grid (64, 2026-10-09); rule - dp[previous cell] + grid[current cell], the grid index is always the current i or j
+  - patches a wrong result at the return statement instead of fixing the cause (64 draft 1 added grid[0][0] to the return value)
   - draws the 2D dp table transposed (three attempts in a row on 1143, 2026-10-08); rule installed - i is the first index so i is the row so the row axis is the first string, and label i/j on the table before filling it
   - gives observational because-clauses for time complexity ("2 loop") instead of subproblem count times cost per subproblem (1143, 2026-10-08)
   - tends to skip clarification and brute-force reasoning before optimized code
@@ -137,6 +141,8 @@ weaknesses:
   - the walk-as-ticket rule works (mock 5, 2026-10-08: dp definition, both complexity because-clauses and a correct walk all delivered unprompted in a silent mock; verdict Lean Hire, best of five)
   - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
+  - produced the first genuine code-traced walk of the curriculum (64, 2026-10-09 - traced the fixed code cell by cell and the numbers matched what the code computes)
+  - clarify step now reliably earns points (64, 2026-10-09 - asked about negatives, empty input and ranges, and explained that negatives break greedy but not DP because right/down moves form a DAG)
   - derived the 1143 state definition and both transition branches unaided (2026-10-08, first ever 2D DP)
   - cleared a three-item fix list in one pass for the second time (1143, 2026-10-08 - compile error, off-by-one dimension, missing semicolon)
   - asks the diagnostic question that exposes the real rule rather than accepting a memorised fix (2026-10-08 - "why does the i/j direction affect the answer" and "what if I write dp(m, vector<int>(n))")
@@ -178,4 +184,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-08
+last_updated: 2026-10-09
