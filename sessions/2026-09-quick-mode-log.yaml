@@ -369,3 +369,63 @@ log:
         - "so the map stores the list position? - yes, the iterator is the handle that makes splice and erase O(1)"
         - "what does iterator invalidation mean? - demonstrated vector reallocation moving an element (0x...2ec4 -> 0x...2f44) versus list keeping the same address through 10 push_backs, a push_front, an erase and a splice"
       taught: "splice(begin, l, it) moves a node in O(1) without invalidating iterators; m.erase(l.back().first) must precede pop_back()"
+    - date: 2026-10-09
+      leetcode: 62
+      title: Unique Paths
+      day: D1 drill (daily-mock week 1)
+      minutes: 10
+      independence: self
+      complexity: "O(m*n) time, O(m*n) space, O(n) rolling - numbers right; because-clauses missing on the first two attempts, and the third gave the subproblem count but omitted the per-subproblem cost"
+      first_draft: "two-dim version 8/8 (2x3, 3x7, 3x2, 1x1, 1x10, 10x1, 3x3, 7x3)"
+      rolling_draft: "wrong - declared vector<int> dp(m, 1) and returned dp[m-1]; the rolling array length must equal the inner loop length, so n. m>n returned 1 silently because dp[m-1] was never written; m<n gave an AddressSanitizer heap-buffer-overflow. Fixed to dp(n,1) and dp[n-1]: 11/11 plus all 225 combinations of m,n in 1..15 clean"
+      walk: "transposed again - drew 3 rows x 2 cols for m=2,n=3, the fourth consecutive transposed walk; uniquePaths is symmetric so the answer 3 was right and the shape error hid the rolling bug. Redrawn correctly as 1 1 1 / 1 2 3"
+      walk_lesson: "the correct 2x3 table shows a row holds 3 cells, which is exactly the fact the rolling array needed (length n, not m) - an honest walk would have caught the overflow in seconds"
+      pattern_trigger: "grid, count the ways, right/down only -> grid 2D DP, ways means addition"
+    - date: 2026-10-10
+      leetcode: 63
+      title: Unique Paths II
+      day: D1 drill carried over
+      minutes: 15
+      independence: self
+      complexity: "subproblem count m*n, O(1) each, time O(m*n); space O(m*n) because the table holds every state - first complete one-line report of the day, both because-clauses present"
+      first_draft: "clean - 10/10 named cases plus 20000 random grids at 25 percent obstacle density, cross-checked against a brute-force path enumerator rather than my own DP, zero mismatches, ASan clean"
+      walk: "genuine and correct on the first attempt - 1 0 / 1 1 traced from the written code"
+      own_improvement: "initialised the table to 0 and only assigned when the cell is passable, so obstacle cells stay 0 and the 0 propagates automatically; fewer branches than the explicit ternary that was taught, and the ternary direction cannot be written backwards"
+      not_volunteered: "space can drop to O(n) with a rolling row, or O(1) by accumulating into obstacleGrid itself if modifying the input is allowed"
+      pattern_trigger: "same grid DP plus blocked cells -> obstacle cell is 0 and the first row/col must inherit instead of being filled with 1"
+    - date: 2026-10-10
+      type: observation
+      note: "walk quality curve across one day - fabricated (64 mock, let two base-case bugs through at 93.8 percent failure), transposed (62, hid a heap overflow), correct after redraw (62), correct on the first attempt (63). The walk only catches bugs when it records what each line computes rather than what the cell should be."
+    - date: 2026-10-10
+      leetcode: 167
+      title: Two Sum II - Input Array Is Sorted
+      day: D2 drill
+      minutes: 8
+      independence: self
+      complexity: "O(n) time, O(1) space - one-line report not given"
+      first_draft: "logic correct on the first try, 6/6 including negatives, duplicates and a zero target; 1-indexed return handled correctly with {l+1, r+1} and no answer-type slip"
+      issues:
+        - "variable named nums while the signature says numbers - would not compile"
+        - "int ans = 0 declared and never used; still present after being asked to remove it"
+      walk: "genuine and complete - l=0,r=3 sum 17>9 so r--; l=0,r=2 sum 13>9 so r--; l=0,r=1 sum 9 so return [1,2]. Fourth correct walk of the day"
+      pattern_trigger: "sorted array plus find a pair summing to target -> two pointers from both ends; sum too big means r--, too small means l++"
+    - date: 2026-10-10
+      leetcode: 125
+      title: Valid Palindrome
+      day: D2 drill
+      minutes: 20
+      independence: "self, after a four-item fix list"
+      complexity: "O(n) time, O(1) space - one-line report not given"
+      first_draft: "4/12 - compared s[l] against s[r] BEFORE skipping non-alphanumerics, used isalpha[s[r]] with subscript instead of a call, had no tolower, and ended with return false so every palindrome answered false. The only passing cases were the four false ones, which is the signature of a function that always returns false"
+      four_bugs:
+        - "return false at the end should be return true"
+        - "comparison placed before the skip loops - the first comparison on 'A man, a plan, a canal: Panama' is A against a and returns false immediately"
+        - "missing tolower"
+        - "isalpha instead of isalnum - measured 10/12 with isalpha, failing exactly the two cases containing digits (0P and 1a2), because digits get skipped as if they were punctuation"
+      fix_list_compliance: "2 of 4 on the first pass (fixed the skip order and isalnum, left return false and tolower); all four applied on the second pass"
+      final: "18/18 named cases plus 200000 random strings cross-checked against a filter-and-reverse brute force, zero mismatches"
+      walk: "asked for a trace of \"0P\" (digit zero) twice; both times traced \"OP\" with the letter O, so the isalnum-on-a-digit step was never actually traced"
+      taught: "skip then compare then advance; inner while rather than if because punctuation runs can be several characters; isalnum/tolower take an int so the strict form casts to unsigned char"
+    - date: 2026-10-10
+      type: pattern
+      note: "fix-list non-compliance is now the top blocker, three days running - 56 on 2026-09-08 (a spelled-out rename with line numbers, missed), 64 on 2026-10-09 (one line given verbatim, half applied), 125 on 2026-10-10 (four numbered bugs, two applied). Google scores this as responds-to-feedback and weights it near correctness, because an interviewer who sees a hint half-absorbed cannot tell whether another hint would help. Process installed - copy the fix list out, tick each item, then count the ticks against the list before resubmitting."

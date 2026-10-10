@@ -23,11 +23,12 @@ training_policy:
   weekly_problem_target: 8-12
   practice_mode_from_2026_10_09: daily full mock (one unseen problem from a coverage gap, 25-35 min, NO hints) plus 2 gap drills plus a verbal review batch; one rest day per week
   daily_mock_rules:
+    - fix lists are numbered and carry a total; the reply must state n/n completed before the code is re-checked (installed 2026-10-10 after three consecutive partial fix-list executions on 56, 64 and 125)
     - mock problem is chosen by the coach and the pattern is not announced in advance
     - no hint during the mock; if stuck at 20 minutes the mock ends and the scorecard starts
     - teaching happens in the scorecard, never during the mock
     - fix list must be cleared the same day, not the next session
-    - rest day every Sunday (reviews only, no mock)
+    - rest day every Sunday (reviews only, no mock) - WAIVED by the user from 2026-10-11; reinstated automatically if two consecutive mock verdicts drop
     - from week 3 add noise - interrupt mid-code, challenge a correct answer, change the requirement late
   daily_mock_week_1:
     goal: process stability 65 to 90 percent and open the four zero-coverage clusters (2D DP, two pointers, graph, Trie/design)
@@ -42,30 +43,33 @@ training_policy:
       mock: {leetcode: 11, title: Container With Most Water, pattern: two pointers}
       drills: [167, 125]
       reviews: [21, 206, 19, 92, 876, 138, 23]
+      result: 'Lean No Hire - two conceptual bugs in the first draft (95.7 percent wrong) but self-diagnosed both from counterexamples with no hints; first walk fabricated, second genuine. Log: sessions/2026-10-10-d2-mock-11.yaml'
     day_3:
       date: 2026-10-11
-      rest: true
-      reviews: [70, 198, 746, 322]
-      optional: lesson 3 reading only (72 Edit Distance state definition), no coding
-    day_4:
-      date: 2026-10-12
+      rest: false
+      rest_declined: 'user declined the rest day on 2026-10-10 ("D3 開始 不用休息"); the fatigue risk was stated when the week was designed and the decision is theirs. Guard - if two consecutive mock verdicts drop, a rest day is taken regardless'
       mock: {leetcode: 72, title: Edit Distance, pattern: 2D DP three-way transition}
       drills: [718, 583]
+      reviews: [70, 198, 746, 322]
+    day_4:
+      date: 2026-10-12
+      mock: {leetcode: 207, title: Course Schedule, pattern: topological sort}
+      drills: [210, 133]
       reviews: [78, 46, 39, 22, 79]
     day_5:
       date: 2026-10-13
-      mock: {leetcode: 207, title: Course Schedule, pattern: topological sort}
-      drills: [210, 133]
+      mock: {leetcode: 547, title: Number of Provinces, pattern: union find}
+      drills: [684, 990]
       reviews: [49, 128, 819, 937, 3, 560]
     day_6:
       date: 2026-10-14
-      mock: {leetcode: 547, title: Number of Provinces, pattern: union find}
-      drills: [684, 990]
+      mock: {leetcode: 208, title: Implement Trie, pattern: design plus Trie}
+      drills: [211, 380]
       reviews: [394, 735, 347, 692, 973, 763, 238]
     day_7:
       date: 2026-10-15
-      mock: {leetcode: 208, title: Implement Trie, pattern: design plus Trie}
-      drills: [211, 380]
+      mock: {leetcode: 42, title: Trapping Rain Water, pattern: 'Hard - prefix/suffix max or two pointers; chosen because 11 on 2026-10-10 exposed the 11-vs-42 confusion and Google almost always includes one Hard'}
+      drills: [300, 139]
       reviews: [102, 104, 226, 200, 994, 53, 56, 155]
     week_1_pass_gates:
       - 5 of 6 mocks reach Lean Hire or better
@@ -103,6 +107,9 @@ curriculum:
       leetcode: 146
       title: LRU Cache (after the 2026-09-17 phone screen; before it - mocks and LP stories)
 weaknesses:
+  - takes the bounding value from a prefix/suffix aggregate when the problem bounds it by the two chosen endpoints (11, 2026-10-10 - min(prefixmin, sufixmin) instead of min(height[l], height[r]), 95.7 percent of random arrays wrong)
+  - confuses distance (r - l) with count (r - l + 1); width between two indices is a distance, the count form belongs to subarray-length problems
+  - offers fewer than two examples under mock pressure, and does not stop when step-2 arithmetic contradicts the stated answer (11, 2026-10-10 - wrote 2*(3-1+1)=6 and ans=4 together)
   - writes a walk from the intended algorithm instead of the written code, so it catches no bugs (1143 twice on 2026-10-08, 64 on 2026-10-09 where the fabricated walk let two base-case bugs through at a 93.8 percent failure rate); rule - act as the CPU, write down what each line computes even when the value is obviously wrong
   - grid DP base row/col written as raw grid values or with the previous index on grid (64, 2026-10-09); rule - dp[previous cell] + grid[current cell], the grid index is always the current i or j
   - patches a wrong result at the return statement instead of fixing the cause (64 draft 1 added grid[0][0] to the return value)
@@ -141,6 +148,8 @@ weaknesses:
   - the walk-as-ticket rule works (mock 5, 2026-10-08: dp definition, both complexity because-clauses and a correct walk all delivered unprompted in a silent mock; verdict Lean Hire, best of five)
   - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
+  - self-diagnoses from counterexamples without hints (11, 2026-10-10 - found both the width bug and the prefix-min bug given only two failing cases, and the first re-submit passed 200000 random arrays)
+  - recognises the two-pointer pattern unaided and offers brute force first when asked (11, 2026-10-10)
   - produced the first genuine code-traced walk of the curriculum (64, 2026-10-09 - traced the fixed code cell by cell and the numbers matched what the code computes)
   - clarify step now reliably earns points (64, 2026-10-09 - asked about negatives, empty input and ranges, and explained that negatives break greedy but not DP because right/down moves form a DAG)
   - derived the 1143 state definition and both transition branches unaided (2026-10-08, first ever 2D DP)
@@ -184,4 +193,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-09
+last_updated: 2026-10-10

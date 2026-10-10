@@ -1972,3 +1972,30 @@ records:
   review_history: []
   next_review_date: 2026-10-10
   review_status: scheduled
+- problem:
+    leetcode: 11
+    title: Container With Most Water
+  pattern: two-pointer-shrink-from-both-ends
+  result: 'Lean No Hire on the mock; correct after self-diagnosis (10/10 plus 200000 random arrays clean)'
+  session_date: 2026-10-10
+  time_minutes: 30
+  hint_level: 'no hints; two failing cases handed over, plus the fact that fixing the width alone still failed 5 of 8'
+  conceptual_mistakes:
+    - 'took the water level as min(prefixmin[l], sufixmin[r]) instead of min(height[l], height[r]); prefix and suffix minima drag in lines outside the container, and shorter lines between the two chosen ones sit below the water line and do not leak. On [1,8,6,2,5,4,8,3,7] this pinned the level at 1 and returned 9 instead of 49'
+    - 'width written r - l + 1 (count of lines) instead of r - l (distance); the count form belongs to subarray-length problems'
+    - 'offered only one example when two are required, and that example contained the width bug in writing - wrote 2*(3-1+1) = 6 and then ans = 4, a visible contradiction before any code existed'
+    - 'time complexity because-clause was loop counting again ("2 loop and 2 pointer 1 loop"), fourth occurrence; space given as O(n*2) without simplifying'
+    - 'the two-pointer discard argument was only half stated - said moving the taller side would shrink the answer, but not the domination argument (for any r_prime < r the width strictly shrinks and the level cannot exceed the shorter line, so every pair keeping the shorter line is dominated)'
+  implementation_mistakes:
+    - 'first draft 1/8 named cases and 95.7 percent of 20000 random arrays wrong'
+    - 'wrote vectir<int> twice - no compiler on a shared interview doc'
+  communication_notes:
+    - 'proposed brute force O(n^2) and the two-pointer idea unaided - the pattern recognition was correct, the invariant was not'
+    - 'self-diagnosis was the strongest part of the session - from two counterexamples and no hints, found the width fix, then computed prefixmin[1]=1 and sufixmin[8]=7 to show the level collapses, then stated the correct level and that index 0 lies outside the container'
+    - 'first walk fabricated again - claimed [3,5,2,4,2] gives 15, matching neither the code (10) nor the truth (9); second walk on [1,2,1] was genuine'
+    - 'trade-off (space O(1) after dropping the arrays) answered correctly but prompted, not volunteered - two days running'
+  mastered_during_session: false
+  review_dates: [2026-10-11, 2026-10-13, 2026-10-17, 2026-10-31]
+  review_history: []
+  next_review_date: 2026-10-11
+  review_status: scheduled

@@ -1,0 +1,54 @@
+session_date: 2026-10-10
+type: full_mock
+track: daily mock week 1, day 2
+problem: {leetcode: 11, title: Container With Most Water, pattern: two pointers}
+pattern_announced: false
+hints_given: 'none; two failing cases were handed over as an interviewer would, plus the fact that fixing only the width still failed 5 of 8 cases'
+steps:
+  clarify:
+    result: thin
+    asked: ['are there negative heights']
+    gap: 'only one question; did not ask the range of n, whether duplicates matter, or whether the two lines may be adjacent'
+  examples:
+    result: fail
+    given: ['[1,2,3,4] -> 4']
+    gaps:
+      - 'only one example when two are required'
+      - 'the example itself contained the width bug in writing - wrote 2*(3-1+1) = 6 and then ans = 4 in the same breath; the formula contradicted the stated answer and the contradiction went unnoticed'
+  approach:
+    brute_force: 'O(n^2) over all pairs - correct and offered without prompting'
+    optimized: 'proposed two pointers unaided (good instinct) but with the wrong invariant - r-l+1 for width and min(prefixmin[l], sufixmin[r]) for the water level'
+  complexity:
+    time: 'O(n) correct, but the because-clause was "iterate 2 loop and 2 pointer 1 loop n times" - loop counting again, fourth occurrence'
+    space: 'answered O(n*2) for the array version without simplifying to O(n); after the fix answered O(1) because nothing is allocated (correct), but did not mention the absence of recursion'
+  code:
+    draft_1: '1/8 named cases, 19144 of 20000 random arrays wrong (95.7 percent) - two independent conceptual bugs'
+    bug_1: 'width written as r - l + 1 (counting lines) instead of r - l (distance between them)'
+    bug_2: 'water level taken as min(prefixmin[l], sufixmin[r]) instead of min(height[l], height[r]); prefix/suffix minima include lines outside the container, and lines shorter than the two chosen ones sit below the water line and do not leak'
+    isolation_check: 'fixing only the width still failed 5 of 8 cases and gave 8 instead of 49 on the LeetCode example, which proved bug 2 was independent'
+    draft_2: '10/10 named cases plus 200000 random arrays with zero mismatches; n=100000 runs fine'
+  walk:
+    first_attempt: 'fabricated again - claimed [3,5,2,4,2] gives 3*(4-0+1) = 15, which matches neither the written code (10) nor the true answer (9)'
+    second_attempt: 'genuine - [1,2,1] traced from the fixed code, numbers consistent with what the code computes'
+    gap: 'omitted which pointer moves and why, which is where the tie case lives (height[r] < height[l] is false on equality, so l advances)'
+  self_diagnosis:
+    result: strong
+    detail: 'given only two failing cases and no hints, identified the width fix, then identified that prefixmin[1]=1 and sufixmin[8]=7 collapse the level to 1, then stated the correct level min(height[l], height[r]) and that index 0 lies outside the container'
+  discard_argument:
+    result: partial
+    user_answer: 'if height[r] < height[l] then move r; moving l instead would make the answer smaller'
+    gap: 'right instinct, missing the two-factor comparison - for any r_prime < r the width strictly shrinks and the level cannot exceed the shorter line, so every pair keeping the shorter line is dominated'
+  typo_note: 'wrote vectir<int> twice; on a shared doc with no compiler the interviewer sees it'
+verdict: 'Lean No Hire for the mock; the debugging phase alone was Hire-level'
+comparison_to_d1: 'D1 needed the base-case bug pointed at twice and the walk requested four times; D2 self-diagnosed both bugs from counterexamples alone and the first re-submit was clean'
+gates:
+  gate_1_lean_hire_or_better: 0 of 2
+  gate_2_six_steps_unprompted: 0 of 2
+  gate_3_space_with_stack_term: 'partial - O(1) justified by no allocation, recursion not addressed'
+  gate_4_volunteered_trade_off: 'prompted, not volunteered (2 of 2 days)'
+rules_installed:
+  - 'water level is set by the two chosen lines only - min(height[l], height[r]); anything shorter in between is under water and anything outside is irrelevant'
+  - 'width between two indices is the distance r - l, never the count r - l + 1; the count form belongs to subarray-length problems'
+  - 'when step 2 arithmetic disagrees with the stated answer, stop - the contradiction is the bug, visible before any code is written'
+  - 'two-pointer correctness needs the domination argument spoken aloud, not just the rule'
+next: 'D2 drills 167 and 125; then the compressed verbal review batch (7 binary search carried from D1 plus 7 linked list); D3 2026-10-11 is the rest day'
