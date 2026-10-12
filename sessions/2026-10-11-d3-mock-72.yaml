@@ -1,0 +1,49 @@
+session_date: 2026-10-11
+type: full_mock
+track: daily mock week 1, day 3 (rest day waived by the user)
+problem: {leetcode: 72, title: Edit Distance, pattern: 2D DP with a three-way transition}
+hints_given: none
+steps:
+  clarify:
+    result: thin
+    asked: ['whether the two strings are equal in some sense (question was vague)']
+    gap: 'did not ask the one question that matters most here - whether all three operations cost 1; if replace cost 2 the recurrence changes'
+  examples:
+    result: 'pass on count, one wrong rationale'
+    given: ['abc -> def = 3', '"" -> de = 2', 'def -> de = 1']
+    improvement: 'three examples offered, up from one on D2'
+    error: 'justified abc -> def as "remove 3" which would cost 6 (3 deletes then 3 inserts); corrected to 3 replacements when challenged. Replace costing 1 rather than delete-plus-insert is the core of the problem'
+  approach:
+    brute_force: 'recursive enumeration of the three operations, O(3^(m+n)) upper bound, depth m+n, shortest leaf - correct and well described'
+    state: 'dp[i][j] = minimum operations to turn the first i chars of word1 into the first j chars of word2 - correct and unaided'
+    transition: 'equal gives dp[i-1][j-1]; otherwise 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) - correct and unaided on the first attempt'
+    base: 'dp[0][j] = j and dp[i][0] = i, justified as j insertions from the empty string - correct and unaided, and correctly different from the all-zero sentinel ring of 1143'
+    prompts_needed: 3 (one each for transition, base case, and the base-case reason)
+  complexity:
+    time: 'O(m*n); gave the subproblem count first, added "O(1) each" when asked - second factor still not volunteered, fourth occurrence'
+    space: 'O(m*n) because the table'
+    stack_term_miss: 'wrote a recursive solution and did not mention its O(m+n) stack depth; gate 3 therefore missed on a day when it actually applied'
+    trade_off: 'VOLUNTEERED without being asked - rolling array to O(n); when challenged, correctly identified that the rolled dimension is the outer i and the remaining length is word2.size(). Gate 4 met for the first time'
+  code:
+    recursive: '14/14 on the first try, including horse/ros=3, intention/execution=5, kitten/sitting=3; the mapping of each operation to its recursive call (delete -> dfs(i-1,j), replace -> dfs(i-1,j-1), insert -> dfs(i,j-1)) was written out correctly, which is the hardest part of this problem to articulate'
+    recursive_nits: ['comment on the j == 0 branch says "remove j times" where it is i times', 'no memoisation, so it is the brute force; the bridge to O(m*n) was not mentioned']
+    dp_draft_1: '10/14 and 28 percent of 3000 random pairs wrong - word1[i] == word2[j] missing the -1 (the same bug listed as number 2 of the three common 2D DP bugs on 2026-10-08), plus d[i][j-1] typo that does not compile'
+    dp_draft_2: 'index fixed; 15/15 named cases including a 22-char versus 12-char pair, plus 20000 random pairs with zero mismatches'
+    fix_list_compliance: '1 of 2 - the -1 was applied, the d[i][j-1] typo was left in the resubmitted code, and the required "2/2 完成" line was not written. Fourth consecutive day of partial fix-list execution'
+  walk:
+    volunteered: true
+    correct: false
+    detail: 'drew every cell as 1 for "ab" versus "a"; the code actually fills 0 1 / 1 0 / 2 1. The answer 1 came out right by coincidence'
+    significance: 'this time the walk contradicted the base case the user had derived two steps earlier - dp[0][0] must be 0 and dp[2][0] must be 2, not 1'
+verdict: Lean Hire
+why: 'state, transition and base case were all produced unaided and correct on the first attempt - the first time that has happened for a 2D DP problem. The recursive solution was perfect first try. Losses were transcription (one index, one typo), a half-executed fix list, and a walk whose numbers were not read off the code'
+gates:
+  gate_1_lean_hire_or_better: 2 of 3
+  gate_2_six_steps_unprompted: 0 of 3
+  gate_3_space_with_stack_term: '1 of 3 - missed here, and this was the day it mattered because a recursive solution was written'
+  gate_4_volunteered_trade_off: '1 of 3 - MET today'
+rules_installed:
+  - 'when a recursive solution is on the table, its space is the stack depth - O(m+n) here, O(m*n) once memoised'
+  - 'the clarify question with the most leverage is the cost model - ask whether every operation costs the same before deriving the recurrence'
+  - 'the walk must agree with the base case you just derived; if the drawn table contradicts your own step 3, one of the two is wrong'
+next: 'D3 drills 718 and 583; reviews 70, 198, 746, 322. D4 2026-10-12 mock is 207 Course Schedule'

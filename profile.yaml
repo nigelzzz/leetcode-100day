@@ -51,6 +51,7 @@ training_policy:
       mock: {leetcode: 72, title: Edit Distance, pattern: 2D DP three-way transition}
       drills: [718, 583]
       reviews: [70, 198, 746, 322]
+      result: 'Lean Hire - approach fully unaided for the first time on a 2D DP; gate 4 met (trade-off volunteered); losses were one index, one typo, a 1-of-2 fix list and a walk that contradicted its own base case. Log: sessions/2026-10-11-d3-mock-72.yaml'
     day_4:
       date: 2026-10-12
       mock: {leetcode: 207, title: Course Schedule, pattern: topological sort}
@@ -107,6 +108,9 @@ curriculum:
       leetcode: 146
       title: LRU Cache (after the 2026-09-17 phone screen; before it - mocks and LP stories)
 weaknesses:
+  - omits the stack term when a recursive solution is on the table (72, 2026-10-11 - O(m+n) depth unmentioned on the one day it applied)
+  - does not ask about the cost model in clarify (72, 2026-10-11 - whether all three operations cost 1 is the question that decides the recurrence)
+  - draws walk tables that contradict the base case derived moments earlier (72, 2026-10-11 - every cell written as 1 when the code fills 0 1 / 1 0 / 2 1)
   - takes the bounding value from a prefix/suffix aggregate when the problem bounds it by the two chosen endpoints (11, 2026-10-10 - min(prefixmin, sufixmin) instead of min(height[l], height[r]), 95.7 percent of random arrays wrong)
   - confuses distance (r - l) with count (r - l + 1); width between two indices is a distance, the count form belongs to subarray-length problems
   - offers fewer than two examples under mock pressure, and does not stop when step-2 arithmetic contradicts the stated answer (11, 2026-10-10 - wrote 2*(3-1+1)=6 and ans=4 together)
@@ -148,6 +152,9 @@ weaknesses:
   - the walk-as-ticket rule works (mock 5, 2026-10-08: dp definition, both complexity because-clauses and a correct walk all delivered unprompted in a silent mock; verdict Lean Hire, best of five)
   - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
+  - produced state, transition and base case unaided and correct on the first attempt for a 2D DP problem (72, 2026-10-11 - including the dp[0][j] = j ring, correctly different from 1143's all-zero ring)
+  - volunteered the space trade-off and the walk without being asked (72, 2026-10-11 - week-1 gate 4 met for the first time)
+  - maps each operation of a multi-choice recurrence to its exact recursive call (72, 2026-10-11 - delete dfs(i-1,j), replace dfs(i-1,j-1), insert dfs(i,j-1))
   - self-diagnoses from counterexamples without hints (11, 2026-10-10 - found both the width bug and the prefix-min bug given only two failing cases, and the first re-submit passed 200000 random arrays)
   - recognises the two-pointer pattern unaided and offers brute force first when asked (11, 2026-10-10)
   - produced the first genuine code-traced walk of the curriculum (64, 2026-10-09 - traced the fixed code cell by cell and the numbers matched what the code computes)
@@ -193,4 +200,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-10
+last_updated: 2026-10-11

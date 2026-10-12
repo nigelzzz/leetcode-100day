@@ -1999,3 +1999,31 @@ records:
   review_history: []
   next_review_date: 2026-10-11
   review_status: scheduled
+- problem:
+    leetcode: 72
+    title: Edit Distance
+  pattern: dp-2d-edit-distance-three-way
+  result: 'Lean Hire - state, transition and base case all unaided and correct first try; recursive version 14/14 first try; DP version correct after one index fix (15/15 plus 20000 random pairs clean)'
+  session_date: 2026-10-11
+  time_minutes: 35
+  hint_level: none
+  conceptual_mistakes:
+    - 'justified the example abc -> def as "remove 3" which costs 6 (three deletes then three inserts); the answer 3 comes from three replacements. Replace costing 1 rather than delete-plus-insert is the whole point of the problem'
+    - 'did not ask whether all three operations cost the same - the highest-leverage clarify question for this problem, since a replace cost of 2 changes the recurrence'
+    - 'wrote a recursive solution and did not account for its O(m+n) stack depth in the space answer'
+    - 'time because-clause again gave only the subproblem count, with the per-subproblem O(1) added only when asked (fourth occurrence)'
+  implementation_mistakes:
+    - 'DP version indexed word1[i] == word2[j] without the -1 while the recursive version had s1[i-1] == s2[j-1] correct; 10/14 and 28 percent of 3000 random pairs wrong. This is bug number 2 of the three common 2D DP bugs listed on 2026-10-08'
+    - 'd[i][j-1] typo instead of dp[i][j-1] - does not compile, and it survived the fix list'
+    - 'comment on the j == 0 branch says remove j times where it is i times'
+  communication_notes:
+    - 'first 2D DP where state, transition and base case were all produced unaided and correct on the first attempt, including the base ring dp[0][j] = j which differs from the all-zero ring of 1143'
+    - 'mapped each of the three operations to its recursive call correctly (delete dfs(i-1,j), replace dfs(i-1,j-1), insert dfs(i,j-1)) - the hardest part of this problem to articulate'
+    - 'VOLUNTEERED the space trade-off without being asked, and identified the rolled dimension correctly when challenged - week-1 gate 4 met for the first time'
+    - 'volunteered the walk without being asked (also a first), but drew every cell as 1 when the code fills 0 1 / 1 0 / 2 1; the right answer came out by coincidence, and the drawn table contradicted the base case derived two steps earlier'
+    - 'fix list 1 of 2 - fourth consecutive day of partial execution; the required n/n confirmation line was not written'
+  mastered_during_session: false
+  review_dates: [2026-10-12, 2026-10-14, 2026-10-18, 2026-11-01]
+  review_history: []
+  next_review_date: 2026-10-12
+  review_status: scheduled
