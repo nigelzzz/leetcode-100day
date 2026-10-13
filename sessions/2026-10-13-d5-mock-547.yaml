@@ -1,0 +1,49 @@
+session_date: 2026-10-13
+type: full_mock
+track: daily mock week 1, day 5
+problem: {leetcode: 547, title: Number of Provinces, pattern: connected components; adjacency matrix; union find as the alternative}
+hints_given: 'none; one counterexample handed over ([[1,0,1],[0,1,0],[1,0,1]]) plus three diagnostic questions about what the 1s mean'
+steps:
+  clarify:
+    asked: ['are all values 0 or 1', 'may I modify the matrix in place']
+    good: 'the in-place question is genuinely useful and was asked unprompted'
+    gap: 'did not ask about the diagonal or symmetry; either question would have revealed that the matrix is an adjacency matrix rather than a map'
+  examples:
+    result: fail
+    given: ['[[1,1,0],[1,0,0],[0,0,1]] -> 2']
+    problems:
+      - 'only one example'
+      - 'the matrix is not a legal input - the diagonal must be all 1s and the matrix must be symmetric; isConnected[1][1] was 0'
+      - 'the walk example [[0,1],[1,0]] was illegal for the same reason'
+  approach:
+    first_design: 'four-directional grid DFS over the matrix cells, counting ans++ per unvisited 1 - the adjacency matrix was read as a map. Same root error as 207 the day before'
+    measurement: 'with types repaired, this scored 7/9 on named cases and was wrong on 10022 of 20000 legal symmetric matrices (50.1 percent). Critically, BOTH LeetCode sample inputs pass under the grid reading, so the official examples do not discriminate'
+    counterexample: '[[1,0,1],[0,1,0],[1,0,1]] - cities 0 and 2 are connected but not grid-adjacent; correct answer 2, grid DFS returned 5, which is exactly the number of 1s in the matrix'
+    self_correction: 'answered all three diagnostic questions correctly - the 1 is an edge not a city, the neighbours of city i are the 1s along row i, and the outer loop should count cities not cells. Then rewrote the whole structure correctly'
+  complexity:
+    first: 'O(m*n) under the grid reading'
+    after_redesign: 'time O(n^2), space O(n) plus recursion stack O(n) - stack term volunteered again'
+    gate_3: met
+    missing_because: 'did not say why O(n^2) - each city enters dfs once and each entry scans a full row of n'
+  code:
+    draft_1: 'two versions, neither compiled - function<void> without the parameter types; vector<int> dirs initialised with pairs; two int[int] subscripts; the BFS version also wrote isConnected[dx][dy] == 2 using == instead of = and indexed dx/dy with no bounds check'
+    draft_2: 'structure correct (outer loop over cities, visited sized n, dfs scanning row u) with one error - dfs(i) instead of dfs(v), where i is declared after the lambda so it is not even in scope'
+    final: '9/9 named cases and zero disagreement with a union-find reference over 50000 random legal symmetric matrices; n=1000 chain at recursion depth 1000 runs fine'
+  walk:
+    result: 'content correct (visited[0], visited[2] then provinces++, then visited[1] then provinces++, answer 2) but written with matrix-style notation [0][0], [0][2], [0,1] that reads as cells rather than visited indices'
+  trade_off:
+    result: 'union find named unprompted - gate 4 met for the third day running'
+    complexity_nit: 'said O(m*n); for this problem it is O(n^2 * alpha(n)) because all pairs are scanned, with path compression and union by rank making alpha effectively constant'
+verdict: Lean No Hire
+why: 'the initial approach misread the input representation, which is a categorical error rather than a slip, and neither first-draft version compiled. The recovery was fast and complete - one counterexample was enough to rebuild the whole structure correctly - and gates 3 and 4 were both met'
+gates:
+  gate_1_lean_hire_or_better: 1 of 5
+  gate_2_six_steps_unprompted: 0 of 5
+  gate_3_space_with_stack_term: 3 of 5
+  gate_4_volunteered_trade_off: 3 of 5 (three days running)
+rules_installed:
+  - 'an n x n matrix of 0s and 1s is almost always an adjacency matrix, not a map; the tell is the all-1 diagonal and the symmetry, so ask about both in clarify'
+  - 'neighbours of node i live along row i, not at the four adjacent cells; the outer loop counts nodes, so it runs n times not n*n'
+  - 'LeetCode sample inputs are not a test suite - both official examples for 547 pass under a completely wrong reading of the problem'
+  - 'the self-compile pass (declarations, name consistency, sizes, index offsets) would have caught every compile error in both drafts today'
+next: 'D5 drills 684 and 990 - both union find, which is where the DSU implementation gets learned properly. D6 2026-10-14 mock is 208 Implement Trie'

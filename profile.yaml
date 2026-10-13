@@ -31,6 +31,7 @@ training_policy:
     - rest day every Sunday (reviews only, no mock) - WAIVED by the user from 2026-10-11; reinstated automatically if two consecutive mock verdicts drop
     - from week 3 add noise - interrupt mid-code, challenge a correct answer, change the requirement late
   daily_mock_week_1:
+    gate_1_standing_corrected_2026_10_12: 'the D2 scorecard counted gate 1 as met on a Lean No Hire verdict, which was wrong - gate 1 requires Lean Hire or better. True standing after four days: D1 No Hire, D2 Lean No Hire, D3 Lean Hire, D4 Lean No Hire = 1 of 4'
     goal: process stability 65 to 90 percent and open the four zero-coverage clusters (2D DP, two pointers, graph, Trie/design)
     day_1:
       date: 2026-10-09
@@ -57,11 +58,13 @@ training_policy:
       mock: {leetcode: 207, title: Course Schedule, pattern: topological sort}
       drills: [210, 133]
       reviews: [78, 46, 39, 22, 79]
+      result: 'Lean No Hire - three-state DFS derived from a counterexample and gates 3 and 4 both met, but three code drafts, none compiling unaided, and fix list 2 of 4. Log: sessions/2026-10-12-d4-mock-207.yaml'
     day_5:
       date: 2026-10-13
       mock: {leetcode: 547, title: Number of Provinces, pattern: union find}
       drills: [684, 990]
       reviews: [49, 128, 819, 937, 3, 560]
+      result: 'Lean No Hire - adjacency matrix read as a grid (50.1 percent wrong), rebuilt correctly from one counterexample; gates 3 and 4 met, no first draft compiled. Log: sessions/2026-10-13-d5-mock-547.yaml'
     day_6:
       date: 2026-10-14
       mock: {leetcode: 208, title: Implement Trie, pattern: design plus Trie}
@@ -108,6 +111,13 @@ curriculum:
       leetcode: 146
       title: LRU Cache (after the 2026-09-17 phone screen; before it - mocks and LP stories)
 weaknesses:
+  - reads an n x n 0/1 matrix as a map instead of an adjacency matrix (547, 2026-10-13 - grid DFS over cells, 50.1 percent of legal matrices wrong; second consecutive day of grid thinking in a graph problem after 207)
+  - trusts the problem's own sample inputs as a test suite (547, 2026-10-13 - both official examples pass under a completely wrong reading)
+  - offers examples that are not legal inputs (547, 2026-10-13 - a non-symmetric matrix with a 0 on the diagonal, used both as the example and in the walk)
+  - carries grid thinking into edge-list graphs (207, 2026-10-12 - proposed visited[i][j] for a course-dependency graph)
+  - leaves a derived invariant out of the code (207, 2026-10-12 - state[u] = 1 described in step 3 and absent from the implementation, so cycles caused infinite recursion; same shape as 64 on 2026-10-09)
+  - uses resize where assign is needed, on a global vector that then leaks state across calls (207, 2026-10-12 - 9321 of 20000 random graphs wrong)
+  - renames a signature without propagating the rename through the body (third occurrence - 167, 583, 207)
   - omits the stack term when a recursive solution is on the table (72, 2026-10-11 - O(m+n) depth unmentioned on the one day it applied)
   - does not ask about the cost model in clarify (72, 2026-10-11 - whether all three operations cost 1 is the question that decides the recurrence)
   - draws walk tables that contradict the base case derived moments earlier (72, 2026-10-11 - every cell written as 1 when the code fills 0 1 / 1 0 / 2 1)
@@ -152,6 +162,11 @@ weaknesses:
   - the walk-as-ticket rule works (mock 5, 2026-10-08: dp definition, both complexity because-clauses and a correct walk all delivered unprompted in a silent mock; verdict Lean Hire, best of five)
   - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
+  - rebuilds a whole solution correctly after one counterexample (547, 2026-10-13 - answered three diagnostic questions, then restructured from cell-counting to node-counting unaided)
+  - volunteered the stack term and the alternative algorithm for the third consecutive day (gates 3 and 4, 2026-10-11 through 2026-10-13)
+  - asks whether the input may be modified in place (547, 2026-10-13 - unprompted, and it is the question that unlocks the O(1)-space variants)
+  - derives a correct design from a single counterexample (207, 2026-10-12 - given a diamond DAG, traced the DFS, saw the false-cycle report and arrived at the three-state marker scheme unaided)
+  - volunteered time, space and the recursion-stack term together, plus the topological-sort alternative, before being asked (207, 2026-10-12 - gates 3 and 4 both met)
   - produced state, transition and base case unaided and correct on the first attempt for a 2D DP problem (72, 2026-10-11 - including the dp[0][j] = j ring, correctly different from 1143's all-zero ring)
   - volunteered the space trade-off and the walk without being asked (72, 2026-10-11 - week-1 gate 4 met for the first time)
   - maps each operation of a multi-choice recurrence to its exact recursive call (72, 2026-10-11 - delete dfs(i-1,j), replace dfs(i-1,j-1), insert dfs(i,j-1))
@@ -200,4 +215,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-11
+last_updated: 2026-10-13

@@ -1,0 +1,53 @@
+session_date: 2026-10-12
+type: full_mock
+track: daily mock week 1, day 4
+problem: {leetcode: 207, title: Course Schedule, pattern: cycle detection in a directed graph (three-state DFS) / topological sort}
+note: first ever exposure to graph algorithms outside grid DFS; this cluster was at zero coverage
+hints_given: 'none; two counterexamples handed over as an interviewer would (the diamond [[1,0],[2,0],[2,1]] and the cycle [[1,0],[0,1]]), plus a line-by-line trace prompt'
+steps:
+  clarify:
+    result: good
+    asked: ['can there be a cycle', 'range of numCourses', 'can prerequisites repeat']
+    gap: 'did not ask the edge direction; I volunteered that [a,b] means b is a prerequisite of a, and half of all candidates build the graph backwards'
+  examples:
+    result: partial
+    given: ['[[1,0]] -> true', '[[1,0],[0,1]] -> false']
+    gap: 'asked twice what naive approach ex2 kills and never answered; the examples were right but their purpose was not articulated'
+  approach:
+    brute_force: not given
+    first_design: 'proposed DFS with visited[i][j] - grid thinking carried over from 200/695, where the graph is the grid itself'
+    self_correction: 'when asked what i and j meant, corrected unprompted to visited[i] per node plus an adjacency list'
+    key_derivation: 'given the diamond counterexample, traced the DFS, saw that a single visited flag reports a false cycle on a re-converging DAG, and derived the fix - two markers, the on-path one cleared when the node is finished. That is the three-state (white/grey/black) solution, derived rather than recalled'
+  complexity:
+    answer: 'time O(V+E), space O(V+E) plus O(V) recursion stack - all three parts VOLUNTEERED before being asked'
+    gate_3: met (stack term volunteered)
+    correction_given: 'attributed the O(V+E) to the visited array; it is the adjacency list that dominates - adjacency O(V+E), two marker arrays O(V), stack O(V)'
+    trade_off: 'VOLUNTEERED topological sort as the alternative - gate 4 met for the second day running'
+  code:
+    draft_1: 'did not compile - adj declared local to canFinish but used inside dfs; state sized by prerequisites.size() (edge count) instead of numCourses, so dfs(1) read out of range on ex1. With those repaired: 5/8, and all three cyclic cases produced infinite recursion and a segfault rather than a wrong answer, because state[u] = 1 was never written anywhere'
+    root_cause: 'the on-path marker the user had just derived in step 3 was absent from the code - spoken approach and written code diverged, the same failure as 64 on D1'
+    draft_2: 'state[u] = 1 and the adj parameter both fixed (2 of 4), but the signature was renamed without updating the body, so numofcourse and nums were undeclared - third occurrence of a rename not propagated (167 nums/numbers, 583 s1/s2)'
+    draft_3_issue: 'resize left in place instead of assign; because state is a global, resize(n, 0) does nothing when the size already matches, so stale 2s from the previous call make every later call return true. Measured 5/9 and 9321 of 20000 random graphs wrong, and demonstrated directly - canFinish(2, cycle) returned false correctly, then canFinish(5, [[1,0]]) returned false wrongly'
+    fix_list_compliance: '2 of 4; the two-stage reply format (old-to-new list, then code) was specified and not used'
+  walk:
+    result: 'completed and genuine - traced state = [0,0] -> [1,0] -> [1,1], then state[0] == 1 so dfs(0) returns false, propagating false up to canFinish. Numbers read off the code'
+    prompting: 'needed line-by-line prompting rather than being produced in one go'
+verdict: Lean No Hire
+why: 'the conceptual work was strong - the three-state design was derived from a counterexample rather than recalled, and both the stack term and the trade-off were volunteered. But the code never compiled unaided across three drafts, cycle detection was missing entirely in draft 1, and the fix list ran 2 of 4 again'
+gate_accounting_correction: 'the D2 scorecard counted gate 1 as met on a Lean No Hire verdict, which was wrong - gate 1 requires Lean Hire or better. Corrected standing: D1 No Hire, D2 Lean No Hire, D3 Lean Hire, D4 Lean No Hire = 1 of 4'
+gates:
+  gate_1_lean_hire_or_better: 1 of 4
+  gate_2_six_steps_unprompted: 0 of 4
+  gate_3_space_with_stack_term: 2 of 4 (met today, volunteered)
+  gate_4_volunteered_trade_off: 2 of 4 (met today, second running)
+rules_installed:
+  - 'resize guarantees size, not contents; use assign or fill to reset. A global mutable buffer that is not re-initialised is the hardest bug class to find, and LeetCode runs test cases in one process so a file-scope vector leaks state between them'
+  - 'a graph given as an edge list needs the adjacency list built first; visited is per node, not per cell. Grid problems are the special case where the graph is implicit'
+  - 'a single visited flag cannot detect cycles in a directed graph - a re-converging DAG triggers a false positive. Three states are required: unvisited, on the current path, finished'
+  - 'when a signature is renamed, every use in the body must be renamed with it; three occurrences so far'
+verified_reference:
+  dfs_three_state: '10/10 named cases; state as a local passed by reference'
+  kahn_bfs: '10/10 named cases; indegree plus a queue, answer is processed == numCourses'
+  cross_check: 'DFS and BFS agreed on all 50000 random graphs'
+  why_bfs_matters: 'on a 100000-node chain the DFS recursion depth is 100000 and overflows the stack, while Kahn runs in O(V+E) with O(V) heap space - the real difference between the two, not merely style'
+next: 'D4 drills 210 and 133; reviews carried forward. D5 2026-10-13 mock is 547 Number of Provinces (union find)'

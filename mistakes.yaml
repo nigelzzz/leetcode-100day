@@ -357,9 +357,12 @@ records:
   - 2026-08-20
   - 2026-08-24
   - 2026-09-07
-  review_history: []
-  next_review_date: 2026-08-18
-  review_status: pending
+  review_history:
+  - date: &id001 2026-10-13
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: 'verbal review 2026-10-13 - all three correct unaided (prefix sum plus hash map, seed m[0]=1, negatives rule out sliding window). Coach measured: without the seed, wrong on 16765 of 50000; sliding window wrong on 23403 of 50000, including 21527 of the 40790 cases containing negatives, and it also fails on [1] with k=0'
+  next_review_date: 2026-11-03
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 819
     title: Most Common Word
@@ -391,9 +394,12 @@ records:
   - 2026-09-04
   - 2026-09-08
   - 2026-09-22
-  review_history: []
-  next_review_date: 2026-09-02
-  review_status: pending
+  review_history:
+  - date: *id001
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: 'verbal review 2026-10-13 - correct unaided, and the original O(nB) complexity error is fixed: with a hash set the banned-list size moves out of the time term into space, giving O(n+B) / O(n+B)'
+  next_review_date: 2026-11-03
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 937
     title: Reorder Data in Log Files
@@ -423,9 +429,12 @@ records:
   - 2026-09-04
   - 2026-09-08
   - 2026-09-22
-  review_history: []
-  next_review_date: 2026-09-02
-  review_status: pending
+  review_history:
+  - date: *id001
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: verbal review 2026-10-13 - all three sentences correct with zero hints, versus solved_with_hint at level 2 on 2026-09-01. Coach verified both the two-bucket version (the one originally learned, and the safer interview answer) and a single stable_sort version, 4/4 each and identical on 20000 random inputs; demonstrated that returning true for equal elements in the comparator segfaults, since std::sort requires strict weak ordering
+  next_review_date: 2026-11-10
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 49
     title: Group Anagrams
@@ -454,9 +463,12 @@ records:
   - 2026-09-04
   - 2026-09-08
   - 2026-09-22
-  review_history: []
-  next_review_date: 2026-09-02
-  review_status: pending
+  review_history:
+  - date: *id001
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: verbal review 2026-10-13 - all three sentences correct unaided (sorted string as key, unordered_map<string, vector<string>>, O(n*k log k)); space and the 26-count-key alternative were added by the coach
+  next_review_date: 2026-11-03
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 128
     title: Longest Consecutive Sequence
@@ -485,9 +497,12 @@ records:
   - 2026-09-04
   - 2026-09-08
   - 2026-09-22
-  review_history: []
-  next_review_date: 2026-09-02
-  review_status: pending
+  review_history:
+  - date: *id001
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: verbal review 2026-10-13 - correct unaided including the key invariant (only start from x where x-1 is absent); the amortised argument for why it is O(n) and not O(n^2) was added by the coach and linked to 125 and 3
+  next_review_date: 2026-11-03
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 200
     title: Number of Islands
@@ -699,7 +714,7 @@ records:
     notes:
     - repeat target correct - the CURRENT accumulated string is repeated, not the popped prefix (this was the 3-round drill error, now fixed)
     - merge destination wrong again - answered save to stack_str; the result goes back into the current string variable ss, nothing is pushed back onto the stack. Same store-into-the-wrong-place family as the original cur bug
-  - date: &id001 2026-09-11
+  - date: &id002 2026-09-11
     result: partial
     notes: stack top (a,2) correct; said the current string was empty at the inner ] when it is "c"; gave the repeated part "cc" but dropped the popped prefix - the formula is ss = pre + ss*n. Different error from the previous two rounds (repeat target now correct, prefix concatenation now the gap)
   next_review_date: 2026-09-12
@@ -743,7 +758,7 @@ records:
     notes:
     - '[8,-8] vs [-8,8] reasoning fully correct (face-to-face collides, back-to-back never meets)'
     - wrote the empty result as [0] instead of [] - imprecise expected-output notation, same family as the 994 all-zero and 238 misses
-  - date: *id001
+  - date: *id002
     result: partial
     notes: direction reasoning correct (face-to-face vs back-to-back); collision condition correct apart from writing st.top() >= 0 instead of > 0; the pop / do-not-push mnemonic was answered with a condition instead of the two kill mechanisms
   next_review_date: 2026-09-12
@@ -784,11 +799,14 @@ records:
     result: passed
     notes:
     - named the root cause in one line - after r++ every reference to r below it means the next character
-  - date: *id001
+  - date: *id002
     result: partial
     notes: '"abba" correctly named as the case that kills the if-instead-of-while shrink, but stated the buggy output backwards (buggy returns 3, correct is 2); the r++ relocation question was not answered (answer 7 on a 6-char string)'
-  next_review_date: 2026-09-12
-  review_status: pending
+  - date: *id001
+    mode: verbal (pattern trigger, key detail, complexity)
+    result: 'verbal review 2026-10-13 - correct unaided including l = max(l, last[c]+1). Coach measured the version without max: wrong on 9019 of 50000 random strings (abba gives 3 instead of 2, tmmzuxt gives 6 instead of 5). Complexity was not volunteered'
+  next_review_date: 2026-10-27
+  review_status: reviewed 2026-10-13
 - problem:
     leetcode: 53
     title: Maximum Subarray
@@ -819,7 +837,7 @@ records:
   - 2026-09-14
   - 2026-09-28
   review_history:
-  - date: *id001
+  - date: *id002
     result: partial
     notes: all-negative answer -1 correct and the i=1 start explained correctly (nums[0] already consumed by the initializers); said the swapped loop order returns -1 when it actually returns 0
   next_review_date: 2026-09-12
@@ -863,7 +881,7 @@ records:
   - 2026-09-14
   - 2026-09-28
   review_history:
-  - date: *id001
+  - date: *id002
     result: partial
     notes: '[[0,5]] written as [0,5] - return-type notation wrong for the 4th consecutive review/drill; sorted order and the >= / max(end,...) lines both recalled correctly; could not state what the unsorted scan actually returns ([[1,5]], losing the 0); final push recalled'
   next_review_date: 2026-09-12
@@ -907,7 +925,7 @@ records:
   - 2026-09-15
   - 2026-09-29
   review_history:
-  - date: *id001
+  - date: *id002
     result: correct
     notes: two separate quizzes in one session, 6/6. last-index vs count, i==end reasoning, O(1)/26 space, the no-max variant returning [3,1], last[d]=8 last[a]=9, and start=i+1 vs end+1 equivalence all correct unaided
   next_review_date: 2026-09-14
@@ -1185,10 +1203,10 @@ records:
   - 2026-09-26
   - 2026-10-10
   review_history:
-  - date: &id002 2026-09-24
+  - date: &id003 2026-09-24
     result: partial
     notes: card 1 - gave r = n-1 and r = mid-1 but omitted the loop condition l <= r; the three lines must be stated together
-  - date: &id003 2026-09-28
+  - date: &id004 2026-09-28
     result: correct
     notes: pairing r = mid - 1 with l <= r stated correctly for the first time
   next_review_date: 2026-10-02
@@ -1227,10 +1245,10 @@ records:
   - 2026-09-26
   - 2026-10-10
   review_history:
-  - date: *id002
+  - date: *id003
     result: correct
     notes: card 2 covered the left-bound form used twice by 34
-  - date: *id003
+  - date: *id004
     result: correct
     notes: same pairing question
   next_review_date: 2026-10-02
@@ -1259,10 +1277,10 @@ records:
   - 2026-09-27
   - 2026-10-11
   review_history:
-  - date: *id002
+  - date: *id003
     result: correct
     notes: 'card 2 - first-occurrence variant: on equality r = mid - 1 and return l'
-  - date: *id003
+  - date: *id004
     result: correct
     notes: same pairing question
   next_review_date: 2026-10-02
@@ -1293,10 +1311,10 @@ records:
   - 2026-09-28
   - 2026-10-12
   review_history:
-  - date: *id002
+  - date: *id003
     result: correct
     notes: card 8 - predicate not monotone (F T F T); check nums[l] <= nums[mid] for the sorted half, then whether target lies in its range
-  - date: *id003
+  - date: *id004
     result: correct
     notes: same pairing question
   next_review_date: 2026-10-02
@@ -1330,10 +1348,10 @@ records:
   - date: 2026-09-23
     result: correct
     notes: 'rewrote 153 with the single half-open template: lo=0, hi=n, p = nums[mid] <= nums[n-1], return nums[lo]; then explained that p true means hi = mid'
-  - date: *id002
+  - date: *id003
     result: correct
     notes: card 5 - nums[mid] < nums[n-1]; verified that strict < also works for distinct values (45/45), <= is the canonical form
-  - date: *id003
+  - date: *id004
     result: correct
     notes: anchor nums[n-1] and the reason r drifts into the big segment
   next_review_date: 2026-10-02
@@ -1368,10 +1386,10 @@ records:
   - 2026-09-30
   - 2026-10-14
   review_history:
-  - date: *id002
+  - date: *id003
     result: partial
     notes: card 6 complexity O(n log max) correct with because; card 5 defined 夠好 as infeasible (sum > h) instead of feasible, which flips the branches
-  - date: *id003
+  - date: *id004
     result: correct
     notes: ceil(a/b) = (a + b - 1) / b
   next_review_date: 2026-10-02
@@ -1409,7 +1427,7 @@ records:
   - 2026-10-01
   - 2026-10-15
   review_history:
-  - date: *id003
+  - date: *id004
     result: correct
     notes: ceil formula recalled
   next_review_date: 2026-10-02
@@ -1443,7 +1461,7 @@ records:
   - 2026-10-01
   - 2026-10-15
   review_history:
-  - date: *id003
+  - date: *id004
     result: wrong
     notes: 'gave dp[i] = min(dp[i-1], nums[i] + dp[i-2]) - confused the counting problem with 746; correct is dp[i] = dp[i-1] + dp[i-2]. Rule taught: the noun in the definition (ways / amount / cost) decides addition vs max vs min'
   - date: 2026-09-30
@@ -1478,7 +1496,7 @@ records:
   - 2026-10-01
   - 2026-10-15
   review_history:
-  - date: *id003
+  - date: *id004
     result: correct
     notes: transition dp[i] = max(dp[i-1], dp[i-2] + nums[i]) recalled exactly
   next_review_date: 2026-10-02
@@ -1512,7 +1530,7 @@ records:
   - 2026-10-01
   - 2026-10-15
   review_history:
-  - date: *id003
+  - date: *id004
     result: correct
     notes: transition dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]) recalled exactly, symmetry preserved
   next_review_date: 2026-10-02
@@ -1559,19 +1577,19 @@ records:
   time_minutes: 15
   hint_level: 3
   conceptual_mistakes:
-  - 'gap set to n - 1 instead of n, so slow stopped one node too early'
+  - gap set to n - 1 instead of n, so slow stopped one node too early
   - no dummy node, so deleting the head had no predecessor to link from
   implementation_mistakes:
-  - 'while (!fast) inverted - the inner loop ran zero times (measured), slow never advanced'
+  - while (!fast) inverted - the inner loop ran zero times (measured), slow never advanced
   - void return type instead of ListNode*
   - parameter named n but the body used k; fast and slow never declared
   communication_notes:
   - examples and walk steps left blank for the second problem in a row
   - complexity correct with a because for time
   mastered_during_session:
-  - 'slow starts at dummy, fast at head, gap = n; when fast reaches null slow is on the node before the target'
-  - 'return dummy.next, never head, when the head itself may be removed'
-  - 'loop while (fast) means keep going until fast falls off the end; while (!fast) never runs'
+  - slow starts at dummy, fast at head, gap = n; when fast reaches null slow is on the node before the target
+  - return dummy.next, never head, when the head itself may be removed
+  - loop while (fast) means keep going until fast falls off the end; while (!fast) never runs
   review_dates:
   - 2026-10-01
   - 2026-10-03
@@ -1593,13 +1611,13 @@ records:
   - prev walked from head instead of from dummy, leaving left = 1 without a predecessor
   implementation_mistakes:
   - loop counters never incremented in the first sketch and were undeclared
-  - 'walk reported dummy.next = 4 for the list [3,5]; the answer is 5'
+  - walk reported dummy.next = 4 for the list [3,5]; the answer is 5
   communication_notes:
   - produced all six steps end to end for the first time, following the coach's script
   - examples and complexity steps skipped in the final delivery
   mastered_during_session:
-  - 'dummy plus prev walking left - 1 steps removes the left = 1 special case'
-  - 'reverse right - left + 1 nodes; afterwards pv is the new head and cur is the node after the segment'
+  - dummy plus prev walking left - 1 steps removes the left = 1 special case
+  - reverse right - left + 1 nodes; afterwards pv is the new head and cur is the node after the segment
   - 'two links to restore: prev->next = pv and start->next = cur'
   - return dummy.next because the head can change
   review_dates:
@@ -1619,20 +1637,20 @@ records:
   time_minutes: null
   hint_level: 0
   conceptual_mistakes:
-  - 'clarify question aimed at odd counts; the ambiguity is for even counts - which of the two middles to return'
-  - 'wrote O(2n) instead of collapsing the constant to O(n)'
+  - clarify question aimed at odd counts; the ambiguity is for even counts - which of the two middles to return
+  - wrote O(2n) instead of collapsing the constant to O(n)
   - no because-clauses for time or space
   implementation_mistakes:
   - typo LostNode instead of ListNode
-  - 'walk claimed fast = null at exit; fast was the last node and the loop ended because fast->next was null'
+  - walk claimed fast = null at exit; fast was the last node and the loop ended because fast->next was null
   - walk missing the final got/expected line
   communication_notes:
   - FIRST unaided end-to-end six-step delivery; three steps full, three partial, none missing
   - both examples well chosen (one odd length, one even) with correct expected outputs
   - brute force stated with its complexity before the optimal approach
   mastered_during_session:
-  - 'while (fast && fast->next) lands slow on the SECOND middle for even lengths'
-  - 'fast moves two steps per round, so the loop runs about n/2 times'
+  - while (fast && fast->next) lands slow on the SECOND middle for even lengths
+  - fast moves two steps per round, so the loop runs about n/2 times
   review_dates:
   - 2026-10-02
   - 2026-10-04
@@ -1651,16 +1669,16 @@ records:
   hint_level: 4
   conceptual_mistakes:
   - misread the serialization [val, randomIndex] as needing a third field
-  - 'interleave method did not land after three explanations; parked as verbal-only'
+  - interleave method did not land after three explanations; parked as verbal-only
   implementation_mistakes:
-  - 'loop increment written cur = head->next instead of cur = cur->next (infinite loop)'
+  - loop increment written cur = head->next instead of cur = cur->next (infinite loop)
   communication_notes:
-  - 'asked why new Node() n times still counts as O(1) space - produced the output-versus-auxiliary distinction himself, the thing he missed on LC 2'
+  - asked why new Node() n times still counts as O(1) space - produced the output-versus-auxiliary distinction himself, the thing he missed on LC 2
   - supplied both second-pass lines (m[cur->next], m[cur->random]) correctly once the first pass was separated out
   mastered_during_session:
-  - 'pass 1 creates all copies, pass 2 wires next and random, because random may point forward'
-  - 'm[nullptr] is nullptr by default, so null links and the empty list need no special cases'
-  - 'output space is not counted; auxiliary space is what distinguishes the map version O(n) from the interleave version O(1)'
+  - pass 1 creates all copies, pass 2 wires next and random, because random may point forward
+  - m[nullptr] is nullptr by default, so null links and the empty list need no special cases
+  - output space is not counted; auxiliary space is what distinguishes the map version O(n) from the interleave version O(1)
   - 'interleave in one line: p->next->random = p->random ? p->random->next : nullptr'
   review_dates:
   - 2026-10-06
@@ -1679,18 +1697,18 @@ records:
   time_minutes: 15
   hint_level: 2
   conceptual_mistakes:
-  - 'pushed all N nodes into the heap instead of only the k heads, turning O(N log k) into O(N log N) and O(k) into O(N)'
+  - pushed all N nodes into the heap instead of only the k heads, turning O(N log k) into O(N log N) and O(k) into O(N)
   implementation_mistakes:
-  - 'pq.push(cur->val) - pushed an int into a priority_queue<ListNode*>'
+  - pq.push(cur->val) - pushed an int into a priority_queue<ListNode*>
   - typo b->va
-  - 'allocated new nodes (new ListNode(c->val)) where the existing nodes could be relinked'
+  - allocated new nodes (new ListNode(c->val)) where the existing nodes could be relinked
   communication_notes:
   - complexity stated correctly as O(N log k) and O(k)
   - 'asked four good why-questions: comparator direction, the if (h) null guard, push count versus heap size, and how to compute complexity generally'
   mastered_during_session:
-  - 'heap holds the current front of each list, so size stays <= k while push count totals N'
+  - heap holds the current front of each list, so size stays <= k while push count totals N
   - 'C++ comparator: cmp(a,b) true means a sinks, so > gives a min-heap'
-  - 'empty lists arrive as nullptr and must be skipped before pushing'
+  - empty lists arrive as nullptr and must be skipped before pushing
   - 'complexity method: time = how many operations x cost each; space = structures allocated + recursion depth, output not counted'
   review_dates:
   - 2026-10-07
@@ -1709,17 +1727,17 @@ records:
   time_minutes: null
   hint_level: 0
   conceptual_mistakes:
-  - 'time complexity given as O(2^n); copying each subset into the answer costs O(n), so it is O(2^n * n)'
+  - time complexity given as O(2^n); copying each subset into the answer costs O(n), so it is O(2^n * n)
   implementation_mistakes:
-  - 'nums referenced inside dfs but never made a member or passed as a parameter (compile error)'
+  - nums referenced inside dfs but never made a member or passed as a parameter (compile error)
   communication_notes:
   - backtracking skeleton (choose, recurse, undo, skip) correct on the first attempt including the pop_back
   - space complexity answered correctly - recursion depth plus path, output excluded
   - walk restated the expected output instead of tracing the recursion tree
   mastered_during_session:
-  - 'subsets = each element is chosen or skipped, giving 2^n leaves'
-  - 'undo (pop_back) is what separates backtracking from plain DFS because path is shared'
-  - 'collecting a result costs O(n) to copy, so multiply the leaf count by n'
+  - subsets = each element is chosen or skipped, giving 2^n leaves
+  - undo (pop_back) is what separates backtracking from plain DFS because path is shared
+  - collecting a result costs O(n) to copy, so multiply the leaf count by n
   review_dates:
   - 2026-10-07
   - 2026-10-09
@@ -1737,17 +1755,17 @@ records:
   time_minutes: null
   hint_level: 0
   conceptual_mistakes:
-  - 'time complexity given as O(2^n); correct is O(n! * n) - the exponential and factorial shapes were swapped relative to problem 70'
+  - time complexity given as O(2^n); correct is O(n! * n) - the exponential and factorial shapes were swapped relative to problem 70
   implementation_mistakes: []
   communication_notes:
   - 'FIRST correct recursion-tree walk with state: traced path and used through both undo steps on [1,2]'
   - both undos (path.pop_back and used[i] = false) written correctly on the first attempt
   - examples step blank; walk missing the closing expected/matches line
   mastered_during_session:
-  - 'fixed number of choices per level gives k^n; shrinking choices gives n!'
-  - 'the presence of a used[] array is the signal that the choice count shrinks each level'
-  - 'permutations need two undos, subsets only one'
-  - 'space is recursion depth + path + used, all O(n)'
+  - fixed number of choices per level gives k^n; shrinking choices gives n!
+  - the presence of a used[] array is the signal that the choice count shrinks each level
+  - permutations need two undos, subsets only one
+  - space is recursion depth + path + used, all O(n)
   review_dates:
   - 2026-10-08
   - 2026-10-10
@@ -1765,19 +1783,19 @@ records:
   time_minutes: 15
   hint_level: 2
   conceptual_mistakes:
-  - 'omitted the start parameter, so each level restarted at 0 and generated duplicate orderings ([2,3,2] and [3,2,2])'
-  - 'time complexity given as O(n!); choices do not shrink here, and the depth is bounded by target/min, not n'
-  - 'space complexity counted ans (the output) and used n as the depth'
-  - 'expected output for an impossible case written as -1 instead of an empty list (seventh answer-type slip)'
+  - omitted the start parameter, so each level restarted at 0 and generated duplicate orderings ([2,3,2] and [3,2,2])
+  - time complexity given as O(n!); choices do not shrink here, and the depth is bounded by target/min, not n
+  - space complexity counted ans (the output) and used n as the depth
+  - expected output for an impossible case written as -1 instead of an empty list (seventh answer-type slip)
   implementation_mistakes:
   - path passed by value, copying the vector on every call
   - sum kept as a global with a manual undo instead of being passed as sum + nums[i]
   communication_notes:
   - pruning and both undos were present unaided in the first draft
   mastered_during_session:
-  - 'for i = start avoids duplicate combinations; dfs(i) permits reuse, dfs(i+1) forbids it'
-  - 'backtracking time = branching ^ depth; 78 is 2^n, 46 is n!, 39 is n^(target/min)'
-  - 'depth is set by the stopping condition - 39 stops when sum exceeds target, so target drives the depth'
+  - for i = start avoids duplicate combinations; dfs(i) permits reuse, dfs(i+1) forbids it
+  - backtracking time = branching ^ depth; 78 is 2^n, 46 is n!, 39 is n^(target/min)
+  - depth is set by the stopping condition - 39 stops when sum exceeds target, so target drives the depth
   review_dates:
   - 2026-10-08
   - 2026-10-10
@@ -1795,21 +1813,21 @@ records:
   time_minutes: 5
   hint_level: 3
   conceptual_mistakes:
-  - 'first draft placed both pushes in one call and recursed once, so choice/recurse/undo were split and no branching existed'
-  - "')' guard written as 'closes remaining >= 0' instead of close < open, which is what keeps the string balanced"
+  - first draft placed both pushes in one call and recursed once, so choice/recurse/undo were split and no branching existed
+  - ''')'' guard written as ''closes remaining >= 0'' instead of close < open, which is what keeps the string balanced'
   implementation_mistakes:
-  - 'counters passed as int& with manual ++/--; two of four updates used left where right was meant'
-  - 'return type vector<vector<char>> and an inner vector<vector<int>> - neither matches vector<string>'
-  - 'base-case brace closed too late, leaving both branches after return as dead code (compiled cleanly, produced 0 results)'
+  - counters passed as int& with manual ++/--; two of four updates used left where right was meant
+  - return type vector<vector<char>> and an inner vector<vector<int>> - neither matches vector<string>
+  - base-case brace closed too late, leaving both branches after return as dead code (compiled cleanly, produced 0 results)
   - one extra closing brace in the next draft (compile error)
   - sign-compare on path.size() == 2*n
   communication_notes:
   - complexity upper bound and reason correct without help (2 choices, depth 2n)
   mastered_during_session:
-  - 'a backtracking branch is choice + recurse + undo bound together, one block per branch'
-  - 'pass counters by value to eliminate their undo'
-  - 'close < open is the balance invariant'
-  - 'answer count is the Catalan number (1, 2, 5, 14, 42, ...), verified for n = 1..8'
+  - a backtracking branch is choice + recurse + undo bound together, one block per branch
+  - pass counters by value to eliminate their undo
+  - close < open is the balance invariant
+  - answer count is the Catalan number (1, 2, 5, 14, 42, ...), verified for n = 1..8
   review_dates:
   - 2026-10-08
   - 2026-10-10
@@ -1827,19 +1845,19 @@ records:
   time_minutes: 15
   hint_level: 2
   conceptual_mistakes:
-  - 'time complexity given as O(m*n), ignoring that each cell is revisited from different starts and paths; correct is O(m*n*3^L)'
-  - 'space complexity given as O(m*n); the recursion depth is the word length L, measured at 15 on a 6x6 all-a board'
+  - time complexity given as O(m*n), ignoring that each cell is revisited from different starts and paths; correct is O(m*n*3^L)
+  - space complexity given as O(m*n); the recursion depth is the word length L, measured at 15 on a 6x6 all-a board
   implementation_mistakes:
-  - 'outer exist() loop over all starting cells was missing'
-  - 'opening brace after the dfs signature missing (third brace-structure slip in two days)'
+  - outer exist() loop over all starting cells was missing
+  - opening brace after the dfs signature missing (third brace-structure slip in two days)
   communication_notes:
-  - 'temporary marking and restoring after all four directions written unaided - the key difference from 200'
+  - temporary marking and restoring after all four directions written unaided - the key difference from 200
   - base-case ordering correct (word consumed before bounds and mismatch)
   - walk left blank
   mastered_during_session:
-  - 'mark with a sentinel then restore, because other starting points and paths still need the cell'
+  - mark with a sentinel then restore, because other starting points and paths still need the cell
   - 'recursion depth comes from the stopping condition: 695 stops when neighbours run out (O(m*n)), 79 stops when the word is consumed (O(L))'
-  - 'branching is 3 not 4 after the first step, because the direction you came from is already marked'
+  - branching is 3 not 4 after the first step, because the direction you came from is already marked
   review_dates:
   - 2026-10-08
   - 2026-10-10
@@ -1856,23 +1874,23 @@ records:
   session_date: 2026-10-07
   hint_level: 3
   conceptual_mistakes:
-  - 'i >> 5 / i & 31 first answered as "set bit, prevent overflow"; correct is word index / bit position'
-  - 'preconditions for shift-and-mask replacing / and % not stated (divisor is a power of 2; i is unsigned)'
-  - '-1 written as 0xFFFFFFFE and shifted logically; signed negative >> is implementation-defined (usually arithmetic), and -1 / 32 is 0 in C99'
+  - i >> 5 / i & 31 first answered as "set bit, prevent overflow"; correct is word index / bit position
+  - preconditions for shift-and-mask replacing / and % not stated (divisor is a power of 2; i is unsigned)
+  - -1 written as 0xFFFFFFFE and shifted logically; signed negative >> is implementation-defined (usually arithmetic), and -1 / 32 is 0 in C99
   - '1 vs 1u: did not know 1 << 31 is signed-overflow UB'
   - '64-bit bitset with 1u << (i & 63): first answer only "63"; full range is (i & 63) in 32..63, shift count >= width UB'
   implementation_mistakes:
-  - 'asked for the sample code instead of writing it (solutions/embedded-m4-id-pool.c)'
+  - asked for the sample code instead of writing it (solutions/embedded-m4-id-pool.c)
   communication_notes:
-  - 'answered only the first part of multi-part questions four times (clarify without edge cases, approach without complexity)'
-  - 'first answers were keywords only; full sentences only after the question was split into steps'
-  - 'free and space complexity, and the O(1) call stack, were not stated'
+  - answered only the first part of multi-part questions four times (clarify without edge cases, approach without complexity)
+  - first answers were keywords only; full sentences only after the question was split into steps
+  - free and space complexity, and the O(1) call stack, were not stated
   mastered_during_session:
-  - '70 >> 5 = 2 (word), 70 & 31 = 6 (bit)'
-  - '24 is not a power of 2, so shift/mask cannot replace / and %'
-  - '1u << 40 on a 32-bit type is shift-width UB; fix with (bitset_t)1 or 1ull'
+  - 70 >> 5 = 2 (word), 70 & 31 = 6 (bit)
+  - 24 is not a power of 2, so shift/mask cannot replace / and %
+  - 1u << 40 on a 32-bit type is shift-width UB; fix with (bitset_t)1 or 1ull
   - '!! normalizes 0x100 to 1; without it a uint8_t return truncates to 0 (false negative)'
-  - 'skip full words with == 0xFFFFFFFF, then __builtin_ctz(~w); set tail bits to 1 in create'
+  - skip full words with == 0xFFFFFFFF, then __builtin_ctz(~w); set tail bits to 1 in create
   - 'create(40): nwords 2, r 8, bits[1] = 0xFFFFFF00; r == 0 must be skipped or a full last word is marked used'
   review_dates:
   - 2026-10-08
@@ -1892,23 +1910,23 @@ records:
   hint_level: 3
   conceptual_mistakes:
   - 'confused the two iterator levels: m.find() returns a map iterator whose ->second is the list iterator, while m[key] is already the list iterator'
-  - "put's existing-key branch omitted the value update, so put(1,1) then put(1,10) returned 1"
-  - 'used m.erase(l.end()) - end() is one past the last element and map::erase takes a key'
+  - put's existing-key branch omitted the value update, so put(1,1) then put(1,10) returned 1
+  - used m.erase(l.end()) - end() is one past the last element and map::erase takes a key
   implementation_mistakes:
-  - 'l.begin()() stray parentheses, twice'
-  - 'l.erase() called with no argument instead of pop_back()'
-  - 'local variable named l shadowed the member list (same pattern as the 735 infinite loop)'
+  - l.begin()() stray parentheses, twice
+  - l.erase() called with no argument instead of pop_back()
+  - local variable named l shadowed the member list (same pattern as the 735 infinite loop)
   - missing void return type and class-closing semicolon
   - sign-compare on l.size() == capacity
   communication_notes:
   - chose the idiomatic data structure unaided and answered all three design questions correctly
-  - 'asked what iterator invalidation means - got a measured demonstration of vector reallocation versus list stability'
+  - asked what iterator invalidation means - got a measured demonstration of vector reallocation versus list stability
   mastered_during_session:
-  - 'map stores the list iterator (a position handle), the data lives in the list node'
-  - 'splice(l.begin(), l, it) moves a node to the front in O(1) and does not invalidate iterators'
-  - 'evict with m.erase(l.back().first) BEFORE l.pop_back()'
-  - 'std::list iterators survive insertion, erasure of other nodes and splice; vector iterators die on reallocation'
-  - 'O(1) per operation, O(capacity) space'
+  - map stores the list iterator (a position handle), the data lives in the list node
+  - splice(l.begin(), l, it) moves a node to the front in O(1) and does not invalidate iterators
+  - evict with m.erase(l.back().first) BEFORE l.pop_back()
+  - std::list iterators survive insertion, erasure of other nodes and splice; vector iterators die on reallocation
+  - O(1) per operation, O(capacity) space
   review_dates:
   - 2026-10-09
   - 2026-10-11
@@ -1924,23 +1942,27 @@ records:
   result: completed after one fix round (teaching mode, lesson 1 of the 2D DP curriculum)
   session_date: 2026-10-08
   time_minutes: 35
-  hint_level: 'one hint on the state definition during mock 6, then taught in full as lesson 1'
+  hint_level: one hint on the state definition during mock 6, then taught in full as lesson 1
   conceptual_mistakes:
-    - 'drew the dp table transposed three times in a row - text1 on the top axis instead of the left; root cause is that i is the first index so i must be the row, and LCS being symmetric hid the error because the transposed table still gives the right number'
-    - 'LC 718 contrast - answered the unequal branch as "從左邊遞增"; for a contiguous substring the branch must be 0 because the definition is "ending at i and j", and the answer is the whole-table maximum rather than dp[m][n]'
-    - 'did not know how to reconstruct the LCS string from the table (part B2 unattempted); taught - walk back from dp[m][n], take the char and go up-left when equal, otherwise move to the larger neighbour'
-    - 'time complexity because-clause given as "2 loop" instead of "subproblem count (m+1)(n+1) times O(1) per cell"; two nested loops are not automatically O(m*n) when the inner bound depends on the outer index'
+  - drew the dp table transposed three times in a row - text1 on the top axis instead of the left; root cause is that i is the first index so i must be the row, and LCS being symmetric hid the error because the transposed table still gives the right number
+  - LC 718 contrast - answered the unequal branch as "從左邊遞增"; for a contiguous substring the branch must be 0 because the definition is "ending at i and j", and the answer is the whole-table maximum rather than dp[m][n]
+  - did not know how to reconstruct the LCS string from the table (part B2 unattempted); taught - walk back from dp[m][n], take the char and go up-left when equal, otherwise move to the larger neighbour
+  - time complexity because-clause given as "2 loop" instead of "subproblem count (m+1)(n+1) times O(1) per cell"; two nested loops are not automatically O(m*n) when the inner bound depends on the outer index
   implementation_mistakes:
-    - 'inner element type written vector<vector<int>> instead of vector<int> - compile error, no matching constructor'
-    - 'first dimension declared m instead of m+1 while the inner n+1 was correct - AddressSanitizer confirmed heap-buffer-overflow; invisible when m == n'
-    - 'missing semicolon after the max assignment'
-    - 'int i compared against s.size() - sign-compare warning; dangerous in the s.size()-1 form on empty input'
+  - inner element type written vector<vector<int>> instead of vector<int> - compile error, no matching constructor
+  - first dimension declared m instead of m+1 while the inner n+1 was correct - AddressSanitizer confirmed heap-buffer-overflow; invisible when m == n
+  - missing semicolon after the max assignment
+  - int i compared against s.size() - sign-compare warning; dangerous in the s.size()-1 form on empty input
   communication_notes:
-    - 'state definition and both transition branches produced unaided - the hard part of 2D DP was self-derived'
-    - 'cleared the whole three-item fix list in one pass; second time ever after 34 on 2026-09-19, so the fix-list weakness is improving'
-    - 'asked the right diagnostic question ("why does i and j direction affect the answer") which forced the real answer - orientation does not change symmetric answers but breaks dimension-vs-index consistency, breaks asymmetric problems (115, 392, 10, 44, 97), and destroys the walk as a bug-catching tool'
+  - state definition and both transition branches produced unaided - the hard part of 2D DP was self-derived
+  - cleared the whole three-item fix list in one pass; second time ever after 34 on 2026-09-19, so the fix-list weakness is improving
+  - asked the right diagnostic question ("why does i and j direction affect the answer") which forced the real answer - orientation does not change symmetric answers but breaks dimension-vs-index consistency, breaks asymmetric problems (115, 392, 10, 44, 97), and destroys the walk as a bug-catching tool
   mastered_during_session: true
-  review_dates: [2026-10-09, 2026-10-11, 2026-10-15, 2026-10-29]
+  review_dates:
+  - 2026-10-09
+  - 2026-10-11
+  - 2026-10-15
+  - 2026-10-29
   review_history: []
   next_review_date: 2026-10-09
   review_status: scheduled
@@ -1948,27 +1970,31 @@ records:
     leetcode: 64
     title: Minimum Path Sum
   pattern: dp-2d-grid-min-cost
-  result: 'No Hire on the mock; correct on the fourth draft (9/9 plus 20000 random grids clean)'
+  result: No Hire on the mock; correct on the fourth draft (9/9 plus 20000 random grids clean)
   session_date: 2026-10-09
   time_minutes: 40
-  hint_level: 'no hints (daily-mock rule); one factual pointer that the spoken base case differed from the written code'
+  hint_level: no hints (daily-mock rule); one factual pointer that the spoken base case differed from the written code
   conceptual_mistakes:
-    - 'first complexity answer was O(n^2) with "two loop" as the because-clause; m and n are independent, and nested loops are not automatically O(m*n) when the inner bound depends on the outer index'
-    - 'skipped brute force in the approach step until prompted'
-    - 'ex2 [[1,2],[1,1]] was offered as an adversarial example but kills nothing - greedy also returns 3; the real boundary for a grid problem is 1x1, where no loop body runs, and both early drafts failed it'
+  - first complexity answer was O(n^2) with "two loop" as the because-clause; m and n are independent, and nested loops are not automatically O(m*n) when the inner bound depends on the outer index
+  - skipped brute force in the approach step until prompted
+  - ex2 [[1,2],[1,1]] was offered as an adversarial example but kills nothing - greedy also returns 3; the real boundary for a grid problem is 1x1, where no loop body runs, and both early drafts failed it
   implementation_mistakes:
-    - 'draft 1 assigned raw grid values to the base row and column instead of prefix sums, then patched the result with "return dp[m-1][n-1] + grid[0][0]" rather than fixing the cause - 2/7, 77.4 percent of random grids wrong'
-    - 'draft 2 wrote dp[i][0] = grid[i-1][0] (read grid where dp was needed, accumulation dropped) and dp[0][i] += grid[0][i-1] (+= onto a zero-initialised cell, index shifted) - 1/7, 93.8 percent wrong'
-    - 'draft 3 applied only the dp half of the fix line that had been spelled out verbatim, leaving grid[i-1][0] and grid[0][i-1] - 3/7, 87.0 percent wrong; same fix-list non-compliance shape as 56 on 2026-09-08'
-    - 'rule installed - grid DP base row/col is a prefix sum dp[previous cell] + grid[current cell]; the index paired with grid is always the current i or j and the previous index appears only on dp'
+  - draft 1 assigned raw grid values to the base row and column instead of prefix sums, then patched the result with "return dp[m-1][n-1] + grid[0][0]" rather than fixing the cause - 2/7, 77.4 percent of random grids wrong
+  - draft 2 wrote dp[i][0] = grid[i-1][0] (read grid where dp was needed, accumulation dropped) and dp[0][i] += grid[0][i-1] (+= onto a zero-initialised cell, index shifted) - 1/7, 93.8 percent wrong
+  - draft 3 applied only the dp half of the fix line that had been spelled out verbatim, leaving grid[i-1][0] and grid[0][i-1] - 3/7, 87.0 percent wrong; same fix-list non-compliance shape as 56 on 2026-09-08
+  - rule installed - grid DP base row/col is a prefix sum dp[previous cell] + grid[current cell]; the index paired with grid is always the current i or j and the previous index appears only on dp
   communication_notes:
-    - 'clarify step was the strongest part - asked about negatives, empty grid and ranges, and explained correctly that negatives do not break DP (right/down moves give a DAG with no cycles) but do break greedy'
-    - 'state definition, transition and base case were all correct when spoken, so the failure was purely in transcription, not understanding'
-    - 'the first walk was fabricated - wrote dp[1][1] = min(4,3)+3 = 6 while the submitted code produced min(1,1)+3 = 4; the numbers 4 and 3 existed only in the correct table. Third consecutive session where the walk traced the intended algorithm rather than the written code'
-    - 'the fourth walk was genuine and traced the fixed code cell by cell - first true walk of the curriculum'
-    - 'space complexity volunteered in full including "no recursion so no stack term" (week-1 gate 3 met); the O(n) rolling trade-off was correct but prompted rather than volunteered'
+  - clarify step was the strongest part - asked about negatives, empty grid and ranges, and explained correctly that negatives do not break DP (right/down moves give a DAG with no cycles) but do break greedy
+  - state definition, transition and base case were all correct when spoken, so the failure was purely in transcription, not understanding
+  - the first walk was fabricated - wrote dp[1][1] = min(4,3)+3 = 6 while the submitted code produced min(1,1)+3 = 4; the numbers 4 and 3 existed only in the correct table. Third consecutive session where the walk traced the intended algorithm rather than the written code
+  - the fourth walk was genuine and traced the fixed code cell by cell - first true walk of the curriculum
+  - space complexity volunteered in full including "no recursion so no stack term" (week-1 gate 3 met); the O(n) rolling trade-off was correct but prompted rather than volunteered
   mastered_during_session: false
-  review_dates: [2026-10-10, 2026-10-12, 2026-10-16, 2026-10-30]
+  review_dates:
+  - 2026-10-10
+  - 2026-10-12
+  - 2026-10-16
+  - 2026-10-30
   review_history: []
   next_review_date: 2026-10-10
   review_status: scheduled
@@ -1976,26 +2002,30 @@ records:
     leetcode: 11
     title: Container With Most Water
   pattern: two-pointer-shrink-from-both-ends
-  result: 'Lean No Hire on the mock; correct after self-diagnosis (10/10 plus 200000 random arrays clean)'
+  result: Lean No Hire on the mock; correct after self-diagnosis (10/10 plus 200000 random arrays clean)
   session_date: 2026-10-10
   time_minutes: 30
-  hint_level: 'no hints; two failing cases handed over, plus the fact that fixing the width alone still failed 5 of 8'
+  hint_level: no hints; two failing cases handed over, plus the fact that fixing the width alone still failed 5 of 8
   conceptual_mistakes:
-    - 'took the water level as min(prefixmin[l], sufixmin[r]) instead of min(height[l], height[r]); prefix and suffix minima drag in lines outside the container, and shorter lines between the two chosen ones sit below the water line and do not leak. On [1,8,6,2,5,4,8,3,7] this pinned the level at 1 and returned 9 instead of 49'
-    - 'width written r - l + 1 (count of lines) instead of r - l (distance); the count form belongs to subarray-length problems'
-    - 'offered only one example when two are required, and that example contained the width bug in writing - wrote 2*(3-1+1) = 6 and then ans = 4, a visible contradiction before any code existed'
-    - 'time complexity because-clause was loop counting again ("2 loop and 2 pointer 1 loop"), fourth occurrence; space given as O(n*2) without simplifying'
-    - 'the two-pointer discard argument was only half stated - said moving the taller side would shrink the answer, but not the domination argument (for any r_prime < r the width strictly shrinks and the level cannot exceed the shorter line, so every pair keeping the shorter line is dominated)'
+  - took the water level as min(prefixmin[l], sufixmin[r]) instead of min(height[l], height[r]); prefix and suffix minima drag in lines outside the container, and shorter lines between the two chosen ones sit below the water line and do not leak. On [1,8,6,2,5,4,8,3,7] this pinned the level at 1 and returned 9 instead of 49
+  - width written r - l + 1 (count of lines) instead of r - l (distance); the count form belongs to subarray-length problems
+  - offered only one example when two are required, and that example contained the width bug in writing - wrote 2*(3-1+1) = 6 and then ans = 4, a visible contradiction before any code existed
+  - time complexity because-clause was loop counting again ("2 loop and 2 pointer 1 loop"), fourth occurrence; space given as O(n*2) without simplifying
+  - the two-pointer discard argument was only half stated - said moving the taller side would shrink the answer, but not the domination argument (for any r_prime < r the width strictly shrinks and the level cannot exceed the shorter line, so every pair keeping the shorter line is dominated)
   implementation_mistakes:
-    - 'first draft 1/8 named cases and 95.7 percent of 20000 random arrays wrong'
-    - 'wrote vectir<int> twice - no compiler on a shared interview doc'
+  - first draft 1/8 named cases and 95.7 percent of 20000 random arrays wrong
+  - wrote vectir<int> twice - no compiler on a shared interview doc
   communication_notes:
-    - 'proposed brute force O(n^2) and the two-pointer idea unaided - the pattern recognition was correct, the invariant was not'
-    - 'self-diagnosis was the strongest part of the session - from two counterexamples and no hints, found the width fix, then computed prefixmin[1]=1 and sufixmin[8]=7 to show the level collapses, then stated the correct level and that index 0 lies outside the container'
-    - 'first walk fabricated again - claimed [3,5,2,4,2] gives 15, matching neither the code (10) nor the truth (9); second walk on [1,2,1] was genuine'
-    - 'trade-off (space O(1) after dropping the arrays) answered correctly but prompted, not volunteered - two days running'
+  - proposed brute force O(n^2) and the two-pointer idea unaided - the pattern recognition was correct, the invariant was not
+  - self-diagnosis was the strongest part of the session - from two counterexamples and no hints, found the width fix, then computed prefixmin[1]=1 and sufixmin[8]=7 to show the level collapses, then stated the correct level and that index 0 lies outside the container
+  - first walk fabricated again - claimed [3,5,2,4,2] gives 15, matching neither the code (10) nor the truth (9); second walk on [1,2,1] was genuine
+  - trade-off (space O(1) after dropping the arrays) answered correctly but prompted, not volunteered - two days running
   mastered_during_session: false
-  review_dates: [2026-10-11, 2026-10-13, 2026-10-17, 2026-10-31]
+  review_dates:
+  - 2026-10-11
+  - 2026-10-13
+  - 2026-10-17
+  - 2026-10-31
   review_history: []
   next_review_date: 2026-10-11
   review_status: scheduled
@@ -2003,27 +2033,101 @@ records:
     leetcode: 72
     title: Edit Distance
   pattern: dp-2d-edit-distance-three-way
-  result: 'Lean Hire - state, transition and base case all unaided and correct first try; recursive version 14/14 first try; DP version correct after one index fix (15/15 plus 20000 random pairs clean)'
+  result: Lean Hire - state, transition and base case all unaided and correct first try; recursive version 14/14 first try; DP version correct after one index fix (15/15 plus 20000 random pairs clean)
   session_date: 2026-10-11
   time_minutes: 35
   hint_level: none
   conceptual_mistakes:
-    - 'justified the example abc -> def as "remove 3" which costs 6 (three deletes then three inserts); the answer 3 comes from three replacements. Replace costing 1 rather than delete-plus-insert is the whole point of the problem'
-    - 'did not ask whether all three operations cost the same - the highest-leverage clarify question for this problem, since a replace cost of 2 changes the recurrence'
-    - 'wrote a recursive solution and did not account for its O(m+n) stack depth in the space answer'
-    - 'time because-clause again gave only the subproblem count, with the per-subproblem O(1) added only when asked (fourth occurrence)'
+  - justified the example abc -> def as "remove 3" which costs 6 (three deletes then three inserts); the answer 3 comes from three replacements. Replace costing 1 rather than delete-plus-insert is the whole point of the problem
+  - did not ask whether all three operations cost the same - the highest-leverage clarify question for this problem, since a replace cost of 2 changes the recurrence
+  - wrote a recursive solution and did not account for its O(m+n) stack depth in the space answer
+  - time because-clause again gave only the subproblem count, with the per-subproblem O(1) added only when asked (fourth occurrence)
   implementation_mistakes:
-    - 'DP version indexed word1[i] == word2[j] without the -1 while the recursive version had s1[i-1] == s2[j-1] correct; 10/14 and 28 percent of 3000 random pairs wrong. This is bug number 2 of the three common 2D DP bugs listed on 2026-10-08'
-    - 'd[i][j-1] typo instead of dp[i][j-1] - does not compile, and it survived the fix list'
-    - 'comment on the j == 0 branch says remove j times where it is i times'
+  - DP version indexed word1[i] == word2[j] without the -1 while the recursive version had s1[i-1] == s2[j-1] correct; 10/14 and 28 percent of 3000 random pairs wrong. This is bug number 2 of the three common 2D DP bugs listed on 2026-10-08
+  - d[i][j-1] typo instead of dp[i][j-1] - does not compile, and it survived the fix list
+  - comment on the j == 0 branch says remove j times where it is i times
   communication_notes:
-    - 'first 2D DP where state, transition and base case were all produced unaided and correct on the first attempt, including the base ring dp[0][j] = j which differs from the all-zero ring of 1143'
-    - 'mapped each of the three operations to its recursive call correctly (delete dfs(i-1,j), replace dfs(i-1,j-1), insert dfs(i,j-1)) - the hardest part of this problem to articulate'
-    - 'VOLUNTEERED the space trade-off without being asked, and identified the rolled dimension correctly when challenged - week-1 gate 4 met for the first time'
-    - 'volunteered the walk without being asked (also a first), but drew every cell as 1 when the code fills 0 1 / 1 0 / 2 1; the right answer came out by coincidence, and the drawn table contradicted the base case derived two steps earlier'
-    - 'fix list 1 of 2 - fourth consecutive day of partial execution; the required n/n confirmation line was not written'
+  - first 2D DP where state, transition and base case were all produced unaided and correct on the first attempt, including the base ring dp[0][j] = j which differs from the all-zero ring of 1143
+  - mapped each of the three operations to its recursive call correctly (delete dfs(i-1,j), replace dfs(i-1,j-1), insert dfs(i,j-1)) - the hardest part of this problem to articulate
+  - VOLUNTEERED the space trade-off without being asked, and identified the rolled dimension correctly when challenged - week-1 gate 4 met for the first time
+  - volunteered the walk without being asked (also a first), but drew every cell as 1 when the code fills 0 1 / 1 0 / 2 1; the right answer came out by coincidence, and the drawn table contradicted the base case derived two steps earlier
+  - fix list 1 of 2 - fourth consecutive day of partial execution; the required n/n confirmation line was not written
   mastered_during_session: false
-  review_dates: [2026-10-12, 2026-10-14, 2026-10-18, 2026-11-01]
+  review_dates:
+  - 2026-10-12
+  - 2026-10-14
+  - 2026-10-18
+  - 2026-11-01
   review_history: []
   next_review_date: 2026-10-12
+  review_status: scheduled
+- problem:
+    leetcode: 207
+    title: Course Schedule
+  pattern: graph-cycle-detection-three-state-dfs
+  result: Lean No Hire - first ever graph problem outside grid DFS; three-state design derived from a counterexample, but the code needed three drafts and never compiled unaided
+  session_date: 2026-10-12
+  time_minutes: 40
+  hint_level: no hints; two counterexamples given (a diamond DAG and a two-node cycle) plus a line-by-line trace prompt
+  conceptual_mistakes:
+  - first design used visited[i][j] - grid thinking carried over from 200/695, where the graph is the grid itself; an edge-list graph needs an adjacency list and a per-node visited
+  - assumed one boolean visited per node is enough for cycle detection; on the diamond [[1,0],[2,0],[2,1]] that reports a false cycle. Three states are required - unvisited, on the current path, finished
+  - did not ask the edge direction in clarify, which is where half of all candidates build this graph backwards
+  - asked twice what naive approach example 2 kills and never answered - the examples were correct but their purpose was not articulated
+  - brute force was skipped
+  - attributed the O(V+E) space to the visited array; the adjacency list is the dominant term
+  implementation_mistakes:
+  - state[u] = 1 missing entirely - the on-path marker derived two minutes earlier in step 3 never made it into the code, so all three cyclic cases recursed forever and segfaulted instead of returning false
+  - adj declared local to canFinish but referenced inside dfs - does not compile
+  - state sized by prerequisites.size() (edge count) instead of numCourses, so dfs read out of range
+  - signature renamed without updating the body (numofcourse, nums left behind) - third occurrence after 167 and 583
+  - resize instead of assign on a global vector - resize does nothing when the size already matches, so stale finished-marks from a previous call made every later call return true; 9321 of 20000 random graphs wrong, and canFinish(5, [[1,0]]) returned false right after a cyclic call
+  communication_notes:
+  - volunteered time, space AND the O(V) recursion stack before being asked - gate 3 met
+  - volunteered topological sort as the alternative - gate 4 met, second day running
+  - self-corrected visited[i][j] to visited[i] plus adjacency list as soon as asked what i and j meant
+  - derived the three-state fix from the diamond counterexample rather than recalling it, which is the strongest signal of the session
+  - walk was genuine and correct but needed line-by-line prompting
+  - fix list 2 of 4, and the required two-stage reply format was not used
+  mastered_during_session: false
+  review_dates:
+  - 2026-10-13
+  - 2026-10-15
+  - 2026-10-19
+  - 2026-11-02
+  review_history: []
+  next_review_date: 2026-10-13
+  review_status: scheduled
+- problem:
+    leetcode: 547
+    title: Number of Provinces
+  pattern: connected-components-adjacency-matrix
+  result: Lean No Hire - read the adjacency matrix as a grid, then rebuilt the whole solution correctly from one counterexample (final 9/9 plus 50000 random matrices matching a union-find reference)
+  session_date: 2026-10-13
+  time_minutes: 35
+  hint_level: no hints; one counterexample plus three diagnostic questions
+  conceptual_mistakes:
+  - treated the n x n adjacency matrix as a map and ran four-directional grid DFS over cells, counting one province per unvisited 1; measured 50.1 percent wrong over 20000 legal symmetric matrices. Second day running of grid thinking applied to a graph (see 207)
+  - both official LeetCode examples pass under the wrong reading, so the given examples never exposed it; the discriminating case is [[1,0,1],[0,1,0],[1,0,1]] where cities 0 and 2 are connected without being grid-adjacent (correct 2, grid DFS gave 5, which is just the count of 1s)
+  - the single example offered was not a legal input - the diagonal must be all 1s and the matrix symmetric; the walk example [[0,1],[1,0]] was illegal too. Asking about the diagonal or symmetry in clarify would have revealed the structure
+  - only one example given when two are required
+  - union find named as the trade-off with complexity O(m*n); for this problem it is O(n^2 * alpha(n)) since all pairs are scanned
+  implementation_mistakes:
+  - function<void> declared without parameter types - incomplete type, does not compile
+  - vector<int> dirs initialised with pairs, then subscripted twice as int[int] - three compile errors in the BFS version
+  - BFS version wrote isConnected[dx][dy] == 2 with == instead of =, so nothing was marked, and indexed dx/dy with no bounds check
+  - final draft called dfs(i) instead of dfs(v), where i is declared after the lambda and is not in scope - a compile error the self-compile pass was meant to catch
+  communication_notes:
+  - asked unprompted whether the matrix may be modified in place, which is a genuinely useful clarify question
+  - answered all three diagnostic questions correctly and then rebuilt the structure from scratch - outer loop over cities, visited sized n, dfs scanning row u - without further help
+  - volunteered the recursion-stack term again (gate 3) and named union find unprompted (gate 4, third day running)
+  - walk content was correct but written in matrix notation that reads as cells rather than visited indices
+  mastered_during_session: false
+  review_dates:
+  - 2026-10-14
+  - 2026-10-16
+  - 2026-10-20
+  - 2026-11-03
+  review_history: []
+  next_review_date: 2026-10-14
   review_status: scheduled

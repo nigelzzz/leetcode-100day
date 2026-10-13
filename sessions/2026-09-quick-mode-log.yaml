@@ -429,3 +429,29 @@ log:
     - date: 2026-10-10
       type: pattern
       note: "fix-list non-compliance is now the top blocker, three days running - 56 on 2026-09-08 (a spelled-out rename with line numbers, missed), 64 on 2026-10-09 (one line given verbatim, half applied), 125 on 2026-10-10 (four numbered bugs, two applied). Google scores this as responds-to-feedback and weights it near correctness, because an interviewer who sees a hint half-absorbed cannot tell whether another hint would help. Process installed - copy the fix list out, tick each item, then count the ticks against the list before resubmitting."
+    - date: 2026-10-13
+      leetcode: 684
+      title: Redundant Connection
+      day: D5 drill (first union-find implementation)
+      minutes: 15
+      independence: "self, after the DSU template was taught"
+      taught_first: "DSU template - find with path compression (iterative, so O(1) stack), union by rank, comps maintained by decrementing on each successful unite; O(alpha(n)) amortised"
+      reasoning: "worked out unaided that scanning edges left to right and returning the first edge whose unite fails gives exactly the required answer, and explained why it is automatically the last-occurring cycle edge (only one cycle exists, so the edge that closes it is the last of the cycle in input order)"
+      first_draft: "11 compile errors from 3 root causes - vevtor typo in the member declaration, r[a] < [b] missing the r, and the signature typed vector<int> instead of vector<vector<int>>. Algorithm logic was fully correct"
+      self_check_milestone: "told only the count (3 root causes) and the categories, found all three himself - first time in five days that he located his own compile errors"
+      final: "6/6 named cases including a 10-node graph, plus 20000 random shuffled tree-plus-one-edge inputs cross-checked against a brute-force remove-and-test-for-tree oracle, zero mismatches, ASan clean"
+      pattern_trigger: "n nodes and n edges, find the edge to remove -> scan with DSU, the first unite that fails is the answer"
+    - date: 2026-10-13
+      leetcode: 990
+      title: Satisfiability of Equality Equations
+      day: D5 drill
+      minutes: 15
+      independence: self
+      pre_code_answers: "all three design questions correct before writing - 26 slots, process every == first, then check whether the two sides share a root for each !="
+      key_insight: "explained why != cannot be interleaved - it is an assertion about the final partition, so ['a!=b','a==b'] would wrongly pass if processed in order. Two passes required"
+      first_draft: "CLEAN - zero compile errors, 12/12 named cases including a!=a, a==a, the empty input and ['a!=b','a==b'], plus 20000 random equation sets cross-checked against brute-force enumeration of all assignments, zero mismatches"
+      milestone: "first first-draft of the entire week that both compiled and passed on submission"
+      pattern_trigger: "equality and inequality constraints over a small alphabet -> DSU, merge all equalities first, then verify every inequality against the finished partition"
+    - date: 2026-10-13
+      type: observation
+      note: "the self-check pass started working on 2026-10-13. For 684 he was given only the error count and the two categories and found all three root causes himself; 990 immediately afterwards compiled on the first try. Twelve consecutive drafts across five days had failed to compile before this."
