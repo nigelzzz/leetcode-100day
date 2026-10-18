@@ -2131,3 +2131,45 @@ records:
   review_history: []
   next_review_date: 2026-10-14
   review_status: scheduled
+- problem:
+    leetcode: 208
+    title: Implement Trie (Prefix Tree)
+  pattern: trie-array-children-plus-isend
+  result: 'taught (first exposure to Trie; cluster was at zero coverage)'
+  session_date: 2026-10-14
+  time_minutes: 30
+  hint_level: 'fully taught at the user request'
+  conceptual_mistakes: []
+  implementation_mistakes: []
+  communication_notes:
+    - 'taught rather than drilled, so there is no independent performance to score; re-practice is scheduled'
+    - 'key points to retain - a hash set matches Trie on insert and search but needs O(n*L) for startsWith; isEnd separates a path from a word; all three operations share one walk and differ only in the final check'
+    - 'measured - omitting the isEnd check in search was wrong on 1501 of 36000 random operations'
+    - 'trade-offs to volunteer - array[26] (208 bytes per node, pure indexing) versus unordered_map for sparse or large alphabets; the plain version leaks, so mention a destructor or a vector<Node> plus integer indices, which also removes one allocation per node and fits an arena'
+  mastered_during_session: false
+  review_dates: [2026-10-19, 2026-10-21, 2026-10-25, 2026-11-08]
+  review_history: []
+  next_review_date: 2026-10-19
+  review_status: scheduled
+- problem:
+    leetcode: 211
+    title: Design Add and Search Words Data Structure
+  pattern: trie-plus-dfs-wildcard
+  result: 'No Hire - stalled at approach, no code written; cause was coverage (Trie seen for the first time thirty minutes earlier) rather than transcription'
+  session_date: 2026-10-14
+  time_minutes: 30
+  hint_level: 'no hints during the mock; taught in the scorecard after the stall'
+  conceptual_mistakes:
+    - 'declared no clarify questions, when the decisive one was how many dots can appear - search costs O(26^d * L) and the approach is only viable because d <= 2. The observation surfaced later during approach, which is the same insight in the wrong step'
+    - 'could not formalise the recursion - answered the signature question with "search()", which cannot recurse because it carries neither the current node nor the progress index'
+    - 'the two branches (letter versus dot) and the base case came out garbled; the dot branch needs "try all 26, succeed on any, fail only after all fail" and the base case needs i == size returning cur->isEnd'
+  implementation_mistakes: []
+  communication_notes:
+    - 'BEST examples step of the week - when asked for a case that defeats a greedy reading, produced addWord("ba"), addWord("bcd"), search("b.d") -> true, which is a real discriminator: the greedy version was wrong on 2678 of 40000 random searches while the backtracking version was wrong on 0. First self-authored adversarial example that actually killed something'
+    - 'asked two good follow-ups afterwards - whether the code needs special handling for more than two dots (it does not; the constraint is about performance) and what happens if addWord receives a dot (c - a is -51, a negative index that AddressSanitizer catches as SEGV, and which points 408 bytes before the object so it can silently corrupt a neighbour)'
+  rule_installed: 'the parameters of a recursion ARE its state - ask what the next level needs in order to continue. 211 needs node plus index, 207 needs the node, 72 needs two indices. This is the same skill as defining dp[i][j], which is already strong'
+  mastered_during_session: false
+  review_dates: [2026-10-19, 2026-10-21, 2026-10-25, 2026-11-08]
+  review_history: []
+  next_review_date: 2026-10-19
+  review_status: scheduled

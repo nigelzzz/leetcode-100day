@@ -30,6 +30,69 @@ training_policy:
     - fix list must be cleared the same day, not the next session
     - rest day every Sunday (reviews only, no mock) - WAIVED by the user from 2026-10-11; reinstated automatically if two consecutive mock verdicts drop
     - from week 3 add noise - interrupt mid-code, challenge a correct answer, change the requirement late
+  week_1_settlement_2026_10_18:
+    ran: 2026-10-09 to 2026-10-17 (planned 7 days, took 9; D7 never ran)
+    mocks: 6
+    verdicts: '64 No Hire, 11 Lean No Hire, 72 Lean Hire, 207 Lean No Hire, 547 Lean No Hire, 211 No Hire'
+    gates:
+      gate_1_lean_hire_or_better: '1 of 6 (target 5 of 6) - FAILED'
+      gate_2_six_steps_unprompted: '0 of 6 (target 3) - FAILED'
+      gate_3_space_with_stack_term: '3 of 6, and three consecutive (D3-D5) - became a habit'
+      gate_4_volunteered_trade_off: '3 of 6, and three consecutive (D3-D5) - became a habit'
+      gate_5_overdue_reviews_under_10: 'FAILED - 55 at the start, 56 now; only one of six review batches was done'
+    coverage_gained: 'all four zero-coverage clusters opened - 2D DP (1143, 64, 62, 63, 72, 583), two pointers (11, 167, 125, now 6 of 14), graph and topological sort (207), union find (547, 684, 990, implemented not just named), Trie and design (208, 211, plus 146). About 15 new problems'
+    first_draft_compile_rate: '1 of 13 - the single number that explains both failed gates'
+    turning_point: '2026-10-13 on 684 - given only the error count and categories, located all three root causes himself, and 990 immediately afterwards compiled first try. First time in the week'
+    composite_estimate: 'about 72 percent of the Hire bar, unchanged from 2026-10-10 despite real coverage gains - knowledge rose from 75 to 78 while process stability fell from 72 to 70, so the weighted number stalled. The bottleneck did not move'
+    diagnosis: 'five of six mocks produced a correct state, transition, base case and complexity. Every loss was in transcription (a missing marker line, a base case written as raw values, three renames not propagated, resize used as assign) or in coverage on a structure first seen minutes earlier. Adding more new patterns cannot fix either'
+  daily_mock_week_2:
+    dates: 2026-10-19 to 2026-10-25
+    change_of_emphasis: 'week 1 optimised coverage and the composite stalled. Week 2 optimises first-draft correctness and clears the review backlog; only two genuinely new patterns are introduced'
+    primary_metric: 'first-draft compile rate, target 5 of 7 (week 1 was 1 of 13)'
+    hard_rule: 'every code paste must be preceded by the line "自檢: 1 宣告 2 名字 3 大小 4 索引 - 全部確認"; without it the code is not reviewed'
+    day_1:
+      date: 2026-10-19
+      mock: {leetcode: 42, title: Trapping Rain Water, pattern: 'Hard - carried from week 1; builds directly on the 11 vs 42 distinction'}
+      drills: [208, 211]
+      note: 're-practice 208 and 211 from scratch, since both were taught rather than earned'
+      reviews: [1143, 64, 62, 63]
+    day_2:
+      date: 2026-10-20
+      mock: {leetcode: 215, title: Kth Largest Element in an Array, pattern: 'heap or quickselect - known cluster, chosen to test first-draft correctness rather than new knowledge'}
+      drills: [347, 973]
+      reviews: [11, 167, 125, 72, 583]
+    day_3:
+      date: 2026-10-21
+      mock: {leetcode: 210, title: Course Schedule II, pattern: 'topological order - the same cluster as 207, now returning the order instead of a boolean'}
+      drills: [133, 1971]
+      reviews: [207, 547, 684, 990]
+    day_4:
+      date: 2026-10-22
+      mock: {leetcode: 139, title: Word Break, pattern: '1D DP over strings - NEW pattern 1 of 2'}
+      drills: [140, 300]
+      reviews: [208, 211, 146]
+      backlog_reviews: [49, 128, 819, 937]
+    day_5:
+      date: 2026-10-23
+      mock: {leetcode: 295, title: Find Median from Data Stream, pattern: 'two heaps - NEW pattern 2 of 2'}
+      drills: [380, 155]
+      backlog_reviews: [3, 394, 735, 53, 56, 560]
+    day_6:
+      date: 2026-10-24
+      mock: {leetcode: 297, title: Serialize and Deserialize Binary Tree, pattern: 'tree design - known cluster'}
+      drills: [102, 104]
+      backlog_reviews: [200, 994, 238, 347, 692, 973, 763]
+    day_7:
+      date: 2026-10-25
+      mock: 'candidate chooses blind from the week-1 five (64, 11, 72, 207, 547) - re-mock to measure whether the fixes held'
+      drills: [226, 206, 21]
+      backlog_reviews: [155, 128, 819, 937, 49]
+    week_2_pass_gates:
+      - 'first-draft compile rate 5 of 7 or better'
+      - '4 of 7 mocks reach Lean Hire or better'
+      - 'the self-check line appears on every code paste, 7 of 7'
+      - 'fix lists executed n of n, every time'
+      - 'overdue review backlog drops from 56 to under 20'
   daily_mock_week_1:
     gate_1_standing_corrected_2026_10_12: 'the D2 scorecard counted gate 1 as met on a Lean No Hire verdict, which was wrong - gate 1 requires Lean Hire or better. True standing after four days: D1 No Hire, D2 Lean No Hire, D3 Lean Hire, D4 Lean No Hire = 1 of 4'
     goal: process stability 65 to 90 percent and open the four zero-coverage clusters (2D DP, two pointers, graph, Trie/design)
@@ -69,12 +132,14 @@ training_policy:
       date: 2026-10-14
       mock: {leetcode: 208, title: Implement Trie, pattern: design plus Trie}
       drills: [211, 380]
+      result: 'Trie taught at the user request (208), then mocked on 211 instead - No Hire, stalled at approach with no code. Best examples step of the week (self-authored killer case for the greedy reading). Log: sessions/2026-10-14-d6-trie-and-mock-211.yaml'
       reviews: [394, 735, 347, 692, 973, 763, 238]
     day_7:
       date: 2026-10-15
       mock: {leetcode: 42, title: Trapping Rain Water, pattern: 'Hard - prefix/suffix max or two pointers; chosen because 11 on 2026-10-10 exposed the 11-vs-42 confusion and Google almost always includes one Hard'}
       drills: [300, 139]
       reviews: [102, 104, 226, 200, 994, 53, 56, 155]
+      result: 'NOT RUN - the D6 mock spanned 2026-10-14 to 2026-10-17, so 42 Trapping Rain Water was never reached. Carried into week 2'
     week_1_pass_gates:
       - 5 of 6 mocks reach Lean Hire or better
       - at least 3 mocks complete all six steps with no prompting, walk included
@@ -215,4 +280,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-13
+last_updated: 2026-10-18

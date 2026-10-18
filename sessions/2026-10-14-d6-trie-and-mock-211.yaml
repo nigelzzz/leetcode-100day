@@ -1,0 +1,45 @@
+session_date: 2026-10-14
+spanned_to: 2026-10-17
+type: teaching_plus_mock
+track: daily mock week 1, day 6
+request: 'user asked to be taught Trie before mocking ("i am no familiar trie, please teach me then start mock again") - the cluster was at zero coverage'
+taught:
+  problem: {leetcode: 208, title: Implement Trie}
+  points:
+    - 'the only reason Trie exists - a hash set also does insert and search in O(L), but startsWith becomes O(n*L) while a Trie does it in O(L), independent of how many words are stored'
+    - 'node holds child[26] (zero-initialised with = {}) and isEnd; characters live on the edges and a node represents the prefix reached so far'
+    - 'all three operations share one walk routine and differ only in the last step - startsWith needs the walk to succeed, search needs the walk plus isEnd, insert creates missing edges'
+    - 'isEnd is what separates "this path exists" from "this is a word"; after inserting apple, search(app) must be false while startsWith(app) is true'
+    - 'measured the bug - a search that omits the isEnd check was wrong on 1501 of 36000 random operations'
+    - 'array[26] versus unordered_map<char, Node*> - 208 bytes per node and pure indexing, versus only the edges that exist at the cost of hashing; small fixed alphabet favours the array'
+    - 'memory - the plain version leaks; mention a destructor, or a vector<Node> plus integer indices, which also removes one allocation per node and suits an arena or static buffer (relevant to the embedded role)'
+  verification: 'array version and map version both agreed with set<string> over 36000 random operations'
+mock:
+  problem: {leetcode: 211, title: Design Add and Search Words Data Structure}
+  reason_chosen: '208 had just been taught, so the mock used the problem that applies a Trie instead of restating it'
+  steps:
+    clarify:
+      result: 'declared no questions'
+      gap: 'the decisive question was unasked - how many dots can appear, since search costs O(26^d * L) and the whole approach is only viable because d <= 2. The user raised "maximum be 2" later, during approach, which is the same observation in the wrong step'
+    examples:
+      result: 'best of the week'
+      first: '"bdd" then search(".dd") -> true'
+      second: 'asked for one that defeats a greedy reading, and produced addWord("ba"), addWord("bcd"), search("b.d") -> true, which is a genuine killer: b has children a and c, and a greedy walk that takes the first child dies on a'
+      measurement: 'the greedy version was wrong on 2678 of 40000 random searches; the backtracking version was wrong on 0'
+      note: 'first time in six mocks that a self-authored adversarial example actually discriminated'
+    approach:
+      result: stalled
+      derived: 'stated correctly that a dot must try every branch rather than pick one'
+      could_not: 'formalise it as a recursion - answered the signature question with "search()", which cannot recurse because it carries neither the current node nor the progress index; the two case branches and the base case came out garbled'
+      stall_rule_applied: 'mock ended at the stall and teaching moved to the scorecard, per the no-hint rule'
+  verdict: No Hire
+  why: 'stalled at approach with no code written; unlike D1 to D5 the cause was coverage rather than transcription - Trie had been seen for the first time thirty minutes earlier'
+  taught_in_scorecard:
+    - 'the parameters of a recursion ARE its state - ask what the next level needs to continue. 211 needs node plus index, 207 needs the node, 72 needs two indices. This is the same skill as defining dp[i][j], which the user already does well'
+    - 'dfs(Node* cur, const string& w, int i); dot loops all 26 children and returns true on the first success, false only after all fail; i == w.size() returns cur->isEnd'
+    - 'verified 4/4 on the official examples and 0 errors over 40000 random searches against brute-force matching'
+followups_answered:
+  - question: 'does the code need special handling when there are more than two dots'
+    answer: 'no - the recursion is agnostic to the dot count, it only handles the current character. Verified correct over 40000 searches averaging 2.5 dots and up to 5. The constraint affects performance only, and O(26^d * L) is a worst case that applies to failed lookups; on a 26^3-word trie, "...zzz" took 7 recursive calls because it succeeds early while "...zzy" took 71007 because it must exhaust every branch'
+  - question: 'what if addWord receives a word containing a dot'
+    answer: 'c - a for a dot is -51, so child[-51] is a negative index and undefined behaviour; AddressSanitizer showed SEGV immediately. The dangerous part is that the index points 408 bytes BEFORE the object, so if that memory is live it corrupts a neighbour silently instead of crashing. LeetCode guarantees lowercase input, so the interview answer is to state the assumption rather than code the check'
