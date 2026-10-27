@@ -46,7 +46,9 @@ training_policy:
     composite_estimate: 'about 72 percent of the Hire bar, unchanged from 2026-10-10 despite real coverage gains - knowledge rose from 75 to 78 while process stability fell from 72 to 70, so the weighted number stalled. The bottleneck did not move'
     diagnosis: 'five of six mocks produced a correct state, transition, base case and complexity. Every loss was in transcription (a missing marker line, a base case written as raw values, three renames not propagated, resize used as assign) or in coverage on a structure first seen minutes earlier. Adding more new patterns cannot fix either'
   daily_mock_week_2:
-    dates: 2026-10-19 to 2026-10-25
+    dates: 2026-10-27 to 2026-11-02 (re-dated after a nine-day break from 2026-10-18 to 2026-10-26; overdue reviews grew from 56 to 59)
+    dp_insert_2026_10_27: 'at the user request the DP content was replaced by the NeetCode 2-D DP list, worked in dependency order - 518, 494, 309, 115, 97, 329, 72 (anchor), 312, 10. Only 72 was previously solved. Mode B (attempt first) for 518, 494, 309; mode A (taught first) for the rest. The first-draft and self-check rules still apply'
+    original_dates: 2026-10-19 to 2026-10-25
     change_of_emphasis: 'week 1 optimised coverage and the composite stalled. Week 2 optimises first-draft correctness and clears the review backlog; only two genuinely new patterns are introduced'
     primary_metric: 'first-draft compile rate, target 5 of 7 (week 1 was 1 of 13)'
     hard_rule: 'every code paste must be preceded by the line "自檢: 1 宣告 2 名字 3 大小 4 索引 - 全部確認"; without it the code is not reviewed'
@@ -227,6 +229,9 @@ weaknesses:
   - the walk-as-ticket rule works (mock 5, 2026-10-08: dp definition, both complexity because-clauses and a correct walk all delivered unprompted in a silent mock; verdict Lean Hire, best of five)
   - asks for a sample answer instead of attempting LP questions (09-15 - three sample requests, Ownership question in mock 3 left unanswered)
 strengths:
+  - discloses pasted code when asked directly (518, 2026-10-27 - said so plainly and chose to rewrite, which keeps the skill assessment honest; second occurrence after 973 on 2026-09-13, and the first that was self-reported)
+  - spots that a trap belongs to the optimisation rather than the algorithm (518, 2026-10-27 - observed unaided that the 2D formulation is loop-order independent, which is the deeper reading of the combination-versus-permutation trap)
+  - derived all four pre-code answers for a new DP problem unaided (518, 2026-10-27 - state, transition, dp[0] = 1 with its reason, and why the operation changes from min to plus)
   - rebuilds a whole solution correctly after one counterexample (547, 2026-10-13 - answered three diagnostic questions, then restructured from cell-counting to node-counting unaided)
   - volunteered the stack term and the alternative algorithm for the third consecutive day (gates 3 and 4, 2026-10-11 through 2026-10-13)
   - asks whether the input may be modified in place (547, 2026-10-13 - unprompted, and it is the question that unlocks the O(1)-space variants)
@@ -280,4 +285,4 @@ strengths:
   - first correct recursion-tree walk with state (46, 2026-10-07 - traced path and used through both undo steps, after three problems where the walk only restated the expected output)
   - finds his own bugs once asked to walk line by line (141 mock 2 - inverted guard and missing in-loop meeting check both self-found; verdict moved Lean No Hire -> Lean Hire in one mock)
   - cleared a four-item fix list in one pass for the first time (34, 2026-09-19 - lo < hi, >=, ==, const reference)
-last_updated: 2026-10-18
+last_updated: 2026-10-27

@@ -2173,3 +2173,32 @@ records:
   review_history: []
   next_review_date: 2026-10-19
   review_status: scheduled
+- problem:
+    leetcode: 518
+    title: Coin Change II
+  pattern: dp-complete-knapsack-combination-count
+  result: 'DFS version own work and correct (10/10); 2D table version was pasted, disclosed by the user when asked, and is being rewritten'
+  session_date: 2026-10-27
+  time_minutes: 40
+  hint_level: 'mode B - derived the four pre-code answers unaided, then the loop-order trap was taught after the user asked why version B is wrong'
+  conceptual_mistakes:
+    - 'first 2D draft omitted the inherit term dp[j-1][i] (do not use coin j), assigning only inside the if, so cells where j < coin stayed 0 instead of carrying the previous row'
+    - 'first 2D draft used an undeclared identifier (remain) inside the j loop, sized the table target instead of target+1, read dp[i-1] at i == 0, and reversed the comparison to nums[i] >= j'
+  implementation_mistakes:
+    - 'DFS version: void return type with value returns, and a missing semicolon after return 1 - both fixed on the first pass (2 of 2)'
+    - 'the pasted 2D version used unsigned int with a comment claiming overflow protection; the problem guarantees the answer fits in a signed 32-bit int, and at 300 coins with amount 5000 the unsigned accumulation silently wrapped to -1372427065 when returned as int. unsigned overflow is quieter and worse than using long long'
+  communication_notes:
+    - 'answered all four pre-code questions correctly and unaided - state definition, transition dp[i] += dp[i-c], dp[0] = 1 with the reason (choosing nothing is one way), and that the operation changes from min to plus because the noun in the definition changes from count-of-coins to number-of-ways'
+    - 'asked why the amount-outer loop order is wrong, which led to the key teaching - it is not a broken version of the right answer, it is the correct answer to LC 377 Combination Sum IV. Measured: amount-outer matched the permutation count on all 20000 random cases and missed the combination count on 5620 of them'
+    - 'OBSERVED UNAIDED that the 2D formulation is immune to the loop-order problem, which is correct and is the deeper point - the trap belongs to the rolling optimisation, not to the DP. Verified: 2D with coins outer and 2D with amount outer both matched the brute force on 20000 random cases'
+    - 'disclosed that the 2D code was pasted when asked directly, which protects the calibration; this is the second occurrence after 973 on 2026-09-13, and this time it was self-reported rather than inferred'
+  rules_installed:
+    - 'loop-order traps always come from the rolling optimisation - a 1D cell carries two identities (previous round and current round) and only the traversal order says which. 62/64 need left-to-right, 72 needs an extra prevDiag because the up-left value is overwritten before it is read, 518 needs ascending for unbounded and descending for 0/1'
+    - 'the three knapsack shapes: coins outer with amount ascending is unbounded combinations (518); coins outer with amount descending is 0/1 (494 next); amount outer with coins inner is permutations (377)'
+    - 'in the recursive form, reusing index i is what makes it unbounded; passing i-1 in both branches makes it 0/1'
+    - 'prefer long long over unsigned int for overflow headroom - unsigned wraps silently to a plausible positive number'
+  mastered_during_session: false
+  review_dates: [2026-10-28, 2026-10-30, 2026-11-03, 2026-11-17]
+  review_history: []
+  next_review_date: 2026-10-28
+  review_status: scheduled
