@@ -2202,3 +2202,30 @@ records:
   review_history: []
   next_review_date: 2026-10-28
   review_status: scheduled
+- problem:
+    leetcode: 494
+    title: Target Sum
+  pattern: dp-01-knapsack-count-subset-sum
+  result: '2D version correct on the first draft (12/12 plus 30000 random cases against 2^n brute force); 1D descending loop derived correctly after one challenge'
+  session_date: 2026-11-02
+  time_minutes: 25
+  hint_level: 'mode B - derived the reduction unaided; two corrections given'
+  conceptual_mistakes:
+    - 'described the reduced problem as "find (sum+target)/2 in nums" when it is "COUNT the subsets whose sum equals (sum+target)/2" - existence versus counting decides whether the table holds a bool or a number'
+    - 'gave only one of the two infeasibility guards (parity); missed the range guard, and when prompted wrote sum + target > 0 where it must be >= 0. Counterexample: nums=[1], target=-1 gives P=0, and the empty subset is a valid answer of 1'
+    - 'said correctly that each number is used once and then chose ascending; the rule just learned says each-once requires dp[j-x] to hold the PREVIOUS round, which means descending. Corrected after one challenge'
+  implementation_mistakes: []
+  communication_notes:
+    - 'derived P + N = sum, P - N = target, P = (sum + target)/2 unaided - the whole reduction'
+    - 'wrote the 2D version instead of the requested 1D, but it was clean and used the +1 sentinel offset form (dp[i+1][j] = dp[i][j]) rather than the if (i >= 1) guard used in 518, which is a clear improvement'
+    - 'handled the zero-element trap correctly without a special case: nums=[0] with target=0 must be 2 because +0 and -0 are distinct, and dp[i][j-0] = dp[i][j] doubles automatically. Verified [0]->2 and [0,0]->4'
+    - 'asked twice for the 2D-to-1D compression to be re-explained, and the final question isolated the right detail - that dp[j] read before writing is always the previous row'
+  rules_installed:
+    - 'dp[j] read before the write is ALWAYS the previous row, in both directions; only dp[j-x] changes identity, and the loop direction is the only control for it'
+    - '2D second term indexed i means current row means unbounded (518); indexed i-1 means previous row means 0/1 (494). That one character is the same decision as ascending versus descending in 1D'
+    - 'the reduced target P must satisfy abs(target) <= sum and (sum + target) even, and the lower bound is sum + target >= 0 inclusive'
+  mastered_during_session: false
+  review_dates: [2026-11-03, 2026-11-05, 2026-11-09, 2026-11-23]
+  review_history: []
+  next_review_date: 2026-11-03
+  review_status: scheduled
