@@ -2229,3 +2229,31 @@ records:
   review_history: []
   next_review_date: 2026-11-03
   review_status: scheduled
+- problem:
+    leetcode: 139
+    title: Word Break
+  pattern: dp-partition-prefix-or-suffix
+  result: 'in progress - push, memo and bottom-up versions drafted; memo and bottom-up drafts each had an answer-breaking bug'
+  session_date: 2026-11-19
+  time_minutes: null
+  hint_level: 'solution - two hints, then pasted the coach finished push version verbatim; then wrote recursion, memo and bottom-up from the coach derivation'
+  conceptual_mistakes:
+    - 'first walk of catsandog skipped dp[3] (cat) and said "break" where the loop just finishes with dp[9] still false'
+    - 'memo version stored only true, never false - failing paths are exactly where the exponential blow-up happens, so the memo did nothing for them'
+  implementation_mistakes:
+    - 'wrote dp[...] == true and dp[0] == true as statements (comparison used as assignment, nothing written)'
+    - 's.compare(...) == true in the bottom-up version - compare returns 0 on match, so a real match reads as no-match, and a non-match returning 1 can index dp out of range'
+    - 'function named fn but called f; word.size() for w.size(); int return type for a bool function'
+    - 'auto w copies kept in all three versions after being told to use const auto&'
+  communication_notes:
+    - 'asked unprompted to derive DP from recursion first (recursion -> memo -> bottom-up) - good instinct; keep using this route'
+  rules_installed:
+    - 'every return in a memoised function writes memo first, true AND false'
+    - 'std::string::compare returns 0 on equality, never compare it to true'
+    - 'dp on prefix [0,i) fills forward; dp on suffix [i,n) fills from n-1 down; pick one definition and keep it'
+    - 'memo space = table O(n) + call stack O(n); bottom-up has no stack'
+  mastered_during_session: false
+  review_dates: [2026-11-20, 2026-11-22, 2026-11-26, 2026-12-10]
+  review_history: []
+  next_review_date: 2026-11-20
+  review_status: scheduled
